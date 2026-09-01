@@ -69,7 +69,7 @@
             <div class="glass">
                 <h2>Jelajahi Lini Produk Lexent</h2>
                 <p>Temukan varian yang paling sesuai dengan kebutuhan kendaraan atau gedung Anda.</p>
-                <a href="{{ route('products.index') }}" class="btn btn-gold">Lihat Produk</a>
+                <a href="{{ route('products.index') }}" class="btn btn-cyan">Lihat Produk</a>
             </div>
         </div>
     </section>

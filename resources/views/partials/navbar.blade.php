@@ -1,5 +1,5 @@
 <header class="navbar" id="mainNavbar">
-    <div class="container">
+    <div class="navbar-inner">
         <a href="{{ route('home') }}" class="navbar-logo">LEX<span>ENT</span></a>
 
         <nav class="navbar-links" id="navbarLinks">
@@ -11,7 +11,7 @@
         </nav>
 
         <div class="navbar-cta">
-            <a href="{{ route('dealers') }}" class="btn btn-gold">Find Authorized Dealer</a>
+            <a href="{{ route('dealers') }}" class="btn btn-cyan">Find Dealer</a>
             <button type="button" class="navbar-toggle" id="navbarToggle" aria-label="Toggle menu">
                 <span></span><span></span><span></span>
             </button>

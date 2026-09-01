@@ -1,40 +1,54 @@
 @extends('layouts.app')
 
 @section('title', 'Lexent')
-@section('meta_description', 'Lexent - kaca film otomotif & arsitektural premium dengan Solar Control dan Security Film kelas atas.')
+@section('meta_description', 'Lexent - kaca film otomotif & arsitektural premium dengan Nano-Sputter Technology kelas atas.')
 
 @section('content')
 
-    {{-- ============================= HERO ============================= --}}
-    <section class="hero">
-        <div class="container hero-content">
-            <span class="eyebrow">Solar Control &amp; Security Films</span>
-            <h1 class="hero-title">
-                Perlindungan Premium untuk <span class="highlight">Setiap Ruang &amp; Perjalanan</span>
-            </h1>
-            <p class="hero-subtext">
-                Lexent menghadirkan kaca film kelas atas untuk kendaraan dan gedung —
-                menyatukan proteksi panas maksimal, keamanan struktural, dan estetika
-                platinum yang tak lekang oleh waktu.
-            </p>
-            <div class="hero-actions">
-                <a href="{{ route('products.index') }}" class="btn btn-gold">Lihat Lini Produk</a>
-                <a href="{{ route('dealers') }}" class="btn btn-outline">Find Authorized Dealer</a>
+    {{-- ============================= HERO SLIDER ============================= --}}
+    <section class="hero" id="heroSection">
+        <div class="container hero-slider">
+            <div class="hero-slides" id="heroSlides">
+                @foreach($slides as $i => $slide)
+                    <div class="hero-slide {{ $i === 0 ? 'is-active' : '' }}" data-index="{{ $i }}">
+                        <span class="hero-slide-badge">Precision Nano-Sputter Technology</span>
+                        <h1 class="hero-slide-title">{!! $slide['title'] !!}</h1>
+                        <p class="hero-slide-subtext">{{ $slide['subtext'] }}</p>
+
+                        <div class="hero-slide-actions">
+                            <a href="{{ route($slide['cta_route'], $slide['cta_param']) }}" class="btn btn-cyan">{{ $slide['cta_text'] }}</a>
+                            <a href="{{ route('dealers') }}" class="btn btn-outline">Find Authorized Dealer</a>
+                        </div>
+
+                        <div class="hero-metrics">
+                            @foreach($slide['metrics'] as $metric)
+                                <div class="hero-metric">
+                                    <b>{{ $metric['value'] }}</b>
+                                    <span>{{ $metric['label'] }}</span>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endforeach
             </div>
 
-            <div class="hero-stats">
-                <div class="hero-stat">
-                    <b>98%</b>
-                    <span>Infrared Rejection</span>
+            <div class="hero-visual hud-frame" id="heroVisual">
+                @foreach($slides as $i => $slide)
+                    <div class="hero-visual-frame {{ $i === 0 ? 'is-active' : '' }}" data-index="{{ $i }}">
+                        <div class="hero-visual-code">{{ $slide['code'] }}</div>
+                        <div class="hero-visual-tag">{{ $slide['tag'] }}</div>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="hero-controls">
+                <button type="button" class="hero-arrow hero-arrow-prev" id="heroPrev" aria-label="Slide sebelumnya">&#8249;</button>
+                <div class="hero-slider-dots" id="heroDots">
+                    @foreach($slides as $i => $slide)
+                        <button type="button" class="hero-dot {{ $i === 0 ? 'is-active' : '' }}" data-index="{{ $i }}" aria-label="Ke slide {{ $i + 1 }}"></button>
+                    @endforeach
                 </div>
-                <div class="hero-stat">
-                    <b>200+</b>
-                    <span>Authorized Dealer</span>
-                </div>
-                <div class="hero-stat">
-                    <b>12 Thn</b>
-                    <span>Garansi Resmi</span>
-                </div>
+                <button type="button" class="hero-arrow hero-arrow-next" id="heroNext" aria-label="Slide berikutnya">&#8250;</button>
             </div>
         </div>
     </section>
@@ -48,12 +62,12 @@
                 <p class="section-subtitle" style="margin-bottom: var(--space-3);">
                     Lexent berkomitmen menghadirkan kaca film dengan standar optik dan
                     termal tertinggi, untuk kendaraan maupun gedung. Setiap lapisan
-                    diproduksi melalui proses sputtering multi-layer untuk memastikan
+                    diproduksi melalui proses Nano-Sputtering multi-layer untuk memastikan
                     konsistensi warna, ketahanan jangka panjang, dan performa penolakan
                     panas yang terukur secara laboratorium.
                 </p>
                 <ul class="about-list">
-                    <li><span class="check-dot">&#10003;</span> <span><b>Sputtering Technology</b> — lapisan metal presisi tanpa gangguan sinyal.</span></li>
+                    <li><span class="check-dot">&#10003;</span> <span><b>Precision Nano-Sputter Technology</b> — lapisan metal presisi tanpa gangguan sinyal.</span></li>
                     <li><span class="check-dot">&#10003;</span> <span><b>Superior Heat Rejection</b> — menahan panas sebelum menembus kaca.</span></li>
                     <li><span class="check-dot">&#10003;</span> <span><b>Anti-Shatter Safety</b> — mengikat pecahan kaca saat terjadi benturan.</span></li>
                 </ul>
@@ -65,25 +79,25 @@
         </div>
     </section>
 
-    {{-- ============================= PRODUCT LINEUP ============================= --}}
-    <section id="products">
+    {{-- ============================= PRODUCT SHOWCASE (TAB SWITCHER) ============================= --}}
+    <section id="products" class="section-alt">
         <div class="container">
             <div class="section-head">
                 <span class="eyebrow">Product Lineup</span>
-                <h2 class="section-title">Automotive &amp; Architectural Series</h2>
+                <h2 class="section-title">Automotive &amp; Architectural Film</h2>
                 <p class="section-subtitle" style="margin: 0 auto;">
                     Dua lini Lexent dirancang untuk kebutuhan berbeda — dari kendaraan
                     pribadi hingga gedung komersial berskala besar.
                 </p>
             </div>
 
-            @foreach(['automotive' => 'Automotive Series', 'architectural' => 'Architectural Series'] as $category => $label)
-                <div class="product-segment">
-                    <div class="segment-head">
-                        <h3>{{ $label }}</h3>
-                        <span>{{ $category === 'automotive' ? 'Kaca Film Mobil' : 'Kaca Film Gedung & Komersial' }}</span>
-                    </div>
+            <div class="tab-switcher" id="productTabs">
+                <button type="button" class="tab-btn is-active" data-tab="automotive">Automotive Film</button>
+                <button type="button" class="tab-btn" data-tab="architectural">Architectural Film</button>
+            </div>
 
+            @foreach(['automotive', 'architectural'] as $category)
+                <div class="tab-panel {{ $category === 'automotive' ? 'is-active' : '' }}" data-panel="{{ $category }}">
                     <div class="product-grid">
                         @foreach($products as $product)
                             @continue($product['category'] !== $category)
@@ -94,18 +108,18 @@
                                 <div class="product-tagline">{{ $product['tagline'] }}</div>
                                 <p class="product-desc">{{ $product['short_description'] }}</p>
 
-                                <div class="product-specs">
+                                <div class="spec-meters">
                                     <div>
-                                        <b>{{ $product['vlt'] }}</b>
-                                        <span>VLT</span>
+                                        <div class="spec-meter-head"><span>VLT</span> <b>{{ $product['vlt'] }}</b></div>
+                                        <div class="spec-meter-track"><div class="spec-meter-fill" style="width: {{ $product['vlt'] }};"></div></div>
                                     </div>
                                     <div>
-                                        <b>{{ $product['heat_rejection'] }}</b>
-                                        <span>Heat Reject</span>
+                                        <div class="spec-meter-head"><span>TSER</span> <b>{{ $product['heat_rejection'] }}</b></div>
+                                        <div class="spec-meter-track"><div class="spec-meter-fill" style="width: {{ $product['heat_rejection'] }};"></div></div>
                                     </div>
                                     <div>
-                                        <b>{{ $product['irr'] }}</b>
-                                        <span>IRR</span>
+                                        <div class="spec-meter-head"><span>IRR</span> <b>{{ $product['irr'] }}</b></div>
+                                        <div class="spec-meter-track"><div class="spec-meter-fill" style="width: {{ $product['irr'] }};"></div></div>
                                     </div>
                                 </div>
 
@@ -118,53 +132,62 @@
         </div>
     </section>
 
-    {{-- ============================= TECHNOLOGY SHOWCASE ============================= --}}
-    <section id="technology">
+    {{-- ============================= COMPARISON MATRIX ("WHY LEXENT") ============================= --}}
+    <section id="why-lexent">
         <div class="container">
             <div class="section-head">
                 <span class="eyebrow">Why Lexent</span>
-                <h2 class="section-title">Teknologi di Balik Setiap Lapisan</h2>
+                <h2 class="section-title">Kaca Film Konvensional vs Lexent Nano-Sputter</h2>
                 <p class="section-subtitle" style="margin: 0 auto;">
-                    Tiga pilar teknologi yang membedakan Lexent dari kaca film pada umumnya.
+                    Perbandingan langsung yang menunjukkan mengapa Lexent unggul di setiap aspek performa.
                 </p>
             </div>
 
-            <div class="tech-grid">
-                <div class="tech-card glass">
-                    <div class="tech-icon">&#9889;</div>
-                    <h4>Sputtering Technology</h4>
-                    <p>Lapisan metal presisi multi-layer, dilapiskan lewat proses vakum untuk konsistensi optik dan termal.</p>
+            <div class="matrix">
+                <div class="matrix-row matrix-head">
+                    <div class="matrix-cell is-label">Parameter</div>
+                    <div class="matrix-cell is-conventional">Kaca Film Konvensional</div>
+                    <div class="matrix-cell is-lexent">Lexent Nano-Sputter</div>
                 </div>
-                <div class="tech-card glass">
-                    <div class="tech-icon">&#9728;</div>
-                    <h4>Superior Heat Rejection</h4>
-                    <p>Memantulkan radiasi matahari sebelum diserap oleh kaca kendaraan maupun gedung.</p>
-                </div>
-                <div class="tech-card glass">
-                    <div class="tech-icon">&#128737;</div>
-                    <h4>Anti-Shatter Safety</h4>
-                    <p>Lapisan polyester berkekuatan tinggi yang mengikat pecahan kaca akibat benturan.</p>
-                </div>
+                @foreach($matrix as $row)
+                    <div class="matrix-row">
+                        <div class="matrix-cell is-label">{{ $row['label'] }}</div>
+                        <div class="matrix-cell is-conventional">
+                            <span class="matrix-icon is-cross">&#10005;</span>
+                            <span>{{ $row['conventional']['text'] }}</span>
+                        </div>
+                        <div class="matrix-cell is-lexent">
+                            <span class="matrix-icon is-check">&#10003;</span>
+                            <span>{{ $row['lexent']['text'] }}</span>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
 
-    {{-- ============================= TINT SIMULATOR ============================= --}}
-    <section id="simulator">
-        <div class="container simulator">
-            <div class="simulator-preview">
-                <div class="simulator-window">
-                    <div class="simulator-overlay" id="tintOverlay"></div>
+    {{-- ============================= DUAL-VIEW TINT SIMULATOR ============================= --}}
+    <section id="simulator" class="section-alt">
+        <div class="container simulator-layout">
+            <div class="simulator-dual">
+                <div class="simulator-pane simulator-pane-exterior">
+                    <span class="simulator-pane-label">Exterior View</span>
+                    <div class="simulator-pane-overlay" id="tintOverlayExterior"></div>
+                </div>
+                <div class="simulator-pane simulator-pane-interior">
+                    <span class="simulator-pane-label">Interior View</span>
+                    <div class="simulator-pane-overlay" id="tintOverlayInterior"></div>
                 </div>
             </div>
 
             <div class="simulator-controls">
                 <span class="eyebrow">Interactive Preview</span>
                 <h3 class="section-title" style="font-size: 1.8rem;">Simulasi Kegelapan Kaca Film Lexent</h3>
-                <p>Pilih persentase kegelapan Lexent dan lihat pratinjaunya secara langsung.</p>
+                <p>Bandingkan tampak luar dan tampak dalam pada setiap tingkat kegelapan Lexent.</p>
 
                 <div class="tint-options" id="tintOptions">
-                    <button type="button" class="tint-option" data-tint="20">20%</button>
+                    <button type="button" class="tint-option" data-tint="15">15%</button>
+                    <button type="button" class="tint-option" data-tint="30">30%</button>
                     <button type="button" class="tint-option is-active" data-tint="40">40%</button>
                     <button type="button" class="tint-option" data-tint="60">60%</button>
                     <button type="button" class="tint-option" data-tint="80">80%</button>
@@ -193,16 +216,19 @@
                 @endforeach
             </div>
 
-            <div class="dealer-grid" id="dealerGrid">
+            <div class="dealer-list" id="dealerGrid">
                 @foreach($dealers as $dealer)
-                    <div class="dealer-card glass" data-city="{{ $dealer['city'] }}">
-                        <div>
-                            <span class="dealer-city">{{ $dealer['city'] }}</span>
-                            <h4>{{ $dealer['name'] }}</h4>
-                            <p>{{ $dealer['address'] }}</p>
-                            <p>{{ $dealer['phone'] }}</p>
+                    <div class="dealer-card-h glass" data-city="{{ $dealer['city'] }}">
+                        <div class="dealer-main">
+                            <span class="dealer-outlet-badge">Official Outlet</span>
+                            <div class="dealer-info">
+                                <span class="dealer-city">{{ $dealer['city'] }}</span>
+                                <h4>{{ $dealer['name'] }}</h4>
+                                <p>{{ $dealer['address'] }}</p>
+                                <p>{{ $dealer['phone'] }}</p>
+                            </div>
                         </div>
-                        <a href="{{ $dealer['maps_url'] }}" target="_blank" rel="noopener" class="btn btn-outline">Buka Peta</a>
+                        <a href="{{ $dealer['maps_url'] }}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Buka Peta</a>
                     </div>
                 @endforeach
             </div>
@@ -231,7 +257,7 @@
                 </div>
 
                 <div class="warranty-actions">
-                    <a href="{{ route('cek-garansi') }}" class="btn btn-gold">Cek Garansi Saya</a>
+                    <a href="{{ route('cek-garansi') }}" class="btn btn-cyan">Cek Garansi Saya</a>
                     <a href="{{ route('dealers') }}" class="btn btn-outline">Hubungi Kami</a>
                 </div>
             </div>
@@ -243,12 +269,108 @@
 @section('scripts')
     <script>
         (function () {
-            var overlay = document.getElementById('tintOverlay');
+            var section = document.getElementById('heroSection');
+            var slides = document.querySelectorAll('#heroSlides .hero-slide');
+            var frames = document.querySelectorAll('#heroVisual .hero-visual-frame');
+            var dots = document.querySelectorAll('#heroDots .hero-dot');
+            var prevBtn = document.getElementById('heroPrev');
+            var nextBtn = document.getElementById('heroNext');
+            var total = slides.length;
+            var current = 0;
+            var timer = null;
+            var AUTOPLAY_MS = 5000;
+
+            function goTo(index) {
+                current = (index + total) % total;
+
+                slides.forEach(function (slide, i) {
+                    slide.classList.toggle('is-active', i === current);
+                });
+                frames.forEach(function (frame, i) {
+                    frame.classList.toggle('is-active', i === current);
+                });
+                dots.forEach(function (dot, i) {
+                    dot.classList.remove('is-active');
+                    dot.classList.remove('is-done');
+                    if (i === current) {
+                        dot.classList.add('is-active');
+                    } else if (i < current) {
+                        dot.classList.add('is-done');
+                    }
+                });
+            }
+
+            function next() {
+                goTo(current + 1);
+            }
+
+            function prev() {
+                goTo(current - 1);
+            }
+
+            function startAutoplay() {
+                stopAutoplay();
+                timer = setInterval(next, AUTOPLAY_MS);
+            }
+
+            function stopAutoplay() {
+                if (timer) {
+                    clearInterval(timer);
+                    timer = null;
+                }
+            }
+
+            dots.forEach(function (dot) {
+                dot.addEventListener('click', function () {
+                    goTo(parseInt(dot.getAttribute('data-index'), 10));
+                    startAutoplay();
+                });
+            });
+
+            nextBtn.addEventListener('click', function () {
+                next();
+                startAutoplay();
+            });
+
+            prevBtn.addEventListener('click', function () {
+                prev();
+                startAutoplay();
+            });
+
+            section.addEventListener('mouseenter', stopAutoplay);
+            section.addEventListener('mouseleave', startAutoplay);
+
+            goTo(0);
+            startAutoplay();
+        })();
+
+        (function () {
+            var tabs = document.querySelectorAll('#productTabs .tab-btn');
+            var panels = document.querySelectorAll('.tab-panel');
+
+            tabs.forEach(function (tab) {
+                tab.addEventListener('click', function () {
+                    var target = tab.getAttribute('data-tab');
+
+                    tabs.forEach(function (t) { t.classList.remove('is-active'); });
+                    tab.classList.add('is-active');
+
+                    panels.forEach(function (panel) {
+                        panel.classList.toggle('is-active', panel.getAttribute('data-panel') === target);
+                    });
+                });
+            });
+        })();
+
+        (function () {
+            var exterior = document.getElementById('tintOverlayExterior');
+            var interior = document.getElementById('tintOverlayInterior');
             var readout = document.getElementById('tintReadout');
             var options = document.querySelectorAll('#tintOptions .tint-option');
 
             function applyTint(percent) {
-                overlay.style.opacity = percent / 100;
+                exterior.style.opacity = Math.min(0.9, 0.25 + percent / 130);
+                interior.style.opacity = percent / 400;
                 readout.textContent = percent + '%';
             }
 
@@ -265,7 +387,7 @@
 
         (function () {
             var filterButtons = document.querySelectorAll('#dealerFilter button');
-            var dealerCards = document.querySelectorAll('#dealerGrid .dealer-card');
+            var dealerCards = document.querySelectorAll('#dealerGrid .dealer-card-h');
 
             filterButtons.forEach(function (btn) {
                 btn.addEventListener('click', function () {

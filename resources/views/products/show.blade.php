@@ -19,22 +19,22 @@
                     <p class="product-tagline" style="font-size: 1rem;">{{ $product['tagline'] }}</p>
                     <p class="section-subtitle" style="margin: var(--space-3) 0;">{{ $product['description'] }}</p>
 
-                    <div class="product-detail-specs">
-                        <div class="glass">
-                            <b>{{ $product['vlt'] }}</b>
-                            <span>VLT</span>
+                    <div class="product-detail-meters">
+                        <div>
+                            <div class="spec-meter-head"><span>VLT (Visible Light Transmission)</span> <b>{{ $product['vlt'] }}</b></div>
+                            <div class="spec-meter-track"><div class="spec-meter-fill" style="width: {{ $product['vlt'] }};"></div></div>
                         </div>
-                        <div class="glass">
-                            <b>{{ $product['heat_rejection'] }}</b>
-                            <span>Heat Rejection</span>
+                        <div>
+                            <div class="spec-meter-head"><span>TSER (Heat Rejection)</span> <b>{{ $product['heat_rejection'] }}</b></div>
+                            <div class="spec-meter-track"><div class="spec-meter-fill" style="width: {{ $product['heat_rejection'] }};"></div></div>
                         </div>
-                        <div class="glass">
-                            <b>{{ $product['irr'] }}</b>
-                            <span>IRR</span>
+                        <div>
+                            <div class="spec-meter-head"><span>IRR (Infrared Rejection)</span> <b>{{ $product['irr'] }}</b></div>
+                            <div class="spec-meter-track"><div class="spec-meter-fill" style="width: {{ $product['irr'] }};"></div></div>
                         </div>
-                        <div class="glass">
-                            <b>{{ $product['uv'] }}</b>
-                            <span>UV Rejection</span>
+                        <div>
+                            <div class="spec-meter-head"><span>UV Rejection</span> <b>{{ $product['uv'] }}</b></div>
+                            <div class="spec-meter-track"><div class="spec-meter-fill" style="width: {{ $product['uv'] }};"></div></div>
                         </div>
                     </div>
 
@@ -45,7 +45,7 @@
                     </ul>
 
                     <div class="hero-actions" style="margin-top: var(--space-4);">
-                        <a href="{{ route('dealers') }}" class="btn btn-gold">Cari Dealer Terdekat</a>
+                        <a href="{{ route('dealers') }}" class="btn btn-cyan">Cari Dealer Terdekat</a>
                         <a href="{{ route('products.index') }}" class="btn btn-outline">Bandingkan Varian Lain</a>
                     </div>
                 </div>

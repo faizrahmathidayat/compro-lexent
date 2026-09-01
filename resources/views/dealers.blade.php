@@ -21,16 +21,19 @@
                 @endforeach
             </div>
 
-            <div class="dealer-grid" id="dealerGrid">
+            <div class="dealer-list" id="dealerGrid">
                 @foreach($dealers as $dealer)
-                    <div class="dealer-card glass" data-city="{{ $dealer['city'] }}">
-                        <div>
-                            <span class="dealer-city">{{ $dealer['city'] }}</span>
-                            <h4>{{ $dealer['name'] }}</h4>
-                            <p>{{ $dealer['address'] }}</p>
-                            <p>{{ $dealer['phone'] }}</p>
+                    <div class="dealer-card-h glass" data-city="{{ $dealer['city'] }}">
+                        <div class="dealer-main">
+                            <span class="dealer-outlet-badge">Official Outlet</span>
+                            <div class="dealer-info">
+                                <span class="dealer-city">{{ $dealer['city'] }}</span>
+                                <h4>{{ $dealer['name'] }}</h4>
+                                <p>{{ $dealer['address'] }}</p>
+                                <p>{{ $dealer['phone'] }}</p>
+                            </div>
                         </div>
-                        <a href="{{ $dealer['maps_url'] }}" target="_blank" rel="noopener" class="btn btn-outline">Buka Peta</a>
+                        <a href="{{ $dealer['maps_url'] }}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Buka Peta</a>
                     </div>
                 @endforeach
             </div>
@@ -43,7 +46,7 @@
     <script>
         (function () {
             var filterButtons = document.querySelectorAll('#dealerFilter button');
-            var dealerCards = document.querySelectorAll('#dealerGrid .dealer-card');
+            var dealerCards = document.querySelectorAll('#dealerGrid .dealer-card-h');
 
             filterButtons.forEach(function (btn) {
                 btn.addEventListener('click', function () {

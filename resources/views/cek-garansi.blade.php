@@ -28,7 +28,7 @@
                         placeholder="Contoh: WR2026002"
                         autocomplete="off"
                         required>
-                    <button type="submit" class="btn btn-gold" id="checkWarrantyBtn">Cek Garansi</button>
+                    <button type="submit" class="btn btn-cyan" id="checkWarrantyBtn">Cek Garansi</button>
                 </form>
 
                 <p class="check-warranty-message" id="checkWarrantyMessage"></p>

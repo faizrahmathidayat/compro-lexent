@@ -26,7 +26,7 @@ class PageController extends Controller
                 'irr' => '98%',
                 'uv' => '99%',
                 'badge' => 'Signature Dark',
-                'accent' => 'from-obsidian',
+                'accent' => 'from-void',
                 'features' => [
                     'Privasi kabin absolut untuk kendaraan eksekutif',
                     'Sputtering Technology multi-layer non-metal',
@@ -47,7 +47,7 @@ class PageController extends Controller
                 'irr' => '94%',
                 'uv' => '99%',
                 'badge' => 'Best Seller',
-                'accent' => 'from-gold',
+                'accent' => 'from-cyan',
                 'features' => [
                     'Visibilitas malam hari tetap optimal',
                     'Penolakan panas hingga 89%',
@@ -68,7 +68,7 @@ class PageController extends Controller
                 'irr' => '88%',
                 'uv' => '99%',
                 'badge' => 'High Visibility',
-                'accent' => 'from-metallic',
+                'accent' => 'from-sapphire',
                 'features' => [
                     'Visibilitas terbaik siang maupun malam hari',
                     'Tetap menahan 82% panas matahari',
@@ -89,7 +89,7 @@ class PageController extends Controller
                 'irr' => '92%',
                 'uv' => '99%',
                 'badge' => 'Energy Efficient',
-                'accent' => 'from-gold',
+                'accent' => 'from-cyan',
                 'features' => [
                     'Menekan silau matahari pada kaca gedung tinggi',
                     'Membantu efisiensi konsumsi energi AC',
@@ -110,7 +110,7 @@ class PageController extends Controller
                 'irr' => '80%',
                 'uv' => '99%',
                 'badge' => 'Anti-Shatter',
-                'accent' => 'from-metallic',
+                'accent' => 'from-sapphire',
                 'features' => [
                     'Menahan pecahan kaca akibat benturan/gempa',
                     'Lapisan polyester keamanan berkekuatan tinggi',
@@ -172,11 +172,117 @@ class PageController extends Controller
         ];
     }
 
+    /**
+     * Hero slider slides: headline, HUD visual, and 3 metric counters per slide.
+     */
+    private function heroSlides(): array
+    {
+        return [
+            [
+                'code' => 'LX-BP',
+                'tag' => 'Black Phantom',
+                'title' => 'Kegelapan Absolut. <span class="highlight">Kendali Penuh.</span>',
+                'subtext' => 'Kaca film otomotif paling gelap di lini Lexent — Sputtering Technology multi-layer untuk privasi kabin eksekutif tanpa kompromi.',
+                'cta_text' => 'Lihat Black Phantom',
+                'cta_route' => 'products.show',
+                'cta_param' => 'black-phantom',
+                'metrics' => [
+                    ['value' => '99%', 'label' => 'UV Rejected'],
+                    ['value' => '98%', 'label' => 'IRR'],
+                    ['value' => '10 Thn', 'label' => 'Warranty'],
+                ],
+            ],
+            [
+                'code' => 'LX-SR',
+                'tag' => 'LX Series',
+                'title' => 'Keseimbangan yang <span class="highlight">Direkayasa Sempurna.</span>',
+                'subtext' => 'Ceramic non-metal dengan visibilitas malam optimal dan Superior Heat Rejection Layer yang bekerja sepanjang hari.',
+                'cta_text' => 'Lihat LX Series',
+                'cta_route' => 'products.show',
+                'cta_param' => 'lx-series',
+                'metrics' => [
+                    ['value' => '99%', 'label' => 'UV Rejected'],
+                    ['value' => '94%', 'label' => 'IRR'],
+                    ['value' => '8 Thn', 'label' => 'Warranty'],
+                ],
+            ],
+            [
+                'code' => 'LX-AS',
+                'tag' => 'ArchiShield Pro',
+                'title' => 'Efisiensi Energi untuk <span class="highlight">Gedung Masa Depan.</span>',
+                'subtext' => 'Lapisan reflektif arsitektural yang menekan silau dan beban pendingin ruangan pada kaca gedung berskala besar.',
+                'cta_text' => 'Lihat ArchiShield Pro',
+                'cta_route' => 'products.show',
+                'cta_param' => 'archishield-pro',
+                'metrics' => [
+                    ['value' => '99%', 'label' => 'UV Rejected'],
+                    ['value' => '92%', 'label' => 'IRR'],
+                    ['value' => '12 Thn', 'label' => 'Warranty'],
+                ],
+            ],
+            [
+                'code' => 'LX-SG',
+                'tag' => 'SafetyGuard',
+                'title' => 'Lapisan Pertahanan <span class="highlight">Tak Terlihat.</span>',
+                'subtext' => 'Lapisan polyester berkekuatan tinggi yang mengikat pecahan kaca akibat benturan, gempa, atau upaya pembobolan.',
+                'cta_text' => 'Lihat SafetyGuard',
+                'cta_route' => 'products.show',
+                'cta_param' => 'safetyguard',
+                'metrics' => [
+                    ['value' => '99%', 'label' => 'UV Rejected'],
+                    ['value' => '80%', 'label' => 'IRR'],
+                    ['value' => '10 Thn', 'label' => 'Warranty'],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Comparison matrix: conventional window film vs Lexent Nano-Sputter Film.
+     */
+    private function matrixComparison(): array
+    {
+        return [
+            [
+                'label' => 'Penolakan Radiasi UV',
+                'conventional' => ['text' => '±50%', 'status' => 'cross'],
+                'lexent' => ['text' => '99% Ditolak', 'status' => 'check'],
+            ],
+            [
+                'label' => 'Penolakan Panas (TSER)',
+                'conventional' => ['text' => 'Rendah', 'status' => 'cross'],
+                'lexent' => ['text' => 'Hingga 97%', 'status' => 'check'],
+            ],
+            [
+                'label' => 'Gangguan Sinyal GPS/Radio',
+                'conventional' => ['text' => 'Sering Terganggu', 'status' => 'cross'],
+                'lexent' => ['text' => 'Non-Metal, Bebas Gangguan', 'status' => 'check'],
+            ],
+            [
+                'label' => 'Kejernihan Optik',
+                'conventional' => ['text' => 'Menurun Seiring Waktu', 'status' => 'cross'],
+                'lexent' => ['text' => 'Stabil, Nano-Sputter Presisi', 'status' => 'check'],
+            ],
+            [
+                'label' => 'Lapisan Anti-Shatter',
+                'conventional' => ['text' => 'Tidak Tersedia', 'status' => 'cross'],
+                'lexent' => ['text' => 'Tersedia di Seluruh Lini', 'status' => 'check'],
+            ],
+            [
+                'label' => 'Garansi Resmi',
+                'conventional' => ['text' => '1–2 Tahun', 'status' => 'cross'],
+                'lexent' => ['text' => 'Hingga 12 Tahun', 'status' => 'check'],
+            ],
+        ];
+    }
+
     public function home()
     {
         return view('home', [
             'products' => $this->productLineup(),
             'dealers' => $this->dealerList(),
+            'slides' => $this->heroSlides(),
+            'matrix' => $this->matrixComparison(),
         ]);
     }
 
