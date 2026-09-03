@@ -7,116 +7,201 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
     /**
-     * Static product lineup shared across the home, products, and detail pages.
-     * Split into two segments: automotive and architectural/commercial window film.
+     * The four LEXENT automotive window-film series, straight from the printed
+     * catalog. Copy, attributes and the technology story per series are the
+     * catalog's own wording.
+     */
+    private function seriesCatalog(): array
+    {
+        return [
+            'BP' => [
+                'code' => 'BP',
+                'name' => 'LEXENT BP',
+                'label' => 'BP Series',
+                'accent' => 'accent-bp',
+                'tagline' => 'Privasi Tinggi, Low Haze',
+                'description' => 'LEXENT BP hadir dengan teknologi kaca film yang dirancang untuk memberikan perlindungan optimal dari panas & sinar UV, sekaligus menghadirkan privasi tinggi dan kenyamanan berkendara setiap saat.',
+                'attributes' => ['High Privacy', 'Low Haze', 'UV Protection'],
+                'metrics' => [
+                    ['value' => '99%', 'label' => 'UV Rejection'],
+                    ['value' => '62%', 'label' => 'Heat Rejection'],
+                    ['value' => '7 Th', 'label' => 'Garansi'],
+                ],
+            ],
+            'HT' => [
+                'code' => 'HT',
+                'name' => 'LEXENT HT',
+                'label' => 'HT Series',
+                'accent' => 'accent-ht',
+                'tagline' => 'Nano Ceramic HD, Heat Insulation',
+                'description' => 'LEXENT HT hadir dengan teknologi nano ceramic terkini yang dirancang untuk memberikan perlindungan maksimal dari panas & sinar UV, tanpa mengurangi kejernihan pandangan.',
+                'attributes' => ['Ultra High Definition', 'Ultra Low Haze', 'High Level Heat Insulation', 'UV Protection'],
+                'metrics' => [
+                    ['value' => '99%', 'label' => 'UV Rejection'],
+                    ['value' => '93%', 'label' => 'Infrared Rejection'],
+                    ['value' => '70%', 'label' => 'Heat Rejection'],
+                ],
+            ],
+            'MK' => [
+                'code' => 'MK',
+                'name' => 'LEXENT MK',
+                'label' => 'MK Series',
+                'accent' => 'accent-mk',
+                'tagline' => 'Magnetron Sputter, Non-Metal',
+                'description' => 'LEXENT MK hadir dengan teknologi Magnetron Sputter yang menggunakan material berkualitas tinggi untuk memberikan perlindungan optimal dari panas & sinar UV, dengan tetap menjaga kejernihan pandangan serta tidak mengganggu sinyal HP, GPS, maupun perangkat elektronik di dalam kendaraan.',
+                'attributes' => ['Extraordinary Clarity', 'Extraordinary Heat Insulation', 'Ultra-Low Haze', 'No Signal Interference'],
+                'metrics' => [
+                    ['value' => '99%', 'label' => 'UV Rejection'],
+                    ['value' => '99%', 'label' => 'Infrared Rejection'],
+                    ['value' => '76%', 'label' => 'Heat Rejection'],
+                ],
+            ],
+            'IR99' => [
+                'code' => 'IR99',
+                'name' => 'LEXENT IR99',
+                'label' => 'IR99 Series',
+                'accent' => 'accent-ir',
+                'tagline' => 'UV400 Nano Ceramic HD',
+                'description' => 'LEXENT IR99 mengusung teknologi UV400 Nano Ceramic HD yang memberikan perlindungan maksimal terhadap sinar UV dan panas, dengan kejernihan visual tinggi untuk pengalaman berkendara yang lebih nyaman dan terlindungi.',
+                'attributes' => ['Clear & High Transparency', 'Cooler & More Comfortable'],
+                'metrics' => [
+                    ['value' => '99%', 'label' => 'UV Rejection'],
+                    ['value' => '99%', 'label' => 'Infrared Rejection'],
+                    ['value' => '81%', 'label' => 'Heat Rejection'],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Flat list of every VLT variant across all four series, with the exact
+     * specification figures from the catalog (VLT / VLR / TSER / UV / IRR /
+     * thickness).
      */
     private function productLineup(): array
     {
+        $series = $this->seriesCatalog();
+
+        // [ series, number, vlt, vlr, tser, uv, irr, thickness ]
+        $rows = [
+            ['BP', '05', '5%', '8%', '62%', '99%', '75%', '1,8 mil'],
+            ['BP', '18', '5%', '8%', '58%', '99%', '65%', '1,8 mil'],
+            ['BP', '35', '5%', '8%', '53%', '99%', '63%', '1,8 mil'],
+
+            ['HT', '08', '8%', '5%', '70%', '99%', '93%', '2 mil'],
+            ['HT', '15', '15%', '5%', '68%', '99%', '90%', '2 mil'],
+            ['HT', '35', '34%', '6%', '67%', '99%', '91%', '2 mil'],
+            ['HT', '70', '70%', '8%', '63%', '99%', '91%', '2 mil'],
+
+            ['MK', '08', '8%', '6%', '76%', '99%', '99%', '2 mil'],
+            ['MK', '20', '20%', '6%', '74%', '99%', '99%', '2 mil'],
+            ['MK', '30', '28%', '6%', '73%', '99%', '99%', '2 mil'],
+            ['MK', '50', '47%', '6%', '71%', '99%', '99%', '2 mil'],
+            ['MK', '65', '57%', '6%', '71%', '99%', '99%', '2 mil'],
+            ['MK', '75', '68%', '6%', '71%', '99%', '99%', '2 mil'],
+
+            ['IR99', '08', '8%', '5%', '81%', '99%', '99%', '2,2 mil'],
+            ['IR99', '18', '20%', '5%', '78%', '99%', '99%', '2,2 mil'],
+            ['IR99', '35', '36%', '5%', '77%', '99%', '99%', '2,2 mil'],
+            ['IR99', '50', '51%', '6%', '73%', '99%', '99%', '2,2 mil'],
+            ['IR99', '70', '72%', '6%', '72%', '99%', '99%', '2,2 mil'],
+        ];
+
+        $lineup = [];
+
+        foreach ($rows as [$code, $number, $vlt, $vlr, $tser, $uv, $irr, $thickness]) {
+            $meta = $series[$code];
+            $vltNumber = (int) $vlt;
+
+            if ($vltNumber <= 15) {
+                $darkness = 'Sangat gelap — privasi maksimal';
+            } elseif ($vltNumber <= 40) {
+                $darkness = 'Gelap sedang — seimbang';
+            } else {
+                $darkness = 'Terang — visibilitas tinggi';
+            }
+
+            $lineup[] = [
+                'slug' => strtolower($code) . '-' . $number,
+                'name' => $meta['name'] . ' ' . $number,
+                'series' => $code,
+                'series_label' => $meta['label'],
+                'series_code_display' => $code . ' ' . $number,
+                'number' => $number,
+                'accent' => $meta['accent'],
+                'badge' => $meta['attributes'][0],
+                'tagline' => $meta['tagline'],
+                'series_description' => $meta['description'],
+                'short_description' => $meta['tagline'] . '. ' . $darkness . '.',
+                'attributes' => $meta['attributes'],
+                'darkness' => $darkness,
+                'vlt' => $vlt,
+                'vlr' => $vlr,
+                'tser' => $tser,
+                'uv' => $uv,
+                'irr' => $irr,
+                'thickness' => $thickness,
+            ];
+        }
+
+        return $lineup;
+    }
+
+    /**
+     * Hero slider: one slide per series, wording drawn from the catalog.
+     */
+    private function heroSlides(): array
+    {
+        $slides = [];
+
+        foreach ($this->seriesCatalog() as $meta) {
+            $slides[] = [
+                'code' => $meta['code'],
+                'tag' => $meta['label'],
+                'headline' => $meta['tagline'],
+                'subtext' => $meta['description'],
+                'metrics' => $meta['metrics'],
+            ];
+        }
+
+        return $slides;
+    }
+
+    /**
+     * "Why LEXENT" — conventional film vs LEXENT, using the catalog's own claims.
+     */
+    private function matrixComparison(): array
+    {
         return [
             [
-                'slug' => 'black-phantom',
-                'name' => 'Lexent Black Phantom',
-                'category' => 'automotive',
-                'category_label' => 'Automotive Series',
-                'tagline' => 'Privasi Absolut, Karakter Tegas',
-                'short_description' => 'Kaca film otomotif paling gelap di lini Lexent, dirancang untuk kendaraan eksekutif yang menuntut privasi penuh.',
-                'description' => 'Lexent Black Phantom dibangun dengan Sputtering Technology multi-layer yang memantulkan radiasi inframerah sebelum menembus kabin. Hasilnya, kabin tetap sejuk sekaligus tampil dengan karakter obsidian yang tegas dan eksklusif — pilihan utama bagi kendaraan premium dan eksekutif.',
-                'vlt' => '5%',
-                'heat_rejection' => '97%',
-                'irr' => '98%',
-                'uv' => '99%',
-                'badge' => 'Signature Dark',
-                'accent' => 'from-void',
-                'features' => [
-                    'Privasi kabin absolut untuk kendaraan eksekutif',
-                    'Sputtering Technology multi-layer non-metal',
-                    'Menahan hingga 98% radiasi infrared (IRR)',
-                    'Garansi resmi Lexent hingga 10 tahun',
-                ],
+                'label' => 'Penolakan Sinar UV',
+                'conventional' => ['text' => 'Sekitar 50%, memudar seiring waktu', 'status' => 'cross'],
+                'lexent' => ['text' => '99% ditolak di seluruh seri', 'status' => 'check'],
             ],
             [
-                'slug' => 'lx-series',
-                'name' => 'Lexent LX Series',
-                'category' => 'automotive',
-                'category_label' => 'Automotive Series',
-                'tagline' => 'Keseimbangan Elegan untuk Setiap Perjalanan',
-                'short_description' => 'Varian paling dicari — memadukan kejernihan visual dengan penolakan panas kelas atas.',
-                'description' => 'Lexent LX Series dirancang untuk pengendara yang menginginkan tampilan premium tanpa tingkat kegelapan berlebihan. Lapisan ceramic non-metal menjaga visibilitas malam hari tetap optimal, sementara Superior Heat Rejection Layer terus bekerja menahan panas matahari sepanjang hari.',
-                'vlt' => '20%',
-                'heat_rejection' => '89%',
-                'irr' => '94%',
-                'uv' => '99%',
-                'badge' => 'Best Seller',
-                'accent' => 'from-cyan',
-                'features' => [
-                    'Visibilitas malam hari tetap optimal',
-                    'Penolakan panas hingga 89%',
-                    'Tampilan platinum satin yang elegan',
-                    'Garansi resmi Lexent hingga 8 tahun',
-                ],
+                'label' => 'Penolakan Panas (TSER)',
+                'conventional' => ['text' => 'Rendah, kabin cepat panas', 'status' => 'cross'],
+                'lexent' => ['text' => 'Hingga 81% (IR99 08)', 'status' => 'check'],
             ],
             [
-                'slug' => 'crystal-clear',
-                'name' => 'Lexent Crystal Clear',
-                'category' => 'automotive',
-                'category_label' => 'Automotive Series',
-                'tagline' => 'Terang, Aman, Tetap Terlindungi',
-                'short_description' => 'Tingkat kegelapan paling rendah, ideal untuk kendaraan keluarga dan armada niaga yang mengutamakan visibilitas.',
-                'description' => 'Lexent Crystal Clear memberikan perlindungan panas dan UV maksimal tanpa mengurangi visibilitas berkendara. Dirancang khusus untuk kendaraan keluarga, armada niaga, dan kendaraan operasional yang membutuhkan pandangan jernih di segala kondisi cahaya.',
-                'vlt' => '45%',
-                'heat_rejection' => '82%',
-                'irr' => '88%',
-                'uv' => '99%',
-                'badge' => 'High Visibility',
-                'accent' => 'from-sapphire',
-                'features' => [
-                    'Visibilitas terbaik siang maupun malam hari',
-                    'Tetap menahan 82% panas matahari',
-                    'Ideal untuk kendaraan keluarga & armada niaga',
-                    'Garansi resmi Lexent hingga 5 tahun',
-                ],
+                'label' => 'Infrared Rejection',
+                'conventional' => ['text' => 'Minim, terasa menyengat', 'status' => 'cross'],
+                'lexent' => ['text' => 'Hingga 99% (MK & IR99)', 'status' => 'check'],
             ],
             [
-                'slug' => 'archishield-pro',
-                'name' => 'Lexent ArchiShield Pro',
-                'category' => 'architectural',
-                'category_label' => 'Architectural Series',
-                'tagline' => 'Efisiensi Energi untuk Gedung Modern',
-                'short_description' => 'Kaca film arsitektural untuk gedung perkantoran dan komersial, menekan silau dan beban pendingin ruangan.',
-                'description' => 'Lexent ArchiShield Pro diformulasikan khusus untuk kaca gedung berskala besar. Lapisan reflektifnya menekan silau matahari dan panas radiasi secara signifikan, membantu efisiensi konsumsi energi AC tanpa mengorbankan pencahayaan alami ruangan.',
-                'vlt' => '30%',
-                'heat_rejection' => '85%',
-                'irr' => '92%',
-                'uv' => '99%',
-                'badge' => 'Energy Efficient',
-                'accent' => 'from-cyan',
-                'features' => [
-                    'Menekan silau matahari pada kaca gedung tinggi',
-                    'Membantu efisiensi konsumsi energi AC',
-                    'Menahan hingga 92% radiasi infrared (IRR)',
-                    'Garansi resmi Lexent hingga 12 tahun',
-                ],
+                'label' => 'Gangguan Sinyal HP / GPS',
+                'conventional' => ['text' => 'Sering terganggu pada film metal', 'status' => 'cross'],
+                'lexent' => ['text' => 'Non-metal & bebas gangguan (MK)', 'status' => 'check'],
             ],
             [
-                'slug' => 'safetyguard',
-                'name' => 'Lexent SafetyGuard',
-                'category' => 'architectural',
-                'category_label' => 'Architectural Series',
-                'tagline' => 'Lapisan Keamanan Anti-Shatter',
-                'short_description' => 'Kaca film keamanan untuk gedung dan hunian, menahan pecahan kaca akibat benturan atau bencana.',
-                'description' => 'Lexent SafetyGuard menggunakan lapisan polyester berkekuatan tinggi yang mengikat pecahan kaca saat terjadi benturan, gempa, atau upaya pembobolan. Solusi ideal untuk gedung komersial, fasilitas publik, dan hunian yang mengutamakan keamanan struktural.',
-                'vlt' => '60%',
-                'heat_rejection' => '70%',
-                'irr' => '80%',
-                'uv' => '99%',
-                'badge' => 'Anti-Shatter',
-                'accent' => 'from-sapphire',
-                'features' => [
-                    'Menahan pecahan kaca akibat benturan/gempa',
-                    'Lapisan polyester keamanan berkekuatan tinggi',
-                    'Cocok untuk gedung komersial & fasilitas publik',
-                    'Garansi resmi Lexent hingga 10 tahun',
-                ],
+                'label' => 'Kejernihan Pandangan',
+                'conventional' => ['text' => 'Berkabut, haze meningkat', 'status' => 'cross'],
+                'lexent' => ['text' => 'Ultra-low haze, HD clarity', 'status' => 'check'],
+            ],
+            [
+                'label' => 'Garansi Resmi',
+                'conventional' => ['text' => '1–2 tahun', 'status' => 'cross'],
+                'lexent' => ['text' => 'Hingga 7 tahun', 'status' => 'check'],
             ],
         ];
     }
@@ -172,113 +257,10 @@ class PageController extends Controller
         ];
     }
 
-    /**
-     * Hero slider slides: headline, HUD visual, and 3 metric counters per slide.
-     */
-    private function heroSlides(): array
-    {
-        return [
-            [
-                'code' => 'LX-BP',
-                'tag' => 'Black Phantom',
-                'title' => 'Kegelapan Absolut. <span class="highlight">Kendali Penuh.</span>',
-                'subtext' => 'Kaca film otomotif paling gelap di lini Lexent — Sputtering Technology multi-layer untuk privasi kabin eksekutif tanpa kompromi.',
-                'cta_text' => 'Lihat Black Phantom',
-                'cta_route' => 'products.show',
-                'cta_param' => 'black-phantom',
-                'metrics' => [
-                    ['value' => '99%', 'label' => 'UV Rejected'],
-                    ['value' => '98%', 'label' => 'IRR'],
-                    ['value' => '10 Thn', 'label' => 'Warranty'],
-                ],
-            ],
-            [
-                'code' => 'LX-SR',
-                'tag' => 'LX Series',
-                'title' => 'Keseimbangan yang <span class="highlight">Direkayasa Sempurna.</span>',
-                'subtext' => 'Ceramic non-metal dengan visibilitas malam optimal dan Superior Heat Rejection Layer yang bekerja sepanjang hari.',
-                'cta_text' => 'Lihat LX Series',
-                'cta_route' => 'products.show',
-                'cta_param' => 'lx-series',
-                'metrics' => [
-                    ['value' => '99%', 'label' => 'UV Rejected'],
-                    ['value' => '94%', 'label' => 'IRR'],
-                    ['value' => '8 Thn', 'label' => 'Warranty'],
-                ],
-            ],
-            [
-                'code' => 'LX-AS',
-                'tag' => 'ArchiShield Pro',
-                'title' => 'Efisiensi Energi untuk <span class="highlight">Gedung Masa Depan.</span>',
-                'subtext' => 'Lapisan reflektif arsitektural yang menekan silau dan beban pendingin ruangan pada kaca gedung berskala besar.',
-                'cta_text' => 'Lihat ArchiShield Pro',
-                'cta_route' => 'products.show',
-                'cta_param' => 'archishield-pro',
-                'metrics' => [
-                    ['value' => '99%', 'label' => 'UV Rejected'],
-                    ['value' => '92%', 'label' => 'IRR'],
-                    ['value' => '12 Thn', 'label' => 'Warranty'],
-                ],
-            ],
-            [
-                'code' => 'LX-SG',
-                'tag' => 'SafetyGuard',
-                'title' => 'Lapisan Pertahanan <span class="highlight">Tak Terlihat.</span>',
-                'subtext' => 'Lapisan polyester berkekuatan tinggi yang mengikat pecahan kaca akibat benturan, gempa, atau upaya pembobolan.',
-                'cta_text' => 'Lihat SafetyGuard',
-                'cta_route' => 'products.show',
-                'cta_param' => 'safetyguard',
-                'metrics' => [
-                    ['value' => '99%', 'label' => 'UV Rejected'],
-                    ['value' => '80%', 'label' => 'IRR'],
-                    ['value' => '10 Thn', 'label' => 'Warranty'],
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * Comparison matrix: conventional window film vs Lexent Nano-Sputter Film.
-     */
-    private function matrixComparison(): array
-    {
-        return [
-            [
-                'label' => 'Penolakan Radiasi UV',
-                'conventional' => ['text' => '±50%', 'status' => 'cross'],
-                'lexent' => ['text' => '99% Ditolak', 'status' => 'check'],
-            ],
-            [
-                'label' => 'Penolakan Panas (TSER)',
-                'conventional' => ['text' => 'Rendah', 'status' => 'cross'],
-                'lexent' => ['text' => 'Hingga 97%', 'status' => 'check'],
-            ],
-            [
-                'label' => 'Gangguan Sinyal GPS/Radio',
-                'conventional' => ['text' => 'Sering Terganggu', 'status' => 'cross'],
-                'lexent' => ['text' => 'Non-Metal, Bebas Gangguan', 'status' => 'check'],
-            ],
-            [
-                'label' => 'Kejernihan Optik',
-                'conventional' => ['text' => 'Menurun Seiring Waktu', 'status' => 'cross'],
-                'lexent' => ['text' => 'Stabil, Nano-Sputter Presisi', 'status' => 'check'],
-            ],
-            [
-                'label' => 'Lapisan Anti-Shatter',
-                'conventional' => ['text' => 'Tidak Tersedia', 'status' => 'cross'],
-                'lexent' => ['text' => 'Tersedia di Seluruh Lini', 'status' => 'check'],
-            ],
-            [
-                'label' => 'Garansi Resmi',
-                'conventional' => ['text' => '1–2 Tahun', 'status' => 'cross'],
-                'lexent' => ['text' => 'Hingga 12 Tahun', 'status' => 'check'],
-            ],
-        ];
-    }
-
     public function home()
     {
         return view('home', [
+            'series' => array_values($this->seriesCatalog()),
             'products' => $this->productLineup(),
             'dealers' => $this->dealerList(),
             'slides' => $this->heroSlides(),
@@ -294,6 +276,7 @@ class PageController extends Controller
     public function products()
     {
         return view('products.index', [
+            'series' => array_values($this->seriesCatalog()),
             'products' => $this->productLineup(),
         ]);
     }
@@ -304,8 +287,15 @@ class PageController extends Controller
 
         abort_if(!$product, 404);
 
+        $related = collect($this->productLineup())
+            ->where('series', $product['series'])
+            ->where('slug', '!=', $product['slug'])
+            ->values()
+            ->all();
+
         return view('products.show', [
             'product' => $product,
+            'related' => $related,
         ]);
     }
 

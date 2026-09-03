@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('title', 'Cek Garansi')
-@section('meta_description', 'Cek status garansi resmi produk Lexent menggunakan kode warranty Anda.')
+@section('meta_description', 'Cek status garansi resmi film LEXENT menggunakan kode warranty Anda.')
 
 @section('content')
 
     <section class="page-header">
         <div class="container">
             <span class="eyebrow">Cek Garansi</span>
-            <h1 class="section-title">Verifikasi Garansi Resmi Lexent</h1>
+            <h1 class="section-title">Verifikasi Garansi Resmi LEXENT</h1>
         </div>
     </section>
 
@@ -17,7 +17,7 @@
             <div class="check-warranty-card glass">
                 <p class="section-subtitle" style="margin: 0 auto var(--space-2);">
                     Masukkan kode warranty yang tertera pada kartu garansi Anda untuk melihat
-                    detail perlindungan produk Lexent Anda.
+                    detail perlindungan film LEXENT Anda.
                 </p>
 
                 <form class="check-warranty-form" id="checkWarrantyForm">
@@ -28,7 +28,7 @@
                         placeholder="Contoh: WR2026002"
                         autocomplete="off"
                         required>
-                    <button type="submit" class="btn btn-cyan" id="checkWarrantyBtn">Cek Garansi</button>
+                    <button type="submit" class="btn btn-gold" id="checkWarrantyBtn">Cek Garansi</button>
                 </form>
 
                 <p class="check-warranty-message" id="checkWarrantyMessage"></p>

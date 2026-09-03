@@ -1,6 +1,6 @@
 <header class="navbar" id="mainNavbar">
     <div class="navbar-inner">
-        <a href="{{ route('home') }}" class="navbar-logo">LEX<span>ENT</span></a>
+        <a href="{{ route('home') }}" class="navbar-logo" aria-label="LEXENT — beranda">LEX<span>ENT</span></a>
 
         <nav class="navbar-links" id="navbarLinks">
             <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'is-active' : '' }}">Home</a>
@@ -11,8 +11,8 @@
         </nav>
 
         <div class="navbar-cta">
-            <a href="{{ route('dealers') }}" class="btn btn-cyan">Find Dealer</a>
-            <button type="button" class="navbar-toggle" id="navbarToggle" aria-label="Toggle menu">
+            <a href="{{ route('dealers') }}" class="btn btn-gold">Cari Dealer</a>
+            <button type="button" class="navbar-toggle" id="navbarToggle" aria-label="Buka menu">
                 <span></span><span></span><span></span>
             </button>
         </div>

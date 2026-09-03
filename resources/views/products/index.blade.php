@@ -1,57 +1,50 @@
 @extends('layouts.app')
 
 @section('title', 'Produk')
-@section('meta_description', 'Katalog lengkap kaca film Lexent - Automotive Film dan Architectural Film.')
+@section('meta_description', 'Katalog lengkap kaca film otomotif LEXENT - 18 varian VLT dari seri BP, HT, MK, dan IR99 beserta spesifikasi resminya.')
 
 @section('content')
 
     <section class="page-header">
         <div class="container">
             <span class="eyebrow">Product Lineup</span>
-            <h1 class="section-title">Automotive &amp; Architectural Film</h1>
+            <h1 class="section-title">Katalog Film Otomotif LEXENT</h1>
         </div>
     </section>
 
     <section style="padding-top: 0;">
         <div class="container">
-            <div class="tab-switcher" id="productTabs">
-                <button type="button" class="tab-btn is-active" data-tab="automotive">Automotive Film</button>
-                <button type="button" class="tab-btn" data-tab="architectural">Architectural Film</button>
+            <div class="series-filter" id="seriesFilter">
+                <button type="button" class="is-active" data-series="all">Semua</button>
+                @foreach($series as $s)
+                    <button type="button" data-series="{{ $s['code'] }}">{{ $s['label'] }}</button>
+                @endforeach
             </div>
 
-            @foreach(['automotive', 'architectural'] as $category)
-                <div class="tab-panel {{ $category === 'automotive' ? 'is-active' : '' }}" data-panel="{{ $category }}">
-                    <div class="product-grid">
-                        @foreach($products as $product)
-                            @continue($product['category'] !== $category)
-                            <div class="product-card glass">
-                                <span class="product-badge">{{ $product['badge'] }}</span>
-                                <div class="product-visual {{ $product['accent'] }}">{{ $product['vlt'] }}</div>
-                                <h3>{{ $product['name'] }}</h3>
-                                <div class="product-tagline">{{ $product['tagline'] }}</div>
-                                <p class="product-desc">{{ $product['short_description'] }}</p>
+            <div class="product-grid" id="productGrid">
+                @foreach($products as $product)
+                    <div class="product-card" data-series="{{ $product['series'] }}">
+                        <span class="product-badge">{{ $product['badge'] }}</span>
+                        <div class="product-visual {{ $product['accent'] }}" data-series="{{ $product['series_label'] }}">{{ $product['number'] }}</div>
+                        <h3>{{ $product['name'] }}</h3>
+                        <div class="product-tagline">{{ $product['tagline'] }}</div>
+                        <p class="product-desc">{{ $product['darkness'] }}</p>
 
-                                <div class="spec-meters">
-                                    <div>
-                                        <div class="spec-meter-head"><span>VLT</span> <b>{{ $product['vlt'] }}</b></div>
-                                        <div class="spec-meter-track"><div class="spec-meter-fill" style="width: {{ $product['vlt'] }};"></div></div>
-                                    </div>
-                                    <div>
-                                        <div class="spec-meter-head"><span>TSER</span> <b>{{ $product['heat_rejection'] }}</b></div>
-                                        <div class="spec-meter-track"><div class="spec-meter-fill" style="width: {{ $product['heat_rejection'] }};"></div></div>
-                                    </div>
-                                    <div>
-                                        <div class="spec-meter-head"><span>IRR</span> <b>{{ $product['irr'] }}</b></div>
-                                        <div class="spec-meter-track"><div class="spec-meter-fill" style="width: {{ $product['irr'] }};"></div></div>
-                                    </div>
-                                </div>
+                        <div class="spec-meters">
+                            <div class="spec-meter-head"><span>VLT</span> <b>{{ $product['vlt'] }}</b></div>
+                            <div class="spec-meter-head"><span>TSER</span> <b>{{ $product['tser'] }}</b></div>
+                            <div class="spec-meter-head"><span>UV Rejection</span> <b>{{ $product['uv'] }}</b></div>
+                            <div class="spec-meter-head"><span>IRR Rejection</span> <b>{{ $product['irr'] }}</b></div>
+                        </div>
 
-                                <a href="{{ route('products.show', $product['slug']) }}" class="btn btn-outline btn-block">Lihat Detail</a>
-                            </div>
-                        @endforeach
+                        <a href="{{ route('products.show', $product['slug']) }}" class="btn btn-outline btn-block">Lihat Detail</a>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
+
+            <p id="productEmpty" class="section-subtitle" style="display: none; text-align: center; margin: var(--space-4) auto 0;">
+                Tidak ada varian untuk seri ini.
+            </p>
         </div>
     </section>
 
@@ -60,19 +53,25 @@
 @section('scripts')
     <script>
         (function () {
-            var tabs = document.querySelectorAll('#productTabs .tab-btn');
-            var panels = document.querySelectorAll('.tab-panel');
+            var buttons = document.querySelectorAll('#seriesFilter button');
+            var cards = document.querySelectorAll('#productGrid .product-card');
+            var empty = document.getElementById('productEmpty');
 
-            tabs.forEach(function (tab) {
-                tab.addEventListener('click', function () {
-                    var target = tab.getAttribute('data-tab');
+            buttons.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var series = btn.getAttribute('data-series');
+                    var visible = 0;
 
-                    tabs.forEach(function (t) { t.classList.remove('is-active'); });
-                    tab.classList.add('is-active');
+                    buttons.forEach(function (b) { b.classList.remove('is-active'); });
+                    btn.classList.add('is-active');
 
-                    panels.forEach(function (panel) {
-                        panel.classList.toggle('is-active', panel.getAttribute('data-panel') === target);
+                    cards.forEach(function (card) {
+                        var match = series === 'all' || card.getAttribute('data-series') === series;
+                        card.style.display = match ? '' : 'none';
+                        if (match) { visible++; }
                     });
+
+                    empty.style.display = visible === 0 ? 'block' : 'none';
                 });
             });
         })();

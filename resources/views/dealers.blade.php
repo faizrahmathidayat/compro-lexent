@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('title', 'Dealer')
-@section('meta_description', 'Temukan Authorized Outlet dan dealer resmi Lexent di seluruh Indonesia.')
+@section('meta_description', 'Temukan dealer dan workshop resmi LEXENT di seluruh Indonesia. Pemasangan oleh installer bersertifikat agar garansi tetap berlaku.')
 
 @section('content')
 
     <section class="page-header">
         <div class="container">
             <span class="eyebrow">Dealer Locator</span>
-            <h1 class="section-title">Authorized Outlet Lexent Seluruh Indonesia</h1>
+            <h1 class="section-title">Dealer Resmi LEXENT Seluruh Indonesia</h1>
         </div>
     </section>
 

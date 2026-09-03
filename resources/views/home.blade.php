@@ -1,23 +1,23 @@
 @extends('layouts.app')
 
-@section('title', 'Lexent')
-@section('meta_description', 'Lexent - kaca film otomotif & arsitektural premium dengan Nano-Sputter Technology kelas atas.')
+@section('title', 'LEXENT')
+@section('meta_description', 'LEXENT - kaca film otomotif premium dengan empat seri: BP, HT, MK, dan IR99. UV rejection 99%, infrared rejection hingga 99%, garansi resmi hingga 7 tahun.')
 
 @section('content')
 
-    {{-- ============================= HERO SLIDER ============================= --}}
+    {{-- ============================= HERO ============================= --}}
     <section class="hero" id="heroSection">
         <div class="container hero-slider">
             <div class="hero-slides" id="heroSlides">
                 @foreach($slides as $i => $slide)
                     <div class="hero-slide {{ $i === 0 ? 'is-active' : '' }}" data-index="{{ $i }}">
-                        <span class="hero-slide-badge">Precision Nano-Sputter Technology</span>
-                        <h1 class="hero-slide-title">{!! $slide['title'] !!}</h1>
+                        <span class="hero-slide-badge">{{ $slide['tag'] }}</span>
+                        <h1 class="hero-slide-title">Clarity Inside,<br><span class="highlight">Protection Outside</span></h1>
                         <p class="hero-slide-subtext">{{ $slide['subtext'] }}</p>
 
                         <div class="hero-slide-actions">
-                            <a href="{{ route($slide['cta_route'], $slide['cta_param']) }}" class="btn btn-cyan">{{ $slide['cta_text'] }}</a>
-                            <a href="{{ route('dealers') }}" class="btn btn-outline">Find Authorized Dealer</a>
+                            <a href="{{ route('products.index') }}" class="btn btn-gold">Lihat Seri {{ $slide['code'] }}</a>
+                            <a href="{{ route('dealers') }}" class="btn btn-outline">Cari Dealer Resmi</a>
                         </div>
 
                         <div class="hero-metrics">
@@ -53,101 +53,85 @@
         </div>
     </section>
 
-    {{-- ============================= ABOUT / BRAND STORY ============================= --}}
+    {{-- ============================= BRAND STORY ============================= --}}
     <section id="about">
         <div class="container about-grid">
             <div>
-                <span class="eyebrow">Brand Story</span>
-                <h2 class="section-title">Rekayasa Presisi untuk Ruang &amp; Jalanan Indonesia</h2>
+                <span class="eyebrow">Superior Windowfilm Solution</span>
+                <h2 class="section-title">Enhance Comfort. Protect What Matters. Elevate Every Drive.</h2>
                 <p class="section-subtitle" style="margin-bottom: var(--space-3);">
-                    Lexent berkomitmen menghadirkan kaca film dengan standar optik dan
-                    termal tertinggi, untuk kendaraan maupun gedung. Setiap lapisan
-                    diproduksi melalui proses Nano-Sputtering multi-layer untuk memastikan
-                    konsistensi warna, ketahanan jangka panjang, dan performa penolakan
-                    panas yang terukur secara laboratorium.
+                    LEXENT dirancang untuk satu tujuan: setiap perjalanan terasa lebih sejuk,
+                    lebih jernih, dan lebih terlindungi. Empat seri film &mdash; BP, HT, MK,
+                    dan IR99 &mdash; menutup kebutuhan dari privasi maksimal hingga kejernihan
+                    optik tertinggi, semuanya dengan penolakan sinar UV 99%.
                 </p>
                 <ul class="about-list">
-                    <li><span class="check-dot">&#10003;</span> <span><b>Precision Nano-Sputter Technology</b> — lapisan metal presisi tanpa gangguan sinyal.</span></li>
-                    <li><span class="check-dot">&#10003;</span> <span><b>Superior Heat Rejection</b> — menahan panas sebelum menembus kaca.</span></li>
-                    <li><span class="check-dot">&#10003;</span> <span><b>Anti-Shatter Safety</b> — mengikat pecahan kaca saat terjadi benturan.</span></li>
+                    <li><span class="check-dot">&#10003;</span> <span><b>UV Rejection s/d 99%</b> &mdash; melindungi kulit dan interior dari radiasi ultraviolet.</span></li>
+                    <li><span class="check-dot">&#10003;</span> <span><b>Heat &amp; Infrared Rejection tinggi</b> &mdash; menahan panas sebelum menembus kabin.</span></li>
+                    <li><span class="check-dot">&#10003;</span> <span><b>Nano Ceramic &amp; Magnetron Sputter</b> &mdash; jernih, low haze, dan tidak mengganggu sinyal.</span></li>
                 </ul>
             </div>
 
             <div class="about-visual">
-                <div class="about-visual-inner">LX</div>
+                <div class="about-visual-inner">LEX<span>ENT</span></div>
             </div>
         </div>
     </section>
 
-    {{-- ============================= PRODUCT SHOWCASE (TAB SWITCHER) ============================= --}}
+    {{-- ============================= SERIES SHOWCASE ============================= --}}
     <section id="products" class="section-alt">
         <div class="container">
             <div class="section-head">
                 <span class="eyebrow">Product Lineup</span>
-                <h2 class="section-title">Automotive &amp; Architectural Film</h2>
-                <p class="section-subtitle" style="margin: 0 auto;">
-                    Dua lini Lexent dirancang untuk kebutuhan berbeda — dari kendaraan
-                    pribadi hingga gedung komersial berskala besar.
+                <h2 class="section-title">Empat Seri, Satu Standar</h2>
+                <p class="section-subtitle">
+                    Setiap seri LEXENT dibangun di atas teknologi yang berbeda &mdash; pilih
+                    sesuai prioritas Anda: privasi, insulasi panas, kejernihan, atau bebas
+                    gangguan sinyal.
                 </p>
             </div>
 
-            <div class="tab-switcher" id="productTabs">
-                <button type="button" class="tab-btn is-active" data-tab="automotive">Automotive Film</button>
-                <button type="button" class="tab-btn" data-tab="architectural">Architectural Film</button>
-            </div>
+            <div class="product-grid">
+                @foreach($series as $s)
+                    <div class="product-card">
+                        <span class="product-badge">{{ count($s['attributes']) }} Keunggulan</span>
+                        <div class="product-visual {{ $s['accent'] }}" data-series="{{ $s['label'] }}">{{ $s['code'] }}</div>
+                        <h3>{{ $s['name'] }}</h3>
+                        <div class="product-tagline">{{ $s['tagline'] }}</div>
+                        <p class="product-desc">{{ $s['description'] }}</p>
 
-            @foreach(['automotive', 'architectural'] as $category)
-                <div class="tab-panel {{ $category === 'automotive' ? 'is-active' : '' }}" data-panel="{{ $category }}">
-                    <div class="product-grid">
-                        @foreach($products as $product)
-                            @continue($product['category'] !== $category)
-                            <div class="product-card glass">
-                                <span class="product-badge">{{ $product['badge'] }}</span>
-                                <div class="product-visual {{ $product['accent'] }}">{{ $product['vlt'] }}</div>
-                                <h3>{{ $product['name'] }}</h3>
-                                <div class="product-tagline">{{ $product['tagline'] }}</div>
-                                <p class="product-desc">{{ $product['short_description'] }}</p>
-
-                                <div class="spec-meters">
-                                    <div>
-                                        <div class="spec-meter-head"><span>VLT</span> <b>{{ $product['vlt'] }}</b></div>
-                                        <div class="spec-meter-track"><div class="spec-meter-fill" style="width: {{ $product['vlt'] }};"></div></div>
-                                    </div>
-                                    <div>
-                                        <div class="spec-meter-head"><span>TSER</span> <b>{{ $product['heat_rejection'] }}</b></div>
-                                        <div class="spec-meter-track"><div class="spec-meter-fill" style="width: {{ $product['heat_rejection'] }};"></div></div>
-                                    </div>
-                                    <div>
-                                        <div class="spec-meter-head"><span>IRR</span> <b>{{ $product['irr'] }}</b></div>
-                                        <div class="spec-meter-track"><div class="spec-meter-fill" style="width: {{ $product['irr'] }};"></div></div>
-                                    </div>
+                        <div class="spec-meters">
+                            @foreach($s['metrics'] as $metric)
+                                <div class="spec-meter-head">
+                                    <span>{{ $metric['label'] }}</span>
+                                    <b>{{ $metric['value'] }}</b>
                                 </div>
+                            @endforeach
+                        </div>
 
-                                <a href="{{ route('products.show', $product['slug']) }}" class="btn btn-outline btn-block">Lihat Detail</a>
-                            </div>
-                        @endforeach
+                        <a href="{{ route('products.index') }}" class="btn btn-outline btn-block">Lihat Varian</a>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
     </section>
 
-    {{-- ============================= COMPARISON MATRIX ("WHY LEXENT") ============================= --}}
+    {{-- ============================= WHY LEXENT ============================= --}}
     <section id="why-lexent">
         <div class="container">
             <div class="section-head">
-                <span class="eyebrow">Why Lexent</span>
-                <h2 class="section-title">Kaca Film Konvensional vs Lexent Nano-Sputter</h2>
-                <p class="section-subtitle" style="margin: 0 auto;">
-                    Perbandingan langsung yang menunjukkan mengapa Lexent unggul di setiap aspek performa.
+                <span class="eyebrow">Why LEXENT</span>
+                <h2 class="section-title">Kaca Film Biasa vs LEXENT</h2>
+                <p class="section-subtitle">
+                    Perbandingan langsung berdasarkan spesifikasi katalog resmi LEXENT.
                 </p>
             </div>
 
             <div class="matrix">
                 <div class="matrix-row matrix-head">
                     <div class="matrix-cell is-label">Parameter</div>
-                    <div class="matrix-cell is-conventional">Kaca Film Konvensional</div>
-                    <div class="matrix-cell is-lexent">Lexent Nano-Sputter</div>
+                    <div class="matrix-cell is-conventional">Kaca Film Biasa</div>
+                    <div class="matrix-cell is-lexent">LEXENT</div>
                 </div>
                 @foreach($matrix as $row)
                     <div class="matrix-row">
@@ -166,46 +150,46 @@
         </div>
     </section>
 
-    {{-- ============================= DUAL-VIEW TINT SIMULATOR ============================= --}}
+    {{-- ============================= TINT SIMULATOR ============================= --}}
     <section id="simulator" class="section-alt">
         <div class="container simulator-layout">
             <div class="simulator-dual">
                 <div class="simulator-pane simulator-pane-exterior">
-                    <span class="simulator-pane-label">Exterior View</span>
+                    <span class="simulator-pane-label">Tampak Luar</span>
                     <div class="simulator-pane-overlay" id="tintOverlayExterior"></div>
                 </div>
                 <div class="simulator-pane simulator-pane-interior">
-                    <span class="simulator-pane-label">Interior View</span>
+                    <span class="simulator-pane-label">Tampak Dalam</span>
                     <div class="simulator-pane-overlay" id="tintOverlayInterior"></div>
                 </div>
             </div>
 
             <div class="simulator-controls">
                 <span class="eyebrow">Interactive Preview</span>
-                <h3 class="section-title" style="font-size: 1.8rem;">Simulasi Kegelapan Kaca Film Lexent</h3>
-                <p>Bandingkan tampak luar dan tampak dalam pada setiap tingkat kegelapan Lexent.</p>
+                <h3>Simulasi Tingkat Kegelapan (VLT)</h3>
+                <p>Bandingkan tampak luar dan tampak dalam pada beberapa nilai VLT LEXENT.</p>
 
                 <div class="tint-options" id="tintOptions">
-                    <button type="button" class="tint-option" data-tint="15">15%</button>
-                    <button type="button" class="tint-option" data-tint="30">30%</button>
-                    <button type="button" class="tint-option is-active" data-tint="40">40%</button>
-                    <button type="button" class="tint-option" data-tint="60">60%</button>
-                    <button type="button" class="tint-option" data-tint="80">80%</button>
+                    <button type="button" class="tint-option" data-tint="5">VLT 5%</button>
+                    <button type="button" class="tint-option" data-tint="20">VLT 20%</button>
+                    <button type="button" class="tint-option is-active" data-tint="35">VLT 35%</button>
+                    <button type="button" class="tint-option" data-tint="50">VLT 50%</button>
+                    <button type="button" class="tint-option" data-tint="70">VLT 70%</button>
                 </div>
 
-                <p class="simulator-readout">Tingkat kegelapan terpilih: <b id="tintReadout">40%</b></p>
+                <p class="simulator-readout">VLT terpilih: <b id="tintReadout">35%</b> &mdash; makin kecil, makin gelap &amp; privat.</p>
             </div>
         </div>
     </section>
 
-    {{-- ============================= DEALER / WORKSHOP LOCATOR ============================= --}}
+    {{-- ============================= DEALER LOCATOR ============================= --}}
     <section id="dealers">
         <div class="container">
             <div class="section-head">
                 <span class="eyebrow">Dealer Locator</span>
-                <h2 class="section-title">Authorized Dealer &amp; Workshop Lexent</h2>
-                <p class="section-subtitle" style="margin: 0 auto;">
-                    Pemasangan hanya dilakukan oleh installer resmi bersertifikat Lexent.
+                <h2 class="section-title">Dealer &amp; Workshop Resmi LEXENT</h2>
+                <p class="section-subtitle">
+                    Pemasangan hanya oleh installer resmi bersertifikat LEXENT agar garansi tetap berlaku.
                 </p>
             </div>
 
@@ -235,29 +219,29 @@
         </div>
     </section>
 
-    {{-- ============================= WARRANTY INFO & CONTACT BANNER ============================= --}}
+    {{-- ============================= WARRANTY BANNER ============================= --}}
     <section class="warranty-banner">
         <div class="container">
             <div class="glass">
                 <div>
                     <span class="eyebrow">Official Warranty</span>
-                    <h2 class="section-title" style="font-size: 1.8rem;">Garansi Resmi Lexent</h2>
-                    <p style="color: var(--color-text-muted);">
-                        Setiap produk Lexent yang dipasang di jaringan dealer resmi
-                        dilindungi garansi resmi hingga 12 tahun, tercatat dan dapat
+                    <h2 class="section-title" style="font-size: 1.9rem;">Garansi Resmi Hingga 7 Tahun</h2>
+                    <p style="color: var(--text-muted);">
+                        Setiap film LEXENT yang dipasang di jaringan dealer resmi dilindungi
+                        garansi resmi hingga 7 tahun, tercatat sejak hari pemasangan dan dapat
                         diverifikasi kapan saja secara online.
                     </p>
 
                     <div class="warranty-points">
-                        <div><span class="check-dot">&#10003;</span> <span>Garansi hingga 12 tahun</span></div>
+                        <div><span class="check-dot">&#10003;</span> <span>Garansi hingga 7 tahun</span></div>
                         <div><span class="check-dot">&#10003;</span> <span>Verifikasi kode online</span></div>
                         <div><span class="check-dot">&#10003;</span> <span>Klaim di seluruh dealer resmi</span></div>
-                        <div><span class="check-dot">&#10003;</span> <span>Terdaftar sejak hari pemasangan</span></div>
+                        <div><span class="check-dot">&#10003;</span> <span>Terdaftar sejak pemasangan</span></div>
                     </div>
                 </div>
 
                 <div class="warranty-actions">
-                    <a href="{{ route('cek-garansi') }}" class="btn btn-cyan">Cek Garansi Saya</a>
+                    <a href="{{ route('cek-garansi') }}" class="btn btn-gold">Cek Garansi Saya</a>
                     <a href="{{ route('dealers') }}" class="btn btn-outline">Hubungi Kami</a>
                 </div>
             </div>
@@ -300,13 +284,8 @@
                 });
             }
 
-            function next() {
-                goTo(current + 1);
-            }
-
-            function prev() {
-                goTo(current - 1);
-            }
+            function next() { goTo(current + 1); }
+            function prev() { goTo(current - 1); }
 
             function startAutoplay() {
                 stopAutoplay();
@@ -327,15 +306,8 @@
                 });
             });
 
-            nextBtn.addEventListener('click', function () {
-                next();
-                startAutoplay();
-            });
-
-            prevBtn.addEventListener('click', function () {
-                prev();
-                startAutoplay();
-            });
+            nextBtn.addEventListener('click', function () { next(); startAutoplay(); });
+            prevBtn.addEventListener('click', function () { prev(); startAutoplay(); });
 
             section.addEventListener('mouseenter', stopAutoplay);
             section.addEventListener('mouseleave', startAutoplay);
@@ -345,33 +317,17 @@
         })();
 
         (function () {
-            var tabs = document.querySelectorAll('#productTabs .tab-btn');
-            var panels = document.querySelectorAll('.tab-panel');
-
-            tabs.forEach(function (tab) {
-                tab.addEventListener('click', function () {
-                    var target = tab.getAttribute('data-tab');
-
-                    tabs.forEach(function (t) { t.classList.remove('is-active'); });
-                    tab.classList.add('is-active');
-
-                    panels.forEach(function (panel) {
-                        panel.classList.toggle('is-active', panel.getAttribute('data-panel') === target);
-                    });
-                });
-            });
-        })();
-
-        (function () {
             var exterior = document.getElementById('tintOverlayExterior');
             var interior = document.getElementById('tintOverlayInterior');
             var readout = document.getElementById('tintReadout');
             var options = document.querySelectorAll('#tintOptions .tint-option');
 
-            function applyTint(percent) {
-                exterior.style.opacity = Math.min(0.9, 0.25 + percent / 130);
-                interior.style.opacity = percent / 400;
-                readout.textContent = percent + '%';
+            function applyTint(vlt) {
+                // lower VLT = darker glass = heavier overlay
+                var darkness = (100 - vlt) / 100;
+                exterior.style.opacity = Math.min(0.92, 0.18 + darkness * 0.7);
+                interior.style.opacity = Math.min(0.6, darkness * 0.35);
+                readout.textContent = vlt + '%';
             }
 
             options.forEach(function (btn) {
@@ -382,7 +338,7 @@
                 });
             });
 
-            applyTint(40);
+            applyTint(35);
         })();
 
         (function () {
