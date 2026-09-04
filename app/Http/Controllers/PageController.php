@@ -246,6 +246,94 @@ class PageController extends Controller
     }
 
     /**
+     * LEXENT Paint Protection Film — an automotive-only accessory line, sold
+     * alongside the window-film series rather than as a window-film variant.
+     * Each type is a standalone product (no VLT sub-variants), so it carries
+     * its own thickness/warranty/finish spec sheet instead of VLT/TSER/UV.
+     */
+    private function ppfLineup(): array
+    {
+        return [
+            [
+                'slug' => 'type-s',
+                'code' => 'S',
+                'name' => 'LEXENT PPF Type S',
+                'label' => 'Type S',
+                'accent' => 'accent-ppf-s',
+                'tagline' => 'Perlindungan Solid, Perawatan Mudah',
+                'description' => 'LEXENT PPF Type S melapisi cat mobil dari goresan halus, kerikil, dan noda harian, menjaga tampilan tetap solid dan mengkilap dengan perawatan yang mudah.',
+                'features' => ['Exclusive Top Coat Technology', 'Excellent Impact Resistance', 'Excellent Stain Resistance and Easy Maintenance'],
+                'thickness' => '8 Mil',
+                'warranty_years' => 10,
+                'finish' => 'Glossy',
+                'attributes' => [
+                    ['label' => 'TPU', 'rating' => 'Top Grade'],
+                    ['label' => 'Glossy', 'rating' => 'Excellent'],
+                    ['label' => 'Self-Healing', 'rating' => 'Excellent'],
+                    ['label' => 'Hydrophobic', 'rating' => 'Excellent'],
+                ],
+            ],
+            [
+                'slug' => 'type-t-plus',
+                'code' => 'T+',
+                'name' => 'LEXENT PPF Type T Plus',
+                'label' => 'Type T Plus',
+                'accent' => 'accent-ppf-tp',
+                'tagline' => 'Self-Healing Coating, Proteksi Ekstra',
+                'description' => 'LEXENT PPF Type T Plus menghadirkan lapisan top coat self-healing yang menyamarkan baret halus secara otomatis, memberi proteksi ekstra untuk cat mobil kesayangan Anda.',
+                'features' => ['Excellent Top Coat Layer', 'High Protection', 'Self-Healing Coating'],
+                'thickness' => '8,5 Mil',
+                'warranty_years' => 10,
+                'finish' => 'Glossy',
+                'attributes' => [
+                    ['label' => 'TPU', 'rating' => 'High Grade'],
+                    ['label' => 'Glossy', 'rating' => 'Excellent'],
+                    ['label' => 'Self-Healing', 'rating' => 'Excellent'],
+                    ['label' => 'Hydrophobic', 'rating' => 'Excellent'],
+                ],
+            ],
+            [
+                'slug' => 'type-l',
+                'code' => 'L',
+                'name' => 'LEXENT PPF Type L',
+                'label' => 'Type L',
+                'accent' => 'accent-ppf-l',
+                'tagline' => 'Super Gloss Look, Kilau Maksimal',
+                'description' => 'LEXENT PPF Type L berbasis TPU kelas atas dengan hasil akhir super glossy, memberi tampilan cat mobil yang lebih hidup sekaligus perlindungan self-healing dari goresan ringan.',
+                'features' => ['High Grade TPU Based', 'Self-Healing', 'Super Gloss Look'],
+                'thickness' => '8 Mil',
+                'warranty_years' => 7,
+                'finish' => 'Glossy',
+                'attributes' => [
+                    ['label' => 'TPU', 'rating' => 'High Grade'],
+                    ['label' => 'Glossy', 'rating' => 'Excellent'],
+                    ['label' => 'Self-Healing', 'rating' => 'Excellent'],
+                    ['label' => 'Hydrophobic', 'rating' => 'Excellent'],
+                ],
+            ],
+            [
+                'slug' => 'type-l-matte',
+                'code' => 'L Matte',
+                'name' => 'LEXENT PPF Type L Matte',
+                'label' => 'Type L Matte',
+                'accent' => 'accent-ppf-lm',
+                'tagline' => 'Excellent Matte Look, Tampilan Doff Premium',
+                'description' => 'LEXENT PPF Type L Matte menghadirkan tampilan doff premium dengan proteksi self-healing yang sama tangguhnya, untuk pemilik mobil yang menginginkan gaya matte tanpa mengorbankan perlindungan cat.',
+                'features' => ['High Grade TPU Based', 'Self-Healing', 'Excellent Matte Look'],
+                'thickness' => '8 Mil',
+                'warranty_years' => 7,
+                'finish' => 'Matte',
+                'attributes' => [
+                    ['label' => 'TPU', 'rating' => 'High Grade'],
+                    ['label' => 'Matte', 'rating' => 'Excellent'],
+                    ['label' => 'Self-Healing', 'rating' => 'Excellent'],
+                    ['label' => 'Hydrophobic', 'rating' => 'Excellent'],
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Hero: one highlight slide per division (automotive / building), each
      * drawn from that division's own catalog cover language.
      */
@@ -459,6 +547,30 @@ class PageController extends Controller
             ->all();
 
         return view('products.show', [
+            'product' => $product,
+            'related' => $related,
+        ]);
+    }
+
+    public function ppfIndex()
+    {
+        return view('ppf.index', [
+            'products' => $this->ppfLineup(),
+        ]);
+    }
+
+    public function ppfDetail(string $slug)
+    {
+        $product = collect($this->ppfLineup())->firstWhere('slug', $slug);
+
+        abort_if(!$product, 404);
+
+        $related = collect($this->ppfLineup())
+            ->where('slug', '!=', $product['slug'])
+            ->values()
+            ->all();
+
+        return view('ppf.show', [
             'product' => $product,
             'related' => $related,
         ]);

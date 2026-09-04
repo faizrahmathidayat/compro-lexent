@@ -70,6 +70,12 @@ button {
     --hp: #c98a1f;
     --up: #2a2f3d;
 
+    /* Paint Protection Film accents */
+    --ppf-s: #3a3f47;
+    --ppf-tp: #8a4a1f;
+    --ppf-l: #6b7280;
+    --ppf-lm: #1c1c1f;
+
     --paper: #eef0f3;
     --paper-raised: #f7f8fa;
     --paper-line: #cdd1d8;
@@ -897,6 +903,10 @@ section {
 .product-visual.accent-rf { background: linear-gradient(150deg, #2b2f39, var(--rf)); }
 .product-visual.accent-hp { background: linear-gradient(150deg, #7a5c16, var(--hp)); color: #1a1405; }
 .product-visual.accent-up { background: linear-gradient(150deg, #12141c, var(--up)); }
+.product-visual.accent-ppf-s { background: linear-gradient(150deg, #1c1e22, var(--ppf-s)); }
+.product-visual.accent-ppf-tp { background: linear-gradient(150deg, #4a2810, var(--ppf-tp)); }
+.product-visual.accent-ppf-l { background: linear-gradient(150deg, #3a3d44, var(--ppf-l)); }
+.product-visual.accent-ppf-lm { background: linear-gradient(150deg, #0d0d0f, var(--ppf-lm)); }
 
 .product-card h3 {
     font-size: 1.5rem;
@@ -957,6 +967,52 @@ section {
 }
 
 .spec-meter-track { display: none; }
+
+/* ---------- PPF attribute ratings ---------- */
+.ppf-rating-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+}
+
+.ppf-rating-card {
+    padding: var(--space-3);
+    text-align: center;
+}
+
+.ppf-rating-label {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 4px;
+}
+
+.ppf-rating-value {
+    display: block;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    margin-bottom: var(--space-2);
+}
+
+.ppf-rating-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.ppf-rating-bar span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(100deg, var(--gold-bright), var(--gold));
+    border-radius: 99px;
+}
 .spec-meter-fill { display: none; }
 
 .product-card .btn {
@@ -1552,6 +1608,10 @@ section {
 .product-detail-visual.accent-rf { background: linear-gradient(150deg, #2b2f39, var(--rf)); }
 .product-detail-visual.accent-hp { background: linear-gradient(150deg, #7a5c16, var(--hp)); color: #1a1405; }
 .product-detail-visual.accent-up { background: linear-gradient(150deg, #12141c, var(--up)); }
+.product-detail-visual.accent-ppf-s { background: linear-gradient(150deg, #1c1e22, var(--ppf-s)); }
+.product-detail-visual.accent-ppf-tp { background: linear-gradient(150deg, #4a2810, var(--ppf-tp)); }
+.product-detail-visual.accent-ppf-l { background: linear-gradient(150deg, #3a3d44, var(--ppf-l)); }
+.product-detail-visual.accent-ppf-lm { background: linear-gradient(150deg, #0d0d0f, var(--ppf-lm)); }
 
 .product-detail-meters {
     display: flex;

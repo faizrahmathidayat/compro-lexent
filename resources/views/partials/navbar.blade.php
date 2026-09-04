@@ -14,6 +14,16 @@
                 </div>
             </div>
 
+            <div class="navbar-dropdown">
+                <a href="{{ route('ppf.index') }}" class="{{ request()->routeIs('ppf.*') ? 'is-active' : '' }}">Paint Protection Film</a>
+                <div class="navbar-dropdown-menu">
+                    <a href="{{ route('ppf.show', 'type-s') }}">Paint Protection Film Type S</a>
+                    <a href="{{ route('ppf.show', 'type-t-plus') }}">Paint Protection Film Type T Plus</a>
+                    <a href="{{ route('ppf.show', 'type-l') }}">Paint Protection Film Type L</a>
+                    <a href="{{ route('ppf.show', 'type-l-matte') }}">Paint Protection Film Type L Matte</a>
+                </div>
+            </div>
+
             <a href="{{ route('dealers') }}" class="{{ request()->routeIs('dealers') ? 'is-active' : '' }}">Dealer</a>
             <a href="{{ route('cek-garansi') }}" class="{{ request()->routeIs('cek-garansi') ? 'is-active' : '' }}">Cek Garansi</a>
         </nav>
