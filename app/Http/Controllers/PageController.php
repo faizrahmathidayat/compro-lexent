@@ -7,18 +7,22 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
     /**
-     * The four LEXENT automotive window-film series, straight from the printed
-     * catalog. Copy, attributes and the technology story per series are the
-     * catalog's own wording.
+     * All eight LEXENT window-film series across both divisions, straight from
+     * the printed catalogs. Copy, attributes and per-series technology are the
+     * catalogs' own wording. `segment` drives every automotive/building split
+     * in the views (nav, homepage showcase, product filter, matrix).
      */
     private function seriesCatalog(): array
     {
         return [
+            // ---------------------------------------------------------- Automotive
             'BP' => [
                 'code' => 'BP',
                 'name' => 'LEXENT BP',
                 'label' => 'BP Series',
+                'segment' => 'automotive',
                 'accent' => 'accent-bp',
+                'warranty_years' => 7,
                 'tagline' => 'Privasi Tinggi, Low Haze',
                 'description' => 'LEXENT BP hadir dengan teknologi kaca film yang dirancang untuk memberikan perlindungan optimal dari panas & sinar UV, sekaligus menghadirkan privasi tinggi dan kenyamanan berkendara setiap saat.',
                 'attributes' => ['High Privacy', 'Low Haze', 'UV Protection'],
@@ -32,7 +36,9 @@ class PageController extends Controller
                 'code' => 'HT',
                 'name' => 'LEXENT HT',
                 'label' => 'HT Series',
+                'segment' => 'automotive',
                 'accent' => 'accent-ht',
+                'warranty_years' => 7,
                 'tagline' => 'Nano Ceramic HD, Heat Insulation',
                 'description' => 'LEXENT HT hadir dengan teknologi nano ceramic terkini yang dirancang untuk memberikan perlindungan maksimal dari panas & sinar UV, tanpa mengurangi kejernihan pandangan.',
                 'attributes' => ['Ultra High Definition', 'Ultra Low Haze', 'High Level Heat Insulation', 'UV Protection'],
@@ -46,7 +52,9 @@ class PageController extends Controller
                 'code' => 'MK',
                 'name' => 'LEXENT MK',
                 'label' => 'MK Series',
+                'segment' => 'automotive',
                 'accent' => 'accent-mk',
+                'warranty_years' => 7,
                 'tagline' => 'Magnetron Sputter, Non-Metal',
                 'description' => 'LEXENT MK hadir dengan teknologi Magnetron Sputter yang menggunakan material berkualitas tinggi untuk memberikan perlindungan optimal dari panas & sinar UV, dengan tetap menjaga kejernihan pandangan serta tidak mengganggu sinyal HP, GPS, maupun perangkat elektronik di dalam kendaraan.',
                 'attributes' => ['Extraordinary Clarity', 'Extraordinary Heat Insulation', 'Ultra-Low Haze', 'No Signal Interference'],
@@ -60,7 +68,9 @@ class PageController extends Controller
                 'code' => 'IR99',
                 'name' => 'LEXENT IR99',
                 'label' => 'IR99 Series',
+                'segment' => 'automotive',
                 'accent' => 'accent-ir',
+                'warranty_years' => 7,
                 'tagline' => 'UV400 Nano Ceramic HD',
                 'description' => 'LEXENT IR99 mengusung teknologi UV400 Nano Ceramic HD yang memberikan perlindungan maksimal terhadap sinar UV dan panas, dengan kejernihan visual tinggi untuk pengalaman berkendara yang lebih nyaman dan terlindungi.',
                 'attributes' => ['Clear & High Transparency', 'Cooler & More Comfortable'],
@@ -70,13 +80,79 @@ class PageController extends Controller
                     ['value' => '81%', 'label' => 'Heat Rejection'],
                 ],
             ],
+
+            // ------------------------------------------------------------ Building
+            'BV' => [
+                'code' => 'BV',
+                'name' => 'LEXENT Black Vision',
+                'label' => 'Black Vision',
+                'segment' => 'building',
+                'accent' => 'accent-bv',
+                'warranty_years' => 8,
+                'tagline' => 'Privasi Tinggi & Kontrol Panas',
+                'description' => 'LEXENT Black Series hadir dengan teknologi kaca film yang dirancang untuk memberikan perlindungan optimal dari panas & sinar UV, sekaligus menghadirkan privasi tinggi dan kenyamanan pada bangunan Anda.',
+                'attributes' => ['High Privacy', 'Low Haze', 'UV Protection'],
+                'metrics' => [
+                    ['value' => '99%', 'label' => 'UV Rejection'],
+                    ['value' => '62%', 'label' => 'Heat Rejection'],
+                    ['value' => '75%', 'label' => 'Infrared Rejection'],
+                ],
+            ],
+            'RF' => [
+                'code' => 'RF',
+                'name' => 'LEXENT Reflective',
+                'label' => 'Reflective Series',
+                'segment' => 'building',
+                'accent' => 'accent-rf',
+                'warranty_years' => 8,
+                'tagline' => 'Reflektif, Modern & Elegan',
+                'description' => 'LEXENT Reflective Series menghadirkan solusi kaca film dengan karakter reflektif yang dirancang untuk meningkatkan perlindungan dari panas matahari, memberikan privasi yang lebih baik, serta menciptakan tampilan modern dan elegan pada bangunan Anda.',
+                'attributes' => ['Karakter Reflektif', 'Privasi Lebih Baik', 'Tampilan Modern'],
+                'metrics' => [
+                    ['value' => '92%', 'label' => 'Infrared Rejection'],
+                    ['value' => '55%', 'label' => 'Heat Rejection'],
+                    ['value' => '90%', 'label' => 'UV Rejection'],
+                ],
+            ],
+            'HP' => [
+                'code' => 'HP',
+                'name' => 'LEXENT High Performance',
+                'label' => 'High Performance',
+                'segment' => 'building',
+                'accent' => 'accent-hp',
+                'warranty_years' => 8,
+                'tagline' => 'Ultra HD Nano Ceramic',
+                'description' => 'LEXENT High Performance hadir dengan teknologi Ultra HD Nano Ceramic terbaru yang dirancang untuk memberikan perlindungan optimal dari panas & sinar UV, dengan kejernihan tinggi untuk menghadirkan kenyamanan dan visibilitas yang lebih baik.',
+                'attributes' => ['Ultra HD Clarity', 'High Visibility', 'UV Protection'],
+                'metrics' => [
+                    ['value' => '99%', 'label' => 'UV Rejection'],
+                    ['value' => '72%', 'label' => 'Heat Rejection'],
+                    ['value' => '90%', 'label' => 'Infrared Rejection'],
+                ],
+            ],
+            'UP' => [
+                'code' => 'UP',
+                'name' => 'LEXENT Ultra Protect',
+                'label' => 'Ultra Protect',
+                'segment' => 'building',
+                'accent' => 'accent-up',
+                'warranty_years' => 8,
+                'tagline' => 'Sputter Magnetron',
+                'description' => 'LEXENT Ultra Protect hadir dengan teknologi Sputter Magnetron yang dirancang untuk memberikan perlindungan optimal dari panas dan sinar UV, sekaligus membantu mengurangi paparan sinar matahari dan meningkatkan kenyamanan serta privasi pada bangunan Anda.',
+                'attributes' => ['Maximum Heat Protection', 'IR 99% Protection', 'Enhanced Privacy', 'High Visibility Clarity'],
+                'metrics' => [
+                    ['value' => '99%', 'label' => 'UV Rejection'],
+                    ['value' => '99%', 'label' => 'Infrared Rejection'],
+                    ['value' => '76%', 'label' => 'Heat Rejection'],
+                ],
+            ],
         ];
     }
 
     /**
-     * Flat list of every VLT variant across all four series, with the exact
-     * specification figures from the catalog (VLT / VLR / TSER / UV / IRR /
-     * thickness).
+     * Flat list of every VLT variant across all eight series (both divisions),
+     * with the exact specification figures from the two printed catalogs
+     * (VLT / VLR / TSER / UV / IRR / thickness).
      */
     private function productLineup(): array
     {
@@ -84,6 +160,7 @@ class PageController extends Controller
 
         // [ series, number, vlt, vlr, tser, uv, irr, thickness ]
         $rows = [
+            // Automotive
             ['BP', '05', '5%', '8%', '62%', '99%', '75%', '1,8 mil'],
             ['BP', '18', '5%', '8%', '58%', '99%', '65%', '1,8 mil'],
             ['BP', '35', '5%', '8%', '53%', '99%', '63%', '1,8 mil'],
@@ -105,6 +182,25 @@ class PageController extends Controller
             ['IR99', '35', '36%', '5%', '77%', '99%', '99%', '2,2 mil'],
             ['IR99', '50', '51%', '6%', '73%', '99%', '99%', '2,2 mil'],
             ['IR99', '70', '72%', '6%', '72%', '99%', '99%', '2,2 mil'],
+
+            // Building
+            ['BV', '05', '5%', '8%', '62%', '99%', '75%', '1,8 mil'],
+            ['BV', '18', '5%', '8%', '58%', '99%', '65%', '1,8 mil'],
+            ['BV', '35', '5%', '8%', '53%', '99%', '63%', '1,8 mil'],
+
+            ['RF', '05', '5%', '8%', '55%', '90%', '92%', '2 mil'],
+
+            ['HP', '08', '8%', '5%', '72%', '99%', '90%', '2 mil'],
+            ['HP', '15', '15%', '5%', '70%', '99%', '90%', '2 mil'],
+            ['HP', '35', '35%', '5%', '71%', '99%', '90%', '2 mil'],
+            ['HP', '70', '70%', '5%', '71%', '99%', '90%', '2 mil'],
+
+            ['UP', '08', '8%', '6%', '76%', '99%', '99%', '2 mil'],
+            ['UP', '20', '20%', '6%', '74%', '99%', '99%', '2 mil'],
+            ['UP', '30', '28%', '6%', '73%', '99%', '99%', '2 mil'],
+            ['UP', '50', '47%', '6%', '73%', '99%', '99%', '2 mil'],
+            ['UP', '65', '58%', '6%', '72%', '99%', '99%', '2 mil'],
+            ['UP', '75', '69%', '6%', '72%', '99%', '99%', '2 mil'],
         ];
 
         $lineup = [];
@@ -127,6 +223,7 @@ class PageController extends Controller
                 'series' => $code,
                 'series_label' => $meta['label'],
                 'series_code_display' => $code . ' ' . $number,
+                'segment' => $meta['segment'],
                 'number' => $number,
                 'accent' => $meta['accent'],
                 'badge' => $meta['attributes'][0],
@@ -135,6 +232,7 @@ class PageController extends Controller
                 'short_description' => $meta['tagline'] . '. ' . $darkness . '.',
                 'attributes' => $meta['attributes'],
                 'darkness' => $darkness,
+                'warranty_years' => $meta['warranty_years'],
                 'vlt' => $vlt,
                 'vlr' => $vlr,
                 'tser' => $tser,
@@ -148,111 +246,178 @@ class PageController extends Controller
     }
 
     /**
-     * Hero slider: one slide per series, wording drawn from the catalog.
+     * Hero: one highlight slide per division (automotive / building), each
+     * drawn from that division's own catalog cover language.
      */
-    private function heroSlides(): array
-    {
-        $slides = [];
-
-        foreach ($this->seriesCatalog() as $meta) {
-            $slides[] = [
-                'code' => $meta['code'],
-                'tag' => $meta['label'],
-                'headline' => $meta['tagline'],
-                'subtext' => $meta['description'],
-                'metrics' => $meta['metrics'],
-            ];
-        }
-
-        return $slides;
-    }
-
-    /**
-     * "Why LEXENT" — conventional film vs LEXENT, using the catalog's own claims.
-     */
-    private function matrixComparison(): array
+    private function segmentHighlights(): array
     {
         return [
             [
-                'label' => 'Penolakan Sinar UV',
-                'conventional' => ['text' => 'Sekitar 50%, memudar seiring waktu', 'status' => 'cross'],
-                'lexent' => ['text' => '99% ditolak di seluruh seri', 'status' => 'check'],
+                'segment' => 'automotive',
+                'code' => 'AUTO',
+                'tag' => 'Automotive Windowfilm',
+                'headline' => 'Clarity Inside,<br><span class="highlight">Protection Outside</span>',
+                'subtext' => 'Empat seri film kaca otomotif — privasi tinggi, insulasi panas, kejernihan HD, hingga bebas gangguan sinyal. UV rejection 99% di seluruh seri, garansi resmi hingga 7 tahun.',
+                'cta_label' => 'Lihat Katalog Automotive',
+                'metrics' => [
+                    ['value' => '99%', 'label' => 'UV Rejection'],
+                    ['value' => '81%', 'label' => 'Heat Rejection'],
+                    ['value' => '7 Th', 'label' => 'Garansi'],
+                ],
             ],
             [
-                'label' => 'Penolakan Panas (TSER)',
-                'conventional' => ['text' => 'Rendah, kabin cepat panas', 'status' => 'cross'],
-                'lexent' => ['text' => 'Hingga 81% (IR99 08)', 'status' => 'check'],
-            ],
-            [
-                'label' => 'Infrared Rejection',
-                'conventional' => ['text' => 'Minim, terasa menyengat', 'status' => 'cross'],
-                'lexent' => ['text' => 'Hingga 99% (MK & IR99)', 'status' => 'check'],
-            ],
-            [
-                'label' => 'Gangguan Sinyal HP / GPS',
-                'conventional' => ['text' => 'Sering terganggu pada film metal', 'status' => 'cross'],
-                'lexent' => ['text' => 'Non-metal & bebas gangguan (MK)', 'status' => 'check'],
-            ],
-            [
-                'label' => 'Kejernihan Pandangan',
-                'conventional' => ['text' => 'Berkabut, haze meningkat', 'status' => 'cross'],
-                'lexent' => ['text' => 'Ultra-low haze, HD clarity', 'status' => 'check'],
-            ],
-            [
-                'label' => 'Garansi Resmi',
-                'conventional' => ['text' => '1–2 tahun', 'status' => 'cross'],
-                'lexent' => ['text' => 'Hingga 7 tahun', 'status' => 'check'],
+                'segment' => 'building',
+                'code' => 'BLD',
+                'tag' => 'Building Windowfilm',
+                'headline' => 'Smart Film.<br><span class="highlight">Better Buildings.</span>',
+                'subtext' => 'Empat seri film kaca gedung — kontrol panas, privasi, efisiensi energi, dan tampilan modern nan elegan. UV rejection hingga 99%, garansi resmi hingga 8 tahun.',
+                'cta_label' => 'Lihat Katalog Building',
+                'metrics' => [
+                    ['value' => '99%', 'label' => 'UV Rejection'],
+                    ['value' => '76%', 'label' => 'Heat Rejection'],
+                    ['value' => '8 Th', 'label' => 'Garansi'],
+                ],
             ],
         ];
     }
 
     /**
-     * Static official authorized dealer / workshop listing.
+     * "Why LEXENT" — conventional film vs LEXENT, one comparison set per
+     * division since the claims that matter differ (car electronics signal
+     * interference vs. building energy efficiency).
+     */
+    private function matrixComparison(): array
+    {
+        return [
+            'automotive' => [
+                [
+                    'label' => 'Penolakan Sinar UV',
+                    'conventional' => ['text' => 'Sekitar 50%, memudar seiring waktu', 'status' => 'cross'],
+                    'lexent' => ['text' => '99% ditolak di seluruh seri', 'status' => 'check'],
+                ],
+                [
+                    'label' => 'Penolakan Panas (TSER)',
+                    'conventional' => ['text' => 'Rendah, kabin cepat panas', 'status' => 'cross'],
+                    'lexent' => ['text' => 'Hingga 81% (IR99 08)', 'status' => 'check'],
+                ],
+                [
+                    'label' => 'Infrared Rejection',
+                    'conventional' => ['text' => 'Minim, terasa menyengat', 'status' => 'cross'],
+                    'lexent' => ['text' => 'Hingga 99% (MK & IR99)', 'status' => 'check'],
+                ],
+                [
+                    'label' => 'Gangguan Sinyal HP / GPS',
+                    'conventional' => ['text' => 'Sering terganggu pada film metal', 'status' => 'cross'],
+                    'lexent' => ['text' => 'Non-metal & bebas gangguan (MK)', 'status' => 'check'],
+                ],
+                [
+                    'label' => 'Kejernihan Pandangan',
+                    'conventional' => ['text' => 'Berkabut, haze meningkat', 'status' => 'cross'],
+                    'lexent' => ['text' => 'Ultra-low haze, HD clarity', 'status' => 'check'],
+                ],
+                [
+                    'label' => 'Garansi Resmi',
+                    'conventional' => ['text' => '1–2 tahun', 'status' => 'cross'],
+                    'lexent' => ['text' => 'Hingga 7 tahun', 'status' => 'check'],
+                ],
+            ],
+            'building' => [
+                [
+                    'label' => 'Penolakan Sinar UV',
+                    'conventional' => ['text' => 'Sekitar 50%, memudar seiring waktu', 'status' => 'cross'],
+                    'lexent' => ['text' => 'Hingga 99% ditolak di seluruh seri', 'status' => 'check'],
+                ],
+                [
+                    'label' => 'Penolakan Panas (TSER)',
+                    'conventional' => ['text' => 'Rendah, ruangan cepat panas', 'status' => 'cross'],
+                    'lexent' => ['text' => 'Hingga 76% (Ultra Protect)', 'status' => 'check'],
+                ],
+                [
+                    'label' => 'Efisiensi Energi',
+                    'conventional' => ['text' => 'Beban AC gedung tinggi', 'status' => 'cross'],
+                    'lexent' => ['text' => 'Beban pendinginan berkurang signifikan', 'status' => 'check'],
+                ],
+                [
+                    'label' => 'Privasi & Tampilan',
+                    'conventional' => ['text' => 'Kaca polos, kurang privat', 'status' => 'cross'],
+                    'lexent' => ['text' => 'Black Vision & Reflective — privat, modern, elegan', 'status' => 'check'],
+                ],
+                [
+                    'label' => 'Kejernihan Pandangan',
+                    'conventional' => ['text' => 'Berkabut, haze meningkat', 'status' => 'cross'],
+                    'lexent' => ['text' => 'Ultra-low haze, HD clarity', 'status' => 'check'],
+                ],
+                [
+                    'label' => 'Garansi Resmi',
+                    'conventional' => ['text' => '1–2 tahun', 'status' => 'cross'],
+                    'lexent' => ['text' => 'Hingga 8 tahun', 'status' => 'check'],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Static official authorized dealer / gallery listing, combined across
+     * both divisions — every gallery carries the full LEXENT lineup.
      */
     private function dealerList(): array
     {
         return [
             [
-                'name' => 'Lexent Gallery Sudirman',
+                'name' => 'LEXENT Gallery Sudirman',
                 'city' => 'Jakarta',
                 'address' => 'Jl. Jenderal Sudirman Kav. 52, Jakarta Selatan',
                 'phone' => '(021) 555-0177',
                 'maps_url' => 'https://maps.google.com/?q=Jl.+Jenderal+Sudirman+Kav.+52+Jakarta+Selatan',
             ],
             [
-                'name' => 'Lexent Gallery Kelapa Gading',
+                'name' => 'LEXENT Gallery Jakarta Pusat',
+                'city' => 'Jakarta',
+                'address' => 'Jl. Jenderal Sudirman No. 45, Jakarta Pusat',
+                'phone' => '(021) 555-0142',
+                'maps_url' => 'https://maps.google.com/?q=Jl.+Jenderal+Sudirman+No.+45+Jakarta+Pusat',
+            ],
+            [
+                'name' => 'LEXENT Gallery Kelapa Gading',
                 'city' => 'Jakarta',
                 'address' => 'Jl. Boulevard Raya Blok QJ No. 9, Jakarta Utara',
                 'phone' => '(021) 555-0234',
                 'maps_url' => 'https://maps.google.com/?q=Jl.+Boulevard+Raya+Blok+QJ+No.+9+Jakarta+Utara',
             ],
             [
-                'name' => 'Lexent Gallery Bandung',
+                'name' => 'LEXENT Gallery Bandung',
                 'city' => 'Bandung',
                 'address' => 'Jl. Ir. H. Djuanda No. 102, Bandung',
                 'phone' => '(022) 555-0198',
                 'maps_url' => 'https://maps.google.com/?q=Jl.+Ir.+H.+Djuanda+No.+102+Bandung',
             ],
             [
-                'name' => 'Lexent Gallery Surabaya',
+                'name' => 'LEXENT Gallery Surabaya',
                 'city' => 'Surabaya',
                 'address' => 'Jl. HR. Muhammad No. 45, Surabaya',
                 'phone' => '(031) 555-0176',
                 'maps_url' => 'https://maps.google.com/?q=Jl.+HR.+Muhammad+No.+45+Surabaya',
             ],
             [
-                'name' => 'Lexent Gallery Medan',
+                'name' => 'LEXENT Gallery Medan',
                 'city' => 'Medan',
                 'address' => 'Jl. Gatot Subroto No. 23, Medan',
                 'phone' => '(061) 555-0142',
                 'maps_url' => 'https://maps.google.com/?q=Jl.+Gatot+Subroto+No.+23+Medan',
             ],
             [
-                'name' => 'Lexent Gallery Semarang',
+                'name' => 'LEXENT Gallery Semarang',
                 'city' => 'Semarang',
                 'address' => 'Jl. Pandanaran No. 67, Semarang',
                 'phone' => '(024) 555-0189',
                 'maps_url' => 'https://maps.google.com/?q=Jl.+Pandanaran+No.+67+Semarang',
+            ],
+            [
+                'name' => 'LEXENT Gallery Denpasar',
+                'city' => 'Denpasar',
+                'address' => 'Jl. Sunset Road No. 21, Denpasar',
+                'phone' => '(0361) 555-0133',
+                'maps_url' => 'https://maps.google.com/?q=Jl.+Sunset+Road+No.+21+Denpasar',
             ],
         ];
     }
@@ -263,7 +428,7 @@ class PageController extends Controller
             'series' => array_values($this->seriesCatalog()),
             'products' => $this->productLineup(),
             'dealers' => $this->dealerList(),
-            'slides' => $this->heroSlides(),
+            'highlights' => $this->segmentHighlights(),
             'matrix' => $this->matrixComparison(),
         ]);
     }

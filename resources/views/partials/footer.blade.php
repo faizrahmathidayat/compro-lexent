@@ -4,9 +4,9 @@
             <div>
                 <div class="footer-logo">LEX<span>ENT</span></div>
                 <p class="footer-about">
-                    Superior Windowfilm Solution. LEXENT menghadirkan kaca film otomotif
-                    dengan penolakan panas &amp; sinar UV hingga 99%, kejernihan tinggi,
-                    dan garansi resmi hingga 7 tahun.
+                    Superior Windowfilm Solution. LEXENT menghadirkan kaca film untuk
+                    Automotive &amp; Building dengan penolakan panas &amp; sinar UV hingga
+                    99%, kejernihan tinggi, dan garansi resmi hingga 8 tahun.
                 </p>
                 <div class="footer-social">
                     <a href="#" aria-label="Instagram">IG</a>
@@ -26,11 +26,9 @@
             </div>
 
             <div class="footer-col">
-                <h5>Seri Film</h5>
-                <a href="{{ route('products.show', 'bp-05') }}">LEXENT BP Series</a>
-                <a href="{{ route('products.show', 'ht-08') }}">LEXENT HT Series</a>
-                <a href="{{ route('products.show', 'mk-08') }}">LEXENT MK Series</a>
-                <a href="{{ route('products.show', 'ir99-08') }}">LEXENT IR99 Series</a>
+                <h5>Kategori Produk</h5>
+                <a href="{{ route('products.index', ['segment' => 'automotive']) }}">Automotive</a>
+                <a href="{{ route('products.index', ['segment' => 'building']) }}">Building</a>
             </div>
 
             <div class="footer-col">

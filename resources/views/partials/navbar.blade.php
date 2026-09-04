@@ -5,7 +5,15 @@
         <nav class="navbar-links" id="navbarLinks">
             <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'is-active' : '' }}">Home</a>
             <a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'is-active' : '' }}">About</a>
-            <a href="{{ route('products.index') }}" class="{{ request()->routeIs('products.*') ? 'is-active' : '' }}">Produk</a>
+
+            <div class="navbar-dropdown">
+                <a href="{{ route('products.index') }}" class="{{ request()->routeIs('products.*') ? 'is-active' : '' }}">Produk</a>
+                <div class="navbar-dropdown-menu">
+                    <a href="{{ route('products.index', ['segment' => 'automotive']) }}">Automotive</a>
+                    <a href="{{ route('products.index', ['segment' => 'building']) }}">Building</a>
+                </div>
+            </div>
+
             <a href="{{ route('dealers') }}" class="{{ request()->routeIs('dealers') ? 'is-active' : '' }}">Dealer</a>
             <a href="{{ route('cek-garansi') }}" class="{{ request()->routeIs('cek-garansi') ? 'is-active' : '' }}">Cek Garansi</a>
         </nav>

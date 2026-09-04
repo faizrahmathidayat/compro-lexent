@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'LEXENT')
-@section('meta_description', 'LEXENT - kaca film otomotif premium dengan empat seri: BP, HT, MK, dan IR99. UV rejection 99%, infrared rejection hingga 99%, garansi resmi hingga 7 tahun.')
+@section('meta_description', 'LEXENT - Superior Windowfilm Solution untuk Automotive & Building. Delapan seri, 32 varian VLT. UV rejection hingga 99%, heat rejection hingga 81%, garansi resmi hingga 8 tahun.')
 
 @section('content')
 
@@ -9,14 +9,14 @@
     <section class="hero" id="heroSection">
         <div class="container hero-slider">
             <div class="hero-slides" id="heroSlides">
-                @foreach($slides as $i => $slide)
+                @foreach($highlights as $i => $slide)
                     <div class="hero-slide {{ $i === 0 ? 'is-active' : '' }}" data-index="{{ $i }}">
                         <span class="hero-slide-badge">{{ $slide['tag'] }}</span>
-                        <h1 class="hero-slide-title">Clarity Inside,<br><span class="highlight">Protection Outside</span></h1>
+                        <h1 class="hero-slide-title">{!! $slide['headline'] !!}</h1>
                         <p class="hero-slide-subtext">{{ $slide['subtext'] }}</p>
 
                         <div class="hero-slide-actions">
-                            <a href="{{ route('products.index') }}" class="btn btn-gold">Lihat Seri {{ $slide['code'] }}</a>
+                            <a href="{{ route('products.index', ['segment' => $slide['segment']]) }}" class="btn btn-gold">{{ $slide['cta_label'] }}</a>
                             <a href="{{ route('dealers') }}" class="btn btn-outline">Cari Dealer Resmi</a>
                         </div>
 
@@ -33,7 +33,7 @@
             </div>
 
             <div class="hero-visual hud-frame" id="heroVisual">
-                @foreach($slides as $i => $slide)
+                @foreach($highlights as $i => $slide)
                     <div class="hero-visual-frame {{ $i === 0 ? 'is-active' : '' }}" data-index="{{ $i }}">
                         <div class="hero-visual-code">{{ $slide['code'] }}</div>
                         <div class="hero-visual-tag">{{ $slide['tag'] }}</div>
@@ -44,7 +44,7 @@
             <div class="hero-controls">
                 <button type="button" class="hero-arrow hero-arrow-prev" id="heroPrev" aria-label="Slide sebelumnya">&#8249;</button>
                 <div class="hero-slider-dots" id="heroDots">
-                    @foreach($slides as $i => $slide)
+                    @foreach($highlights as $i => $slide)
                         <button type="button" class="hero-dot {{ $i === 0 ? 'is-active' : '' }}" data-index="{{ $i }}" aria-label="Ke slide {{ $i + 1 }}"></button>
                     @endforeach
                 </div>
@@ -58,17 +58,18 @@
         <div class="container about-grid">
             <div>
                 <span class="eyebrow">Superior Windowfilm Solution</span>
-                <h2 class="section-title">Enhance Comfort. Protect What Matters. Elevate Every Drive.</h2>
+                <h2 class="section-title">Enhance Comfort. Protect What Matters. Elevate Every Space.</h2>
                 <p class="section-subtitle" style="margin-bottom: var(--space-3);">
-                    LEXENT dirancang untuk satu tujuan: setiap perjalanan terasa lebih sejuk,
-                    lebih jernih, dan lebih terlindungi. Empat seri film &mdash; BP, HT, MK,
-                    dan IR99 &mdash; menutup kebutuhan dari privasi maksimal hingga kejernihan
-                    optik tertinggi, semuanya dengan penolakan sinar UV 99%.
+                    LEXENT hadir untuk dua dunia: kendaraan dan gedung. Delapan seri film
+                    &mdash; empat untuk Automotive (BP, HT, MK, IR99) dan empat untuk Building
+                    (Black Vision, Reflective, High Performance, Ultra Protect) &mdash; menutup
+                    kebutuhan dari privasi maksimal hingga efisiensi energi, semuanya dengan
+                    penolakan sinar UV hingga 99%.
                 </p>
                 <ul class="about-list">
-                    <li><span class="check-dot">&#10003;</span> <span><b>UV Rejection s/d 99%</b> &mdash; melindungi kulit dan interior dari radiasi ultraviolet.</span></li>
-                    <li><span class="check-dot">&#10003;</span> <span><b>Heat &amp; Infrared Rejection tinggi</b> &mdash; menahan panas sebelum menembus kabin.</span></li>
-                    <li><span class="check-dot">&#10003;</span> <span><b>Nano Ceramic &amp; Magnetron Sputter</b> &mdash; jernih, low haze, dan tidak mengganggu sinyal.</span></li>
+                    <li><span class="check-dot">&#10003;</span> <span><b>UV Rejection s/d 99%</b> &mdash; melindungi kulit dan interior, di kendaraan maupun gedung, dari radiasi ultraviolet.</span></li>
+                    <li><span class="check-dot">&#10003;</span> <span><b>Heat &amp; Infrared Rejection tinggi</b> &mdash; menahan panas sebelum menembus kabin atau ruangan.</span></li>
+                    <li><span class="check-dot">&#10003;</span> <span><b>Nano Ceramic &amp; Magnetron Sputter</b> &mdash; jernih, low haze, dan performa konsisten di kedua lini.</span></li>
                 </ul>
             </div>
 
@@ -83,16 +84,20 @@
         <div class="container">
             <div class="section-head">
                 <span class="eyebrow">Product Lineup</span>
-                <h2 class="section-title">Empat Seri, Satu Standar</h2>
+                <h2 class="section-title">Delapan Seri, Dua Lini, Satu Standar</h2>
                 <p class="section-subtitle">
                     Setiap seri LEXENT dibangun di atas teknologi yang berbeda &mdash; pilih
-                    sesuai prioritas Anda: privasi, insulasi panas, kejernihan, atau bebas
-                    gangguan sinyal.
+                    sesuai kebutuhan Anda: kendaraan atau gedung, privasi, insulasi panas,
+                    kejernihan, atau efisiensi energi.
                 </p>
             </div>
 
-            <div class="product-grid">
+            <div class="section-head" style="margin-bottom: var(--space-3);">
+                <span class="eyebrow">Automotive</span>
+            </div>
+            <div class="product-grid" style="margin-bottom: var(--space-5);">
                 @foreach($series as $s)
+                    @continue($s['segment'] !== 'automotive')
                     <div class="product-card">
                         <span class="product-badge">{{ count($s['attributes']) }} Keunggulan</span>
                         <div class="product-visual {{ $s['accent'] }}" data-series="{{ $s['label'] }}">{{ $s['code'] }}</div>
@@ -109,7 +114,34 @@
                             @endforeach
                         </div>
 
-                        <a href="{{ route('products.index') }}" class="btn btn-outline btn-block">Lihat Varian</a>
+                        <a href="{{ route('products.index', ['segment' => 'automotive']) }}" class="btn btn-outline btn-block">Lihat Varian</a>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="section-head" style="margin-bottom: var(--space-3);">
+                <span class="eyebrow">Building</span>
+            </div>
+            <div class="product-grid">
+                @foreach($series as $s)
+                    @continue($s['segment'] !== 'building')
+                    <div class="product-card">
+                        <span class="product-badge">{{ count($s['attributes']) }} Keunggulan</span>
+                        <div class="product-visual {{ $s['accent'] }}" data-series="{{ $s['label'] }}">{{ $s['code'] }}</div>
+                        <h3>{{ $s['name'] }}</h3>
+                        <div class="product-tagline">{{ $s['tagline'] }}</div>
+                        <p class="product-desc">{{ $s['description'] }}</p>
+
+                        <div class="spec-meters">
+                            @foreach($s['metrics'] as $metric)
+                                <div class="spec-meter-head">
+                                    <span>{{ $metric['label'] }}</span>
+                                    <b>{{ $metric['value'] }}</b>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <a href="{{ route('products.index', ['segment' => 'building']) }}" class="btn btn-outline btn-block">Lihat Varian</a>
                     </div>
                 @endforeach
             </div>
@@ -127,26 +159,33 @@
                 </p>
             </div>
 
-            <div class="matrix">
-                <div class="matrix-row matrix-head">
-                    <div class="matrix-cell is-label">Parameter</div>
-                    <div class="matrix-cell is-conventional">Kaca Film Biasa</div>
-                    <div class="matrix-cell is-lexent">LEXENT</div>
-                </div>
-                @foreach($matrix as $row)
-                    <div class="matrix-row">
-                        <div class="matrix-cell is-label">{{ $row['label'] }}</div>
-                        <div class="matrix-cell is-conventional">
-                            <span class="matrix-icon is-cross">&#10005;</span>
-                            <span>{{ $row['conventional']['text'] }}</span>
-                        </div>
-                        <div class="matrix-cell is-lexent">
-                            <span class="matrix-icon is-check">&#10003;</span>
-                            <span>{{ $row['lexent']['text'] }}</span>
-                        </div>
-                    </div>
-                @endforeach
+            <div class="tab-switcher" id="matrixSwitcher">
+                <button type="button" class="tab-btn is-active" data-tab="automotive">Automotive</button>
+                <button type="button" class="tab-btn" data-tab="building">Building</button>
             </div>
+
+            @foreach($matrix as $segment => $rows)
+                <div class="matrix tab-panel {{ $segment === 'automotive' ? 'is-active' : '' }}" data-tab-panel="{{ $segment }}">
+                    <div class="matrix-row matrix-head">
+                        <div class="matrix-cell is-label">Parameter</div>
+                        <div class="matrix-cell is-conventional">Kaca Film Biasa</div>
+                        <div class="matrix-cell is-lexent">LEXENT</div>
+                    </div>
+                    @foreach($rows as $row)
+                        <div class="matrix-row">
+                            <div class="matrix-cell is-label">{{ $row['label'] }}</div>
+                            <div class="matrix-cell is-conventional">
+                                <span class="matrix-icon is-cross">&#10005;</span>
+                                <span>{{ $row['conventional']['text'] }}</span>
+                            </div>
+                            <div class="matrix-cell is-lexent">
+                                <span class="matrix-icon is-check">&#10003;</span>
+                                <span>{{ $row['lexent']['text'] }}</span>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endforeach
         </div>
     </section>
 
@@ -167,7 +206,7 @@
             <div class="simulator-controls">
                 <span class="eyebrow">Interactive Preview</span>
                 <h3>Simulasi Tingkat Kegelapan (VLT)</h3>
-                <p>Bandingkan tampak luar dan tampak dalam pada beberapa nilai VLT LEXENT.</p>
+                <p>Bandingkan tampak luar dan tampak dalam pada beberapa nilai VLT LEXENT &mdash; berlaku untuk kaca kendaraan maupun gedung.</p>
 
                 <div class="tint-options" id="tintOptions">
                     <button type="button" class="tint-option" data-tint="5">VLT 5%</button>
@@ -187,9 +226,11 @@
         <div class="container">
             <div class="section-head">
                 <span class="eyebrow">Dealer Locator</span>
-                <h2 class="section-title">Dealer &amp; Workshop Resmi LEXENT</h2>
+                <h2 class="section-title">Dealer &amp; Gallery Resmi LEXENT</h2>
                 <p class="section-subtitle">
-                    Pemasangan hanya oleh installer resmi bersertifikat LEXENT agar garansi tetap berlaku.
+                    Setiap gallery resmi LEXENT melayani pemasangan lini Automotive maupun
+                    Building. Pemasangan hanya oleh installer resmi bersertifikat agar
+                    garansi tetap berlaku.
                 </p>
             </div>
 
@@ -225,18 +266,19 @@
             <div class="glass">
                 <div>
                     <span class="eyebrow">Official Warranty</span>
-                    <h2 class="section-title" style="font-size: 1.9rem;">Garansi Resmi Hingga 7 Tahun</h2>
+                    <h2 class="section-title" style="font-size: 1.9rem;">Garansi Resmi Hingga 8 Tahun</h2>
                     <p style="color: var(--text-muted);">
-                        Setiap film LEXENT yang dipasang di jaringan dealer resmi dilindungi
-                        garansi resmi hingga 7 tahun, tercatat sejak hari pemasangan dan dapat
-                        diverifikasi kapan saja secara online.
+                        Setiap film LEXENT yang dipasang di jaringan gallery resmi dilindungi
+                        garansi resmi &mdash; hingga 7 tahun untuk lini Automotive, dan hingga
+                        8 tahun untuk lini Building &mdash; tercatat sejak hari pemasangan dan
+                        dapat diverifikasi kapan saja secara online.
                     </p>
 
                     <div class="warranty-points">
-                        <div><span class="check-dot">&#10003;</span> <span>Garansi hingga 7 tahun</span></div>
+                        <div><span class="check-dot">&#10003;</span> <span>Automotive hingga 7 tahun</span></div>
+                        <div><span class="check-dot">&#10003;</span> <span>Building hingga 8 tahun</span></div>
                         <div><span class="check-dot">&#10003;</span> <span>Verifikasi kode online</span></div>
-                        <div><span class="check-dot">&#10003;</span> <span>Klaim di seluruh dealer resmi</span></div>
-                        <div><span class="check-dot">&#10003;</span> <span>Terdaftar sejak pemasangan</span></div>
+                        <div><span class="check-dot">&#10003;</span> <span>Klaim di seluruh gallery resmi</span></div>
                     </div>
                 </div>
 
@@ -314,6 +356,24 @@
 
             goTo(0);
             startAutoplay();
+        })();
+
+        (function () {
+            var buttons = document.querySelectorAll('#matrixSwitcher .tab-btn');
+            var panels = document.querySelectorAll('.matrix.tab-panel');
+
+            buttons.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var tab = btn.getAttribute('data-tab');
+
+                    buttons.forEach(function (b) { b.classList.remove('is-active'); });
+                    btn.classList.add('is-active');
+
+                    panels.forEach(function (panel) {
+                        panel.classList.toggle('is-active', panel.getAttribute('data-tab-panel') === tab);
+                    });
+                });
+            });
         })();
 
         (function () {

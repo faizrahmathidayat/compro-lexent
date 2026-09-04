@@ -32,6 +32,7 @@
                         <div class="spec-meter-head"><span>UV Rejection</span> <b>{{ $product['uv'] }}</b></div>
                         <div class="spec-meter-head"><span>IRR Rejection (Infrared)</span> <b>{{ $product['irr'] }}</b></div>
                         <div class="spec-meter-head"><span>Thickness</span> <b>{{ $product['thickness'] }}</b></div>
+                        <div class="spec-meter-head"><span>Garansi Resmi</span> <b>{{ $product['warranty_years'] }} Tahun</b></div>
                     </div>
 
                     <div class="hero-slide-actions" style="margin-top: var(--space-4);">

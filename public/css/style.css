@@ -64,6 +64,12 @@ button {
     --mk: #1877e0;
     --ir: #7a1c2b;
 
+    /* Building-division series accents */
+    --bv: #1d2c60;
+    --rf: #4a505e;
+    --hp: #c98a1f;
+    --up: #2a2f3d;
+
     --paper: #eef0f3;
     --paper-raised: #f7f8fa;
     --paper-line: #cdd1d8;
@@ -344,6 +350,41 @@ section {
     width: 100%;
     height: 2px;
     background: var(--gold);
+}
+
+.navbar-dropdown {
+    position: relative;
+}
+
+.navbar-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 10px;
+    min-width: 170px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px;
+    background: rgba(9, 9, 10, 0.97);
+    border: 1px solid var(--hairline);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    transition: opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast);
+}
+
+.navbar-dropdown:hover .navbar-dropdown-menu,
+.navbar-dropdown:focus-within .navbar-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.navbar-dropdown-menu a {
+    padding: 8px 10px;
+    white-space: nowrap;
+    font-size: 0.86rem;
 }
 
 .navbar-cta {
@@ -747,6 +788,14 @@ section {
     display: block;
 }
 
+.series-filter button.is-hidden-filter {
+    display: none;
+}
+
+.tab-panel.is-active {
+    display: block;
+}
+
 /* ---------- Product segments ---------- */
 .product-segment + .product-segment {
     margin-top: var(--space-6);
@@ -844,6 +893,10 @@ section {
 .product-visual.accent-ht { background: linear-gradient(150deg, #7a5a13, var(--ht)); color: #1a1205; }
 .product-visual.accent-mk { background: linear-gradient(150deg, #0f4787, var(--mk)); }
 .product-visual.accent-ir { background: linear-gradient(150deg, #4a1019, var(--ir)); }
+.product-visual.accent-bv { background: linear-gradient(150deg, #12193f, var(--bv)); }
+.product-visual.accent-rf { background: linear-gradient(150deg, #2b2f39, var(--rf)); }
+.product-visual.accent-hp { background: linear-gradient(150deg, #7a5c16, var(--hp)); color: #1a1405; }
+.product-visual.accent-up { background: linear-gradient(150deg, #12141c, var(--up)); }
 
 .product-card h3 {
     font-size: 1.5rem;
@@ -1495,6 +1548,10 @@ section {
 .product-detail-visual.accent-ht { background: linear-gradient(150deg, #7a5a13, var(--ht)); color: #1a1205; }
 .product-detail-visual.accent-mk { background: linear-gradient(150deg, #0f4787, var(--mk)); }
 .product-detail-visual.accent-ir { background: linear-gradient(150deg, #4a1019, var(--ir)); }
+.product-detail-visual.accent-bv { background: linear-gradient(150deg, #12193f, var(--bv)); }
+.product-detail-visual.accent-rf { background: linear-gradient(150deg, #2b2f39, var(--rf)); }
+.product-detail-visual.accent-hp { background: linear-gradient(150deg, #7a5c16, var(--hp)); color: #1a1405; }
+.product-detail-visual.accent-up { background: linear-gradient(150deg, #12141c, var(--up)); }
 
 .product-detail-meters {
     display: flex;
@@ -1653,6 +1710,21 @@ section {
     .navbar-links.is-open {
         opacity: 1;
         visibility: visible;
+    }
+
+    .navbar-dropdown {
+        width: 100%;
+    }
+
+    .navbar-dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        margin-top: 6px;
+        padding: 0 0 0 var(--space-2);
+        background: transparent;
+        border: none;
     }
 
     .navbar-toggle {

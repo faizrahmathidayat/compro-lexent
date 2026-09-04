@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Dealer')
-@section('meta_description', 'Temukan dealer dan workshop resmi LEXENT di seluruh Indonesia. Pemasangan oleh installer bersertifikat agar garansi tetap berlaku.')
+@section('meta_description', 'Temukan gallery resmi LEXENT untuk Automotive & Building di seluruh Indonesia. Pemasangan oleh installer bersertifikat agar garansi tetap berlaku.')
 
 @section('content')
 

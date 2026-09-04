@@ -1,29 +1,35 @@
 @extends('layouts.app')
 
 @section('title', 'Produk')
-@section('meta_description', 'Katalog lengkap kaca film otomotif LEXENT - 18 varian VLT dari seri BP, HT, MK, dan IR99 beserta spesifikasi resminya.')
+@section('meta_description', 'Katalog lengkap kaca film LEXENT - 32 varian VLT dari delapan seri, dua kategori: Automotive (BP, HT, MK, IR99) dan Building (Black Vision, Reflective, High Performance, Ultra Protect).')
 
 @section('content')
 
     <section class="page-header">
         <div class="container">
             <span class="eyebrow">Product Lineup</span>
-            <h1 class="section-title">Katalog Film Otomotif LEXENT</h1>
+            <h1 class="section-title">Katalog Film LEXENT</h1>
         </div>
     </section>
 
     <section style="padding-top: 0;">
         <div class="container">
+            <div class="series-filter" id="segmentFilter">
+                <button type="button" class="is-active" data-segment="all">Semua Kategori</button>
+                <button type="button" data-segment="automotive">Automotive</button>
+                <button type="button" data-segment="building">Building</button>
+            </div>
+
             <div class="series-filter" id="seriesFilter">
-                <button type="button" class="is-active" data-series="all">Semua</button>
+                <button type="button" class="is-active" data-series="all">Semua Seri</button>
                 @foreach($series as $s)
-                    <button type="button" data-series="{{ $s['code'] }}">{{ $s['label'] }}</button>
+                    <button type="button" data-series="{{ $s['code'] }}" data-segment="{{ $s['segment'] }}">{{ $s['label'] }}</button>
                 @endforeach
             </div>
 
             <div class="product-grid" id="productGrid">
                 @foreach($products as $product)
-                    <div class="product-card" data-series="{{ $product['series'] }}">
+                    <div class="product-card" data-series="{{ $product['series'] }}" data-segment="{{ $product['segment'] }}">
                         <span class="product-badge">{{ $product['badge'] }}</span>
                         <div class="product-visual {{ $product['accent'] }}" data-series="{{ $product['series_label'] }}">{{ $product['number'] }}</div>
                         <h3>{{ $product['name'] }}</h3>
@@ -43,7 +49,7 @@
             </div>
 
             <p id="productEmpty" class="section-subtitle" style="display: none; text-align: center; margin: var(--space-4) auto 0;">
-                Tidak ada varian untuk seri ini.
+                Tidak ada varian untuk pilihan ini.
             </p>
         </div>
     </section>
@@ -53,27 +59,72 @@
 @section('scripts')
     <script>
         (function () {
-            var buttons = document.querySelectorAll('#seriesFilter button');
+            var segmentButtons = document.querySelectorAll('#segmentFilter button');
+            var seriesButtons = document.querySelectorAll('#seriesFilter button');
             var cards = document.querySelectorAll('#productGrid .product-card');
             var empty = document.getElementById('productEmpty');
 
-            buttons.forEach(function (btn) {
-                btn.addEventListener('click', function () {
+            var currentSegment = 'all';
+            var currentSeries = 'all';
+
+            function applyFilters() {
+                var visible = 0;
+
+                cards.forEach(function (card) {
+                    var matchSegment = currentSegment === 'all' || card.getAttribute('data-segment') === currentSegment;
+                    var matchSeries = currentSeries === 'all' || card.getAttribute('data-series') === currentSeries;
+                    var match = matchSegment && matchSeries;
+                    card.style.display = match ? '' : 'none';
+                    if (match) { visible++; }
+                });
+
+                empty.style.display = visible === 0 ? 'block' : 'none';
+            }
+
+            function refreshSeriesVisibility() {
+                seriesButtons.forEach(function (btn) {
                     var series = btn.getAttribute('data-series');
-                    var visible = 0;
+                    var segment = btn.getAttribute('data-segment');
+                    var show = series === 'all' || currentSegment === 'all' || segment === currentSegment;
+                    btn.classList.toggle('is-hidden-filter', !show);
+                });
+            }
 
-                    buttons.forEach(function (b) { b.classList.remove('is-active'); });
-                    btn.classList.add('is-active');
+            function setSegment(segment) {
+                currentSegment = segment;
+                currentSeries = 'all';
 
-                    cards.forEach(function (card) {
-                        var match = series === 'all' || card.getAttribute('data-series') === series;
-                        card.style.display = match ? '' : 'none';
-                        if (match) { visible++; }
-                    });
+                segmentButtons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-segment') === segment); });
+                seriesButtons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-series') === 'all'); });
 
-                    empty.style.display = visible === 0 ? 'block' : 'none';
+                refreshSeriesVisibility();
+                applyFilters();
+            }
+
+            function setSeries(series) {
+                currentSeries = series;
+                seriesButtons.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-series') === series); });
+                applyFilters();
+            }
+
+            segmentButtons.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    setSegment(btn.getAttribute('data-segment'));
                 });
             });
+
+            seriesButtons.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    setSeries(btn.getAttribute('data-series'));
+                });
+            });
+
+            var requestedSegment = new URLSearchParams(window.location.search).get('segment');
+            if (requestedSegment === 'automotive' || requestedSegment === 'building') {
+                setSegment(requestedSegment);
+            } else {
+                refreshSeriesVisibility();
+            }
         })();
     </script>
 @endsection
