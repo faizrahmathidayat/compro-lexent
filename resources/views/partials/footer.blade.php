@@ -2,7 +2,9 @@
     <div class="container">
         <div class="footer-grid">
             <div>
-                <div class="footer-logo">LEX<span>ENT</span></div>
+                <div class="footer-logo">
+                    <img src="{{ asset('images/lexent-logo.png') }}" alt="LEXENT">
+                </div>
                 <p class="footer-about">
                     Superior Windowfilm Solution. LEXENT menghadirkan kaca film untuk
                     Automotive &amp; Building dengan penolakan panas &amp; sinar UV hingga
