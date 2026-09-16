@@ -17,7 +17,6 @@
 
                         <div class="hero-slide-actions">
                             <a href="{{ route('products.index', ['segment' => $slide['segment']]) }}" class="btn btn-gold">{{ $slide['cta_label'] }}</a>
-                            <a href="{{ route('dealers') }}" class="btn btn-outline">Cari Dealer Resmi</a>
                         </div>
 
                         <div class="hero-metrics">
@@ -221,41 +220,32 @@
         </div>
     </section>
 
-    {{-- ============================= DEALER LOCATOR ============================= --}}
+    {{-- ============================= ALAMAT ============================= --}}
     <section id="dealers">
         <div class="container">
             <div class="section-head">
-                <span class="eyebrow">Dealer Locator</span>
-                <h2 class="section-title">Dealer &amp; Gallery Resmi LEXENT</h2>
+                <span class="eyebrow">Alamat</span>
+                <h2 class="section-title">Lokasi Kantor LEXENT</h2>
                 <p class="section-subtitle">
-                    Setiap gallery resmi LEXENT melayani pemasangan lini Automotive maupun
-                    Building. Pemasangan hanya oleh installer resmi bersertifikat agar
-                    garansi tetap berlaku.
+                    Kunjungi kantor resmi LEXENT untuk konsultasi produk Automotive maupun
+                    Building Windowfilm.
                 </p>
             </div>
 
-            <div class="dealer-filter" id="dealerFilter">
-                <button type="button" class="is-active" data-city="all">Semua Kota</button>
-                @foreach(collect($dealers)->pluck('city')->unique() as $city)
-                    <button type="button" data-city="{{ $city }}">{{ $city }}</button>
-                @endforeach
+            <div class="map-embed" style="margin-bottom: var(--space-3);">
+                <iframe src="{{ $address['maps_embed'] }}" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Lokasi {{ $address['name'] }}"></iframe>
             </div>
 
-            <div class="dealer-list" id="dealerGrid">
-                @foreach($dealers as $dealer)
-                    <div class="dealer-card-h glass" data-city="{{ $dealer['city'] }}">
-                        <div class="dealer-main">
-                            <span class="dealer-outlet-badge">Official Outlet</span>
-                            <div class="dealer-info">
-                                <span class="dealer-city">{{ $dealer['city'] }}</span>
-                                <h4>{{ $dealer['name'] }}</h4>
-                                <p>{{ $dealer['address'] }}</p>
-                                <p>{{ $dealer['phone'] }}</p>
-                            </div>
-                        </div>
-                        <a href="{{ $dealer['maps_url'] }}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Buka Peta</a>
+            <div class="dealer-card-h glass">
+                <div class="dealer-main">
+                    <div class="dealer-info">
+                        <h4>{{ $address['name'] }}</h4>
+                        <p>{{ $address['address'] }}</p>
+                        <p>{{ $address['phone'] }}</p>
+                        <p>{{ $address['email'] }}</p>
                     </div>
-                @endforeach
+                </div>
+                <a href="{{ $address['maps_url'] }}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Buka Peta</a>
             </div>
         </div>
     </section>
@@ -284,7 +274,6 @@
 
                 <div class="warranty-actions">
                     <a href="{{ route('cek-garansi') }}" class="btn btn-gold">Cek Garansi Saya</a>
-                    <a href="{{ route('dealers') }}" class="btn btn-outline">Hubungi Kami</a>
                 </div>
             </div>
         </div>
@@ -399,25 +388,6 @@
             });
 
             applyTint(35);
-        })();
-
-        (function () {
-            var filterButtons = document.querySelectorAll('#dealerFilter button');
-            var dealerCards = document.querySelectorAll('#dealerGrid .dealer-card-h');
-
-            filterButtons.forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    var city = btn.getAttribute('data-city');
-
-                    filterButtons.forEach(function (b) { b.classList.remove('is-active'); });
-                    btn.classList.add('is-active');
-
-                    dealerCards.forEach(function (card) {
-                        var match = city === 'all' || card.getAttribute('data-city') === city;
-                        card.classList.toggle('is-hidden', !match);
-                    });
-                });
-            });
         })();
     </script>
 @endsection

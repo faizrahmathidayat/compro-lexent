@@ -26,12 +26,10 @@
                 </div>
             </div>
 
-            <a href="{{ route('dealers') }}" class="{{ request()->routeIs('dealers') ? 'is-active' : '' }}">Dealer</a>
             <a href="{{ route('cek-garansi') }}" class="{{ request()->routeIs('cek-garansi') ? 'is-active' : '' }}">Cek Garansi</a>
         </nav>
 
         <div class="navbar-cta">
-            <a href="{{ route('dealers') }}" class="btn btn-gold">Cari Dealer</a>
             <button type="button" class="navbar-toggle" id="navbarToggle" aria-label="Buka menu">
                 <span></span><span></span><span></span>
             </button>

@@ -445,68 +445,18 @@ class PageController extends Controller
     }
 
     /**
-     * Static official authorized dealer / gallery listing, combined across
-     * both divisions — every gallery carries the full LEXENT lineup.
+     * LEXENT's single office address, shared by the homepage and the
+     * address/location page.
      */
-    private function dealerList(): array
+    private function companyAddress(): array
     {
         return [
-            [
-                'name' => 'LEXENT Gallery Sudirman',
-                'city' => 'Jakarta',
-                'address' => 'Jl. Jenderal Sudirman Kav. 52, Jakarta Selatan',
-                'phone' => '(021) 555-0177',
-                'maps_url' => 'https://maps.google.com/?q=Jl.+Jenderal+Sudirman+Kav.+52+Jakarta+Selatan',
-            ],
-            [
-                'name' => 'LEXENT Gallery Jakarta Pusat',
-                'city' => 'Jakarta',
-                'address' => 'Jl. Jenderal Sudirman No. 45, Jakarta Pusat',
-                'phone' => '(021) 555-0142',
-                'maps_url' => 'https://maps.google.com/?q=Jl.+Jenderal+Sudirman+No.+45+Jakarta+Pusat',
-            ],
-            [
-                'name' => 'LEXENT Gallery Kelapa Gading',
-                'city' => 'Jakarta',
-                'address' => 'Jl. Boulevard Raya Blok QJ No. 9, Jakarta Utara',
-                'phone' => '(021) 555-0234',
-                'maps_url' => 'https://maps.google.com/?q=Jl.+Boulevard+Raya+Blok+QJ+No.+9+Jakarta+Utara',
-            ],
-            [
-                'name' => 'LEXENT Gallery Bandung',
-                'city' => 'Bandung',
-                'address' => 'Jl. Ir. H. Djuanda No. 102, Bandung',
-                'phone' => '(022) 555-0198',
-                'maps_url' => 'https://maps.google.com/?q=Jl.+Ir.+H.+Djuanda+No.+102+Bandung',
-            ],
-            [
-                'name' => 'LEXENT Gallery Surabaya',
-                'city' => 'Surabaya',
-                'address' => 'Jl. HR. Muhammad No. 45, Surabaya',
-                'phone' => '(031) 555-0176',
-                'maps_url' => 'https://maps.google.com/?q=Jl.+HR.+Muhammad+No.+45+Surabaya',
-            ],
-            [
-                'name' => 'LEXENT Gallery Medan',
-                'city' => 'Medan',
-                'address' => 'Jl. Gatot Subroto No. 23, Medan',
-                'phone' => '(061) 555-0142',
-                'maps_url' => 'https://maps.google.com/?q=Jl.+Gatot+Subroto+No.+23+Medan',
-            ],
-            [
-                'name' => 'LEXENT Gallery Semarang',
-                'city' => 'Semarang',
-                'address' => 'Jl. Pandanaran No. 67, Semarang',
-                'phone' => '(024) 555-0189',
-                'maps_url' => 'https://maps.google.com/?q=Jl.+Pandanaran+No.+67+Semarang',
-            ],
-            [
-                'name' => 'LEXENT Gallery Denpasar',
-                'city' => 'Denpasar',
-                'address' => 'Jl. Sunset Road No. 21, Denpasar',
-                'phone' => '(0361) 555-0133',
-                'maps_url' => 'https://maps.google.com/?q=Jl.+Sunset+Road+No.+21+Denpasar',
-            ],
+            'name' => 'LEXENT Head Office',
+            'address' => 'Ruko La Valle, Citra Garden Serpong No.66 Blk B17, Cisauk, Kec. Cisauk, Kota Tangerang Selatan, Banten 15341, Indonesia',
+            'phone' => '0858-8889-9558',
+            'email' => 'hello@lexent.id',
+            'maps_embed' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4753655034965!2d106.63194417430039!3d-6.332406361958469!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fb4567030f6b%3A0x77e8113c85538a54!2sGLOSSPRO.ID!5e0!3m2!1sid!2sid!4v1789568261883!5m2!1sid!2sid',
+            'maps_url' => 'https://maps.app.goo.gl/yvcZmGWbMYfv8YU96',
         ];
     }
 
@@ -515,7 +465,7 @@ class PageController extends Controller
         return view('home', [
             'series' => array_values($this->seriesCatalog()),
             'products' => $this->productLineup(),
-            'dealers' => $this->dealerList(),
+            'address' => $this->companyAddress(),
             'highlights' => $this->segmentHighlights(),
             'matrix' => $this->matrixComparison(),
         ]);
@@ -578,18 +528,15 @@ class PageController extends Controller
 
     public function dealers()
     {
-        $dealers = $this->dealerList();
-
-        $cities = collect($dealers)->pluck('city')->unique()->values()->all();
-
         return view('dealers', [
-            'dealers' => $dealers,
-            'cities' => $cities,
+            'address' => $this->companyAddress(),
         ]);
     }
 
     public function cekGaransi()
     {
-        return view('cek-garansi');
+        return view('cek-garansi', [
+            'dashboardBaseUrl' => config('services.dashboard.base_url'),
+        ]);
     }
 }

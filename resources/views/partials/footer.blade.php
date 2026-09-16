@@ -24,7 +24,7 @@
                 <a href="{{ route('about') }}">About</a>
                 <a href="{{ route('products.index') }}">Produk</a>
                 <a href="{{ route('ppf.index') }}">Paint Protection Film</a>
-                <a href="{{ route('dealers') }}">Dealer</a>
+                <a href="{{ route('dealers') }}">Alamat</a>
                 <a href="{{ route('cek-garansi') }}">Cek Garansi</a>
             </div>
 
@@ -37,8 +37,8 @@
 
             <div class="footer-col">
                 <h5>Kontak</h5>
-                <p>Jl. Jenderal Sudirman Kav. 52, Jakarta Selatan</p>
-                <p>(021) 555-0177</p>
+                <p>Ruko La Valle, Citra Garden Serpong No.66 Blk B17, Cisauk, Kota Tangerang Selatan, Banten 15341</p>
+                <p>0858-8889-9558</p>
                 <p>hello@lexent.id</p>
             </div>
         </div>
