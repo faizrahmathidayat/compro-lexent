@@ -3,7 +3,7 @@
         <div class="footer-grid">
             <div>
                 <div class="footer-logo">
-                    <img src="{{ asset('images/lexent-logo.png') }}" alt="LEXENT">
+                    LEX<span>ENT</span>
                 </div>
                 <p class="footer-about">
                     Superior Windowfilm Solution. LEXENT menghadirkan kaca film untuk

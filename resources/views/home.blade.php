@@ -53,7 +53,7 @@
     </section>
 
     {{-- ============================= BRAND STORY ============================= --}}
-    <section id="about">
+    <section id="about" class="section-alt">
         <div class="container about-grid">
             <div>
                 <span class="eyebrow">Superior Windowfilm Solution</span>
@@ -79,7 +79,7 @@
     </section>
 
     {{-- ============================= SERIES SHOWCASE ============================= --}}
-    <section id="products" class="section-alt">
+    <section id="products">
         <div class="container">
             <div class="section-head">
                 <span class="eyebrow">Product Lineup</span>
@@ -148,7 +148,7 @@
     </section>
 
     {{-- ============================= WHY LEXENT ============================= --}}
-    <section id="why-lexent">
+    <section id="why-lexent" class="section-alt">
         <div class="container">
             <div class="section-head">
                 <span class="eyebrow">Why LEXENT</span>
@@ -189,7 +189,7 @@
     </section>
 
     {{-- ============================= TINT SIMULATOR ============================= --}}
-    <section id="simulator" class="section-alt">
+    <section id="simulator">
         <div class="container simulator-layout">
             <div class="simulator-dual">
                 <div class="simulator-pane simulator-pane-exterior">
@@ -221,7 +221,7 @@
     </section>
 
     {{-- ============================= ALAMAT ============================= --}}
-    <section id="dealers">
+    <section id="dealers" class="section-alt">
         <div class="container">
             <div class="section-head">
                 <span class="eyebrow">Alamat</span>
@@ -257,7 +257,7 @@
                 <div>
                     <span class="eyebrow">Official Warranty</span>
                     <h2 class="section-title" style="font-size: 1.9rem;">Garansi Resmi Hingga 8 Tahun</h2>
-                    <p style="color: var(--text-muted);">
+                    <p style="color: var(--ink-soft);">
                         Setiap film LEXENT yang dipasang di jaringan gallery resmi dilindungi
                         garansi resmi &mdash; hingga 7 tahun untuk lini Automotive, dan hingga
                         8 tahun untuk lini Building &mdash; tercatat sejak hari pemasangan dan
