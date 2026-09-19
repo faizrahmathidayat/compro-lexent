@@ -344,7 +344,7 @@ class PageController extends Controller
                 'segment' => 'automotive',
                 'code' => 'AUTO',
                 'image' => 'images/hero/hero-01-automotive.jpg',
-                'alt' => 'Refleksi hangat pada kaca mobil yang sudah dipasangi window film',
+                'alt' => 'Teknisi memasang paint protection film pada bodi mobil',
                 'tag' => 'Automotive Windowfilm',
                 'headline' => 'Clarity Inside,<br><span class="highlight">Protection Outside</span>',
                 'subtext' => 'Empat seri film kaca otomotif — privasi tinggi, insulasi panas, kejernihan HD, hingga bebas gangguan sinyal. UV rejection 99% di seluruh seri, garansi resmi hingga 7 tahun.',

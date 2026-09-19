@@ -7,47 +7,39 @@
 
     {{-- ============================= HERO ============================= --}}
     <section class="hero" id="heroSection">
-        <div class="container hero-slider">
-            <div class="hero-slides" id="heroSlides">
-                @foreach($highlights as $i => $slide)
-                    <div class="hero-slide {{ $i === 0 ? 'is-active' : '' }}" data-index="{{ $i }}">
-                        <span class="hero-slide-badge">{{ $slide['tag'] }}</span>
-                        <h1 class="hero-slide-title">{!! $slide['headline'] !!}</h1>
-                        <p class="hero-slide-subtext">{{ $slide['subtext'] }}</p>
-
-                        <div class="hero-slide-actions">
-                            <a href="{{ route('products.index', ['segment' => $slide['segment']]) }}" class="btn btn-gold">{{ $slide['cta_label'] }}</a>
-                        </div>
-
-                        <div class="hero-metrics">
-                            @foreach($slide['metrics'] as $metric)
-                                <div class="hero-metric">
-                                    <b>{{ $metric['value'] }}</b>
-                                    <span>{{ $metric['label'] }}</span>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-            <div class="hero-visual hud-frame" id="heroVisual">
-                @foreach($highlights as $i => $slide)
-                    <div class="hero-visual-frame {{ $i === 0 ? 'is-active' : '' }}" data-index="{{ $i }}">
-                        <img src="{{ asset($slide['image']) }}" alt="{{ $slide['alt'] }}" {{ $i === 0 ? '' : 'loading="lazy"' }}>
-                    </div>
-                @endforeach
-            </div>
-
-            <div class="hero-controls">
-                <button type="button" class="hero-arrow hero-arrow-prev" id="heroPrev" aria-label="Slide sebelumnya">&#8249;</button>
-                <div class="hero-slider-dots" id="heroDots">
-                    @foreach($highlights as $i => $slide)
-                        <button type="button" class="hero-dot {{ $i === 0 ? 'is-active' : '' }}" data-index="{{ $i }}" aria-label="Ke slide {{ $i + 1 }}"></button>
-                    @endforeach
+        @foreach($highlights as $i => $slide)
+            <div class="hero-slide{{ $i === 0 ? ' is-active' : '' }}" data-index="{{ $i }}">
+                <div class="hero-media">
+                    <img src="{{ asset($slide['image']) }}" alt="{{ $slide['alt'] }}" {{ $i === 0 ? '' : 'loading="lazy"' }}>
                 </div>
-                <button type="button" class="hero-arrow hero-arrow-next" id="heroNext" aria-label="Slide berikutnya">&#8250;</button>
+                <div class="container hero-content">
+                    <span class="eyebrow">{{ $slide['tag'] }}</span>
+                    <h1 class="hero-title">{!! $slide['headline'] !!}</h1>
+                    <p class="hero-subtext">{{ $slide['subtext'] }}</p>
+
+                    <div class="hero-actions">
+                        <a href="{{ route('products.index', ['segment' => $slide['segment']]) }}" class="btn btn-gold">{{ $slide['cta_label'] }}</a>
+                    </div>
+
+                    <div class="hero-stats">
+                        @foreach($slide['metrics'] as $metric)
+                            <div class="hero-stat">
+                                <b>{{ $metric['value'] }}</b>
+                                <span>{{ $metric['label'] }}</span>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
+        @endforeach
+
+        <button type="button" class="hero-arrow hero-arrow-prev" id="heroPrev" aria-label="Slide sebelumnya">&#8249;</button>
+        <button type="button" class="hero-arrow hero-arrow-next" id="heroNext" aria-label="Slide berikutnya">&#8250;</button>
+
+        <div class="hero-dots" id="heroDots">
+            @foreach($highlights as $i => $slide)
+                <button type="button" class="hero-dot{{ $i === 0 ? ' is-active' : '' }}" data-index="{{ $i }}" aria-label="Ke slide {{ $i + 1 }}"></button>
+            @endforeach
         </div>
     </section>
 
@@ -284,24 +276,20 @@
     <script>
         (function () {
             var section = document.getElementById('heroSection');
-            var slides = document.querySelectorAll('#heroSlides .hero-slide');
-            var frames = document.querySelectorAll('#heroVisual .hero-visual-frame');
+            var slides = document.querySelectorAll('#heroSection .hero-slide');
             var dots = document.querySelectorAll('#heroDots .hero-dot');
             var prevBtn = document.getElementById('heroPrev');
             var nextBtn = document.getElementById('heroNext');
             var total = slides.length;
             var current = 0;
             var timer = null;
-            var AUTOPLAY_MS = 5000;
+            var AUTOPLAY_MS = 6000;
 
             function goTo(index) {
                 current = (index + total) % total;
 
                 slides.forEach(function (slide, i) {
                     slide.classList.toggle('is-active', i === current);
-                });
-                frames.forEach(function (frame, i) {
-                    frame.classList.toggle('is-active', i === current);
                 });
                 dots.forEach(function (dot, i) {
                     dot.classList.remove('is-active');
