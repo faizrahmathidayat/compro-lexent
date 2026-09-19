@@ -343,6 +343,8 @@ class PageController extends Controller
             [
                 'segment' => 'automotive',
                 'code' => 'AUTO',
+                'image' => 'images/hero/hero-01-automotive.jpg',
+                'alt' => 'Refleksi hangat pada kaca mobil yang sudah dipasangi window film',
                 'tag' => 'Automotive Windowfilm',
                 'headline' => 'Clarity Inside,<br><span class="highlight">Protection Outside</span>',
                 'subtext' => 'Empat seri film kaca otomotif — privasi tinggi, insulasi panas, kejernihan HD, hingga bebas gangguan sinyal. UV rejection 99% di seluruh seri, garansi resmi hingga 7 tahun.',
@@ -356,6 +358,8 @@ class PageController extends Controller
             [
                 'segment' => 'building',
                 'code' => 'BLD',
+                'image' => 'images/hero/hero-02-building.jpg',
+                'alt' => 'Fasad gedung kaca modern dilihat dari bawah',
                 'tag' => 'Building Windowfilm',
                 'headline' => 'Smart Film.<br><span class="highlight">Better Buildings.</span>',
                 'subtext' => 'Empat seri film kaca gedung — kontrol panas, privasi, efisiensi energi, dan tampilan modern nan elegan. UV rejection hingga 99%, garansi resmi hingga 8 tahun.',

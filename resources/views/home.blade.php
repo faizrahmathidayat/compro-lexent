@@ -34,8 +34,7 @@
             <div class="hero-visual hud-frame" id="heroVisual">
                 @foreach($highlights as $i => $slide)
                     <div class="hero-visual-frame {{ $i === 0 ? 'is-active' : '' }}" data-index="{{ $i }}">
-                        <div class="hero-visual-code">{{ $slide['code'] }}</div>
-                        <div class="hero-visual-tag">{{ $slide['tag'] }}</div>
+                        <img src="{{ asset($slide['image']) }}" alt="{{ $slide['alt'] }}" {{ $i === 0 ? '' : 'loading="lazy"' }}>
                     </div>
                 @endforeach
             </div>
