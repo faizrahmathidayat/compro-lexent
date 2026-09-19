@@ -13,21 +13,10 @@
                     <img src="{{ asset($slide['image']) }}" alt="{{ $slide['alt'] }}" {{ $i === 0 ? '' : 'loading="lazy"' }}>
                 </div>
                 <div class="container hero-content">
-                    <span class="eyebrow">{{ $slide['tag'] }}</span>
                     <h1 class="hero-title">{!! $slide['headline'] !!}</h1>
-                    <p class="hero-subtext">{{ $slide['subtext'] }}</p>
-
                     <div class="hero-actions">
-                        <a href="{{ route('products.index', ['segment' => $slide['segment']]) }}" class="btn btn-gold">{{ $slide['cta_label'] }}</a>
-                    </div>
-
-                    <div class="hero-stats">
-                        @foreach($slide['metrics'] as $metric)
-                            <div class="hero-stat">
-                                <b>{{ $metric['value'] }}</b>
-                                <span>{{ $metric['label'] }}</span>
-                            </div>
-                        @endforeach
+                        <a href="{{ $slide['cta_url'] }}" class="btn btn-gold">{{ $slide['cta_label'] }}</a>
+                        <a href="{{ route('about') }}" class="btn btn-outline-light">Tentang Kami</a>
                     </div>
                 </div>
             </div>

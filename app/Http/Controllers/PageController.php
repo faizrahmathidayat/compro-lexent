@@ -341,34 +341,25 @@ class PageController extends Controller
     {
         return [
             [
-                'segment' => 'automotive',
-                'code' => 'AUTO',
                 'image' => 'images/hero/hero-01-automotive.jpg',
                 'alt' => 'Teknisi memasang paint protection film pada bodi mobil',
-                'tag' => 'Automotive Windowfilm',
                 'headline' => 'Clarity Inside,<br><span class="highlight">Protection Outside</span>',
-                'subtext' => 'Empat seri film kaca otomotif — privasi tinggi, insulasi panas, kejernihan HD, hingga bebas gangguan sinyal. UV rejection 99% di seluruh seri, garansi resmi hingga 7 tahun.',
                 'cta_label' => 'Lihat Katalog Automotive',
-                'metrics' => [
-                    ['value' => '99%', 'label' => 'UV Rejection'],
-                    ['value' => '81%', 'label' => 'Heat Rejection'],
-                    ['value' => '7 Th', 'label' => 'Garansi'],
-                ],
+                'cta_url' => route('products.index', ['segment' => 'automotive']),
             ],
             [
-                'segment' => 'building',
-                'code' => 'BLD',
                 'image' => 'images/hero/hero-02-building.jpg',
                 'alt' => 'Fasad gedung kaca modern dilihat dari bawah',
-                'tag' => 'Building Windowfilm',
                 'headline' => 'Smart Film.<br><span class="highlight">Better Buildings.</span>',
-                'subtext' => 'Empat seri film kaca gedung — kontrol panas, privasi, efisiensi energi, dan tampilan modern nan elegan. UV rejection hingga 99%, garansi resmi hingga 8 tahun.',
                 'cta_label' => 'Lihat Katalog Building',
-                'metrics' => [
-                    ['value' => '99%', 'label' => 'UV Rejection'],
-                    ['value' => '76%', 'label' => 'Heat Rejection'],
-                    ['value' => '8 Th', 'label' => 'Garansi'],
-                ],
+                'cta_url' => route('products.index', ['segment' => 'building']),
+            ],
+            [
+                'image' => 'images/category/ppf.jpg',
+                'alt' => 'Mobil sport hitam di garasi bernuansa neon setelah pemasangan PPF',
+                'headline' => 'Proteksi Maksimal.<br><span class="highlight">Kilau Tetap Natural.</span>',
+                'cta_label' => 'Lihat PPF',
+                'cta_url' => route('ppf.index'),
             ],
         ];
     }

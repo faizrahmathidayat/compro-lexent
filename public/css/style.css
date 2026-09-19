@@ -591,14 +591,6 @@ section {
     padding-top: 96px;
 }
 
-.hero-content .eyebrow {
-    color: var(--teal-bright);
-}
-
-.hero-content .eyebrow::before {
-    background: var(--teal-bright);
-}
-
 .hero-title {
     font-size: clamp(2.4rem, 5vw, 4rem);
     margin-bottom: var(--space-3);
@@ -622,29 +614,6 @@ section {
     gap: var(--space-3);
     flex-wrap: wrap;
     margin-bottom: var(--space-5);
-}
-
-.hero-stats {
-    display: flex;
-    gap: var(--space-5);
-    flex-wrap: wrap;
-}
-
-.hero-stat b {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--ink-on-dark);
-}
-
-.hero-stat span {
-    color: var(--ink-on-dark-muted);
-    font-family: var(--font-display);
-    font-size: 0.78rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
 }
 
 /* Same flex/gap shape as .hero-actions — also reused as-is by the PPF and
