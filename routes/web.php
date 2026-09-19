@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CmsController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PortfolioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,3 +27,5 @@ Route::get('/artikel', [CmsController::class, 'articles'])->name('articles.index
 Route::get('/artikel/{slug}', [CmsController::class, 'articleShow'])->name('articles.show');
 Route::get('/sorotan', [CmsController::class, 'catalog'])->name('sorotan.index');
 Route::get('/sorotan/{slug}', [CmsController::class, 'catalogShow'])->name('sorotan.show');
+Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio');
+Route::get('/portfolio/{slug}', [PortfolioController::class, 'show'])->name('portfolio.show');
