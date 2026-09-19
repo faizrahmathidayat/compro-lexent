@@ -467,7 +467,6 @@ class PageController extends Controller
     public function home()
     {
         return view('home', [
-            'series' => array_values($this->seriesCatalog()),
             'products' => $this->productLineup(),
             'address' => $this->companyAddress(),
             'highlights' => $this->segmentHighlights(),

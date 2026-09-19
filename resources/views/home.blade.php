@@ -82,58 +82,30 @@
                 </p>
             </div>
 
-            <div class="section-head" style="margin-bottom: var(--space-3);">
-                <span class="eyebrow">Automotive</span>
-            </div>
-            <div class="product-grid" style="margin-bottom: var(--space-5);">
-                @foreach($series as $s)
-                    @continue($s['segment'] !== 'automotive')
-                    <div class="product-card">
-                        <span class="product-badge">{{ count($s['attributes']) }} Keunggulan</span>
-                        <div class="product-visual {{ $s['accent'] }}" data-series="{{ $s['label'] }}">{{ $s['code'] }}</div>
-                        <h3>{{ $s['name'] }}</h3>
-                        <div class="product-tagline">{{ $s['tagline'] }}</div>
-                        <p class="product-desc">{{ $s['description'] }}</p>
-
-                        <div class="spec-meters">
-                            @foreach($s['metrics'] as $metric)
-                                <div class="spec-meter-head">
-                                    <span>{{ $metric['label'] }}</span>
-                                    <b>{{ $metric['value'] }}</b>
-                                </div>
-                            @endforeach
-                        </div>
-
-                        <a href="{{ route('products.index', ['segment' => 'automotive']) }}" class="btn btn-outline btn-block">Lihat Varian</a>
+            <div class="category-grid">
+                <a href="{{ route('products.index', ['segment' => 'automotive']) }}" class="category-tile">
+                    <img src="{{ asset('images/category/automotive.jpg') }}" alt="Kaca Film Otomotif" loading="lazy">
+                    <div class="category-tile-overlay">
+                        <h3>Kaca Film Otomotif</h3>
+                        <span class="btn btn-outline-light btn-sm">Selengkapnya &rsaquo;</span>
                     </div>
-                @endforeach
-            </div>
+                </a>
 
-            <div class="section-head" style="margin-bottom: var(--space-3);">
-                <span class="eyebrow">Building</span>
-            </div>
-            <div class="product-grid">
-                @foreach($series as $s)
-                    @continue($s['segment'] !== 'building')
-                    <div class="product-card">
-                        <span class="product-badge">{{ count($s['attributes']) }} Keunggulan</span>
-                        <div class="product-visual {{ $s['accent'] }}" data-series="{{ $s['label'] }}">{{ $s['code'] }}</div>
-                        <h3>{{ $s['name'] }}</h3>
-                        <div class="product-tagline">{{ $s['tagline'] }}</div>
-                        <p class="product-desc">{{ $s['description'] }}</p>
-
-                        <div class="spec-meters">
-                            @foreach($s['metrics'] as $metric)
-                                <div class="spec-meter-head">
-                                    <span>{{ $metric['label'] }}</span>
-                                    <b>{{ $metric['value'] }}</b>
-                                </div>
-                            @endforeach
-                        </div>
-
-                        <a href="{{ route('products.index', ['segment' => 'building']) }}" class="btn btn-outline btn-block">Lihat Varian</a>
+                <a href="{{ route('products.index', ['segment' => 'building']) }}" class="category-tile">
+                    <img src="{{ asset('images/category/building.jpg') }}" alt="Kaca Film Bangunan" loading="lazy">
+                    <div class="category-tile-overlay">
+                        <h3>Kaca Film Bangunan</h3>
+                        <span class="btn btn-outline-light btn-sm">Selengkapnya &rsaquo;</span>
                     </div>
-                @endforeach
+                </a>
+
+                <a href="{{ route('ppf.index') }}" class="category-tile category-tile-wide">
+                    <img src="{{ asset('images/category/ppf.jpg') }}" alt="Paint Protection Film" loading="lazy">
+                    <div class="category-tile-overlay">
+                        <h3>Paint Protection Film</h3>
+                        <span class="btn btn-gold btn-sm">Selengkapnya &rsaquo;</span>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
