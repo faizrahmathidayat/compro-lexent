@@ -1,7 +1,7 @@
 <header class="navbar" id="mainNavbar">
     <div class="navbar-inner">
         <a href="{{ route('home') }}" class="navbar-logo" aria-label="LEXENT — beranda">
-            LEX<span>ENT</span>
+            <img src="{{ asset('images/lexent-logo.png') }}" alt="LEXENT">
         </a>
 
         <nav class="navbar-links" id="navbarLinks">

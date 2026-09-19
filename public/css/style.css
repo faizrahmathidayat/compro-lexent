@@ -434,12 +434,8 @@ section {
 }
 
 .navbar-logo img {
-    height: 26px;
-    width: auto;
-}
-
-.navbar-logo span {
-    color: var(--teal-deep);
+    width: 148px;
+    height: auto;
 }
 
 .navbar-links {
@@ -1573,12 +1569,8 @@ section {
 }
 
 .footer-logo img {
-    height: 30px;
-    width: auto;
-}
-
-.footer-logo span {
-    color: var(--teal-deep);
+    width: 170px;
+    height: auto;
 }
 
 .footer-about {
