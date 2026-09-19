@@ -24,3 +24,5 @@ Route::get('/dealers', [PageController::class, 'dealers'])->name('dealers');
 Route::get('/cek-garansi', [PageController::class, 'cekGaransi'])->name('cek-garansi');
 Route::get('/artikel', [CmsController::class, 'articles'])->name('articles.index');
 Route::get('/artikel/{slug}', [CmsController::class, 'articleShow'])->name('articles.show');
+Route::get('/sorotan', [CmsController::class, 'catalog'])->name('sorotan.index');
+Route::get('/sorotan/{slug}', [CmsController::class, 'catalogShow'])->name('sorotan.show');
