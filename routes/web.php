@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CmsController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,5 @@ Route::get('/paint-protection-film', [PageController::class, 'ppfIndex'])->name(
 Route::get('/paint-protection-film/{slug}', [PageController::class, 'ppfDetail'])->name('ppf.show');
 Route::get('/dealers', [PageController::class, 'dealers'])->name('dealers');
 Route::get('/cek-garansi', [PageController::class, 'cekGaransi'])->name('cek-garansi');
+Route::get('/artikel', [CmsController::class, 'articles'])->name('articles.index');
+Route::get('/artikel/{slug}', [CmsController::class, 'articleShow'])->name('articles.show');

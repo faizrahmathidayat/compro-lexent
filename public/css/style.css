@@ -1955,3 +1955,448 @@ section {
         scroll-behavior: auto !important;
     }
 }
+
+/* ---------- CMS Content (Artikel / Sorotan Produk / Portofolio) ---------- */
+.cms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-3);
+}
+
+.cms-card {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow-sm);
+    transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.cms-card:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.cms-card-media {
+    aspect-ratio: 16 / 10;
+    background: var(--surface-sunken);
+    overflow: hidden;
+}
+
+.cms-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.cms-card-media-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--bg-soft), var(--bg-soft-deep));
+}
+
+.cms-card-body {
+    padding: var(--space-2);
+}
+
+.cms-card-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    color: var(--teal-deep);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-1);
+    font-weight: 700;
+}
+
+.cms-card-body h4 {
+    margin: 0 0 var(--space-1);
+    font-family: var(--font-display);
+    color: var(--ink);
+}
+
+.cms-card-body p {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.cms-pagination {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-1);
+    margin-top: var(--space-4);
+}
+
+.cms-pagination a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.cms-pagination a.is-active {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: var(--teal-ink);
+    font-weight: 600;
+}
+
+.cms-detail {
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+.cms-detail-header {
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+.cms-detail-header .section-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+    line-height: 1.3;
+}
+
+.cms-article {
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    line-height: 1.85;
+}
+
+.cms-article h1, .cms-article h2, .cms-article h3, .cms-article h4 {
+    color: var(--ink);
+    font-family: var(--font-display);
+    line-height: 1.35;
+    margin: var(--space-4) 0 var(--space-2);
+}
+
+.cms-article h1:first-child, .cms-article h2:first-child, .cms-article h3:first-child {
+    margin-top: 0;
+}
+
+.cms-article p {
+    margin: 0 0 var(--space-3);
+}
+
+.cms-article strong, .cms-article b {
+    color: var(--ink);
+    font-weight: 700;
+}
+
+.cms-article a {
+    color: var(--teal-deep);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.cms-article img {
+    max-width: 100%;
+    border-radius: var(--radius-sm);
+}
+
+/* Ordered lists get a numbered-card treatment so step-by-step content reads
+   as distinct steps, not a wall of text — matches Quill's <ol> output. */
+.cms-article ol {
+    margin: 0 0 var(--space-3);
+    padding-left: 0;
+    list-style: none;
+    counter-reset: cms-list;
+}
+
+.cms-article ol li {
+    counter-increment: cms-list;
+    position: relative;
+    padding: var(--space-2) var(--space-2) var(--space-2) 56px;
+    margin-bottom: 10px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+}
+
+.cms-article ol li::before {
+    content: counter(cms-list);
+    position: absolute;
+    left: var(--space-2);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: var(--teal-ink);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Same treatment, applied client-side (see layouts/app.blade.php) to plain
+   paragraphs typed as "1. Judul Langkah" instead of a real <ol>. */
+.cms-article p.cms-step-title {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-2) var(--space-2) 56px;
+    margin-bottom: 10px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--ink);
+    font-weight: 600;
+}
+
+.cms-step-number {
+    position: absolute;
+    left: var(--space-2);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: var(--teal-ink);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.cms-article ul {
+    margin: 0 0 var(--space-3);
+    padding-left: 0;
+    list-style: none;
+}
+
+.cms-article ul li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 8px;
+}
+
+.cms-article ul li::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 0.65em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+}
+
+/* ---------- CMS Media: single image / carousel ---------- */
+.cms-media-single {
+    max-width: 640px;
+    margin: 0 auto var(--space-4);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+}
+
+.cms-media-single img {
+    width: 100%;
+    height: auto;
+    display: block;
+    cursor: zoom-in;
+}
+
+.cms-carousel {
+    position: relative;
+    max-width: 780px;
+    aspect-ratio: 16 / 9;
+    margin: 0 auto var(--space-4);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    background: var(--surface-sunken);
+}
+
+.cms-carousel-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.cms-carousel-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.cms-carousel-slide.is-active {
+    opacity: 1;
+    z-index: 1;
+    pointer-events: auto;
+}
+
+.cms-carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    cursor: zoom-in;
+}
+
+.cms-carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid var(--border);
+    color: var(--ink);
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-fast);
+}
+
+.cms-carousel-arrow:hover {
+    background: var(--surface);
+    border-color: var(--teal);
+    color: var(--teal-deep);
+}
+
+.cms-carousel-prev { left: var(--space-2); }
+.cms-carousel-next { right: var(--space-2); }
+
+.cms-carousel-dots {
+    position: absolute;
+    bottom: var(--space-2);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    display: flex;
+    gap: 8px;
+}
+
+.cms-carousel-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.cms-carousel-dot:hover {
+    background: #fff;
+}
+
+.cms-carousel-dot.is-active {
+    width: 22px;
+    background: var(--teal);
+    border-color: var(--teal);
+}
+
+@media (max-width: 640px) {
+    .cms-carousel {
+        aspect-ratio: 4 / 3;
+    }
+}
+
+/* ---------- CMS Lightbox (dark scrim regardless of site theme — a
+   fullscreen image viewer conventionally darkens the page either way) ---------- */
+.cms-lightbox {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+}
+
+.cms-lightbox.is-open {
+    display: flex;
+}
+
+.cms-lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 17, 21, 0.92);
+    backdrop-filter: blur(4px);
+}
+
+.cms-lightbox-frame {
+    position: relative;
+    max-width: 90vw;
+    max-height: 85vh;
+    z-index: 1;
+}
+
+.cms-lightbox-frame img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-dark);
+}
+
+.cms-lightbox-close, .cms-lightbox-nav {
+    position: absolute;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.cms-lightbox-close:hover, .cms-lightbox-nav:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: var(--teal-bright);
+}
+
+.cms-lightbox-close {
+    top: var(--space-2);
+    right: var(--space-2);
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+}
+
+.cms-lightbox-nav {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    font-size: 1.25rem;
+}
+
+.cms-lightbox-prev { left: var(--space-2); }
+.cms-lightbox-next { right: var(--space-2); }

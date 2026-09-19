@@ -24,6 +24,7 @@
                 <a href="{{ route('about') }}">About</a>
                 <a href="{{ route('products.index') }}">Produk</a>
                 <a href="{{ route('ppf.index') }}">Paint Protection Film</a>
+                <a href="{{ route('articles.index') }}">Artikel</a>
                 <a href="{{ route('dealers') }}">Alamat</a>
                 <a href="{{ route('cek-garansi') }}">Cek Garansi</a>
             </div>
