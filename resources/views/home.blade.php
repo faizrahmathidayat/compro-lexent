@@ -15,7 +15,7 @@
                 <div class="container hero-content">
                     <h1 class="hero-title">{!! $slide['headline'] !!}</h1>
                     <div class="hero-actions">
-                        <a href="{{ $slide['cta_url'] }}" class="btn btn-gold">{{ $slide['cta_label'] }}</a>
+                        <a href="{{ $slide['cta_url'] }}" class="btn btn-dark">{{ $slide['cta_label'] }}</a>
                         <a href="{{ route('about') }}" class="btn btn-outline-light">Tentang Kami</a>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
             </div>
 
             <div class="category-grid">
-                <a href="{{ route('products.index', ['segment' => 'automotive']) }}" class="category-tile">
+                <a href="{{ route('products.automotive') }}" class="category-tile">
                     <img src="{{ asset('images/category/automotive.jpg') }}" alt="Kaca Film Otomotif" loading="lazy">
                     <div class="category-tile-overlay">
                         <h3>Kaca Film Otomotif</h3>
@@ -80,7 +80,7 @@
                     </div>
                 </a>
 
-                <a href="{{ route('products.index', ['segment' => 'building']) }}" class="category-tile">
+                <a href="{{ route('products.building') }}" class="category-tile">
                     <img src="{{ asset('images/category/building.jpg') }}" alt="Kaca Film Bangunan" loading="lazy">
                     <div class="category-tile-overlay">
                         <h3>Kaca Film Bangunan</h3>

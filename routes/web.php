@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/products', [PageController::class, 'products'])->name('products.index');
+Route::get('/kaca-film-bangunan', [PageController::class, 'productsBuilding'])->name('products.building');
+Route::get('/kaca-film-mobil', [PageController::class, 'productsAutomotive'])->name('products.automotive');
 Route::get('/products/{slug}', [PageController::class, 'productDetail'])->name('products.show');
 Route::get('/paint-protection-film', [PageController::class, 'ppfIndex'])->name('ppf.index');
 Route::get('/paint-protection-film/{slug}', [PageController::class, 'ppfDetail'])->name('ppf.show');

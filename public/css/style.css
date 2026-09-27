@@ -287,6 +287,19 @@ section {
     background: rgba(255, 255, 255, 0.18);
 }
 
+/* Solid dark-filled CTA for the hero — pairs with .btn-outline-light,
+   matching the reference layout's dark-button + outline-button pair. */
+.btn-dark {
+    background: var(--surface-dark);
+    color: var(--ink-on-dark);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-dark:hover {
+    background: #1f2430;
+    transform: translateY(-2px);
+}
+
 /* ---------- Category tiles (homepage Product Lineup) ---------- */
 .category-grid {
     display: grid;
@@ -413,9 +426,36 @@ section {
     box-shadow: var(--shadow-sm);
 }
 
+.navbar-transparent:not(.is-scrolled) {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom-color: transparent;
+}
+
+.navbar-transparent:not(.is-scrolled) .navbar-logo img {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 14px rgba(255, 255, 255, 0.55));
+}
+
+.navbar-transparent:not(.is-scrolled) .navbar-links a {
+    color: var(--ink-on-dark-muted);
+}
+
+.navbar-transparent:not(.is-scrolled) .navbar-links a:hover,
+.navbar-transparent:not(.is-scrolled) .navbar-links a.is-active {
+    color: var(--ink-on-dark);
+}
+
+.navbar-transparent:not(.is-scrolled) .navbar-toggle span {
+    background: var(--ink-on-dark);
+}
+
 .navbar-inner {
-    width: min(var(--container-width), 92%);
+    width: 100%;
+    max-width: var(--container-width);
     margin: 0 auto;
+    padding: 0 var(--space-3);
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -446,9 +486,10 @@ section {
 
 .navbar-links a {
     font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-weight: 500;
-    letter-spacing: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
     color: var(--ink-soft);
     transition: color var(--transition-fast);
     position: relative;
@@ -574,7 +615,7 @@ section {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(100deg, rgba(20, 23, 31, 0.92) 0%, rgba(20, 23, 31, 0.72) 42%, rgba(20, 23, 31, 0.3) 100%);
+    background: linear-gradient(0deg, rgba(20, 23, 31, 0.82) 0%, rgba(20, 23, 31, 0.5) 32%, rgba(20, 23, 31, 0.16) 62%, rgba(20, 23, 31, 0.08) 100%);
 }
 
 .hero-media img {
@@ -587,12 +628,13 @@ section {
 .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 720px;
-    padding-top: 96px;
+    padding-left: clamp(64px, 6vw, 72px);
 }
 
 .hero-title {
-    font-size: clamp(2.4rem, 5vw, 4rem);
+    max-width: 640px;
+    font-size: clamp(2rem, 3.4vw, 3.1rem);
+    font-weight: 700;
     margin-bottom: var(--space-3);
     letter-spacing: -0.02em;
     color: var(--ink-on-dark);
@@ -613,7 +655,7 @@ section {
     display: flex;
     gap: var(--space-3);
     flex-wrap: wrap;
-    margin-bottom: var(--space-5);
+    margin-bottom: var(--space-4);
 }
 
 /* Same flex/gap shape as .hero-actions — also reused as-is by the PPF and
@@ -1612,14 +1654,62 @@ section {
 
 /* ---------- Page Header (inner pages) ---------- */
 .page-header {
-    padding: 180px 0 var(--space-5);
+    position: relative;
+    min-height: 380px;
+    margin-bottom: var(--space-5);
+    display: flex;
+    align-items: center;
     text-align: center;
-    background: radial-gradient(ellipse at 50% 0%, var(--teal-tint), transparent 60%);
+    overflow: hidden;
+    background: var(--surface-dark);
+}
+
+.page-header .container {
+    position: relative;
+    z-index: 2;
+}
+
+.page-header-media {
+    position: absolute;
+    inset: 0;
+}
+
+.page-header-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.page-header-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(20, 23, 31, 0.5) 0%, rgba(20, 23, 31, 0.78) 100%);
 }
 
 .page-header .eyebrow {
     display: inline-flex;
     justify-content: center;
+    color: var(--teal-bright);
+}
+
+.page-header .section-title {
+    color: var(--ink-on-dark);
+}
+
+.page-header .section-subtitle {
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--ink-on-dark-muted);
+}
+
+.page-header .back-link {
+    color: var(--ink-on-dark-muted);
+}
+
+.page-header .back-link:hover {
+    color: var(--ink-on-dark);
 }
 
 /* ---------- Product Detail — full-size spec sheet ---------- */
@@ -1808,6 +1898,9 @@ section {
         transform: translateX(-50%);
         width: 88%;
         max-width: 340px;
+        max-height: calc(100vh - 100px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: var(--radius-lg);
@@ -1825,6 +1918,18 @@ section {
     .navbar-links.is-open {
         opacity: 1;
         visibility: visible;
+    }
+
+    /* The mobile dropdown is always an opaque white card, regardless of the
+       navbar's transparent-over-hero state — so its links must always use
+       the light-background colors, never the on-dark ones. */
+    .navbar-transparent .navbar-links.is-open a {
+        color: var(--ink-soft);
+    }
+
+    .navbar-transparent .navbar-links.is-open a:hover,
+    .navbar-transparent .navbar-links.is-open a.is-active {
+        color: var(--ink);
     }
 
     .navbar-dropdown {
@@ -1864,7 +1969,7 @@ section {
     }
 
     .page-header {
-        padding: 120px 0 var(--space-4);
+        min-height: 300px;
     }
 
     section {

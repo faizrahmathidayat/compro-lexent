@@ -6,6 +6,9 @@
 @section('content')
 
     <section class="page-header">
+        <div class="page-header-media">
+            <img src="{{ asset('images/category/automotive.jpg') }}" alt="">
+        </div>
         <div class="container">
             <div class="cms-detail-header">
                 <a href="{{ route('articles.index') }}" class="back-link">&larr; Kembali ke Artikel</a>

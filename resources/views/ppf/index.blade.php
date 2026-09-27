@@ -6,6 +6,9 @@
 @section('content')
 
     <section class="page-header">
+        <div class="page-header-media">
+            <img src="{{ asset('images/category/ppf.jpg') }}" alt="">
+        </div>
         <div class="container">
             <span class="eyebrow">Automotive Accessory</span>
             <h1 class="section-title">LEXENT Paint Protection Film</h1>

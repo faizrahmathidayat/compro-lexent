@@ -1,4 +1,4 @@
-<header class="navbar" id="mainNavbar">
+<header class="navbar navbar-transparent" id="mainNavbar">
     <div class="navbar-inner">
         <a href="{{ route('home') }}" class="navbar-logo" aria-label="LEXENT — beranda">
             <img src="{{ asset('images/lexent-logo.png') }}" alt="LEXENT">
@@ -7,29 +7,13 @@
         <nav class="navbar-links" id="navbarLinks">
             <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'is-active' : '' }}">Home</a>
             <a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'is-active' : '' }}">About</a>
-
-            <div class="navbar-dropdown">
-                <a href="{{ route('products.index') }}" class="{{ request()->routeIs('products.*') ? 'is-active' : '' }}">Produk</a>
-                <div class="navbar-dropdown-menu">
-                    <a href="{{ route('products.index', ['segment' => 'automotive']) }}">Automotive</a>
-                    <a href="{{ route('products.index', ['segment' => 'building']) }}">Building</a>
-                </div>
-            </div>
-
-            <div class="navbar-dropdown">
-                <a href="{{ route('ppf.index') }}" class="{{ request()->routeIs('ppf.*') ? 'is-active' : '' }}">Paint Protection Film</a>
-                <div class="navbar-dropdown-menu">
-                    <a href="{{ route('ppf.show', 'type-s') }}">Paint Protection Film Type S</a>
-                    <a href="{{ route('ppf.show', 'type-t-plus') }}">Paint Protection Film Type T Plus</a>
-                    <a href="{{ route('ppf.show', 'type-l') }}">Paint Protection Film Type L</a>
-                    <a href="{{ route('ppf.show', 'type-l-matte') }}">Paint Protection Film Type L Matte</a>
-                </div>
-            </div>
-
+            <a href="{{ route('products.building') }}" class="{{ request()->routeIs('products.building') ? 'is-active' : '' }}">Kaca Film Bangunan</a>
+            <a href="{{ route('products.automotive') }}" class="{{ request()->routeIs('products.automotive') ? 'is-active' : '' }}">Kaca Film Mobil</a>
+            <a href="{{ route('ppf.index') }}" class="{{ request()->routeIs('ppf.*') ? 'is-active' : '' }}">PPF</a>
             <a href="{{ route('articles.index') }}" class="{{ request()->routeIs('articles.*') ? 'is-active' : '' }}">Artikel</a>
-            <a href="{{ route('sorotan.index') }}" class="{{ request()->routeIs('sorotan.*') ? 'is-active' : '' }}">Sorotan Produk</a>
+            <a href="{{ route('sorotan.index') }}" class="{{ request()->routeIs('sorotan.*') ? 'is-active' : '' }}">Produk</a>
             <a href="{{ route('portfolio') }}" class="{{ request()->routeIs('portfolio') ? 'is-active' : '' }}">Portfolio</a>
-            <a href="{{ route('cek-garansi') }}" class="{{ request()->routeIs('cek-garansi') ? 'is-active' : '' }}">Cek Garansi</a>
+            <a href="{{ route('cek-garansi') }}" class="{{ request()->routeIs('cek-garansi') ? 'is-active' : '' }}">Warranty</a>
         </nav>
 
         <div class="navbar-cta">

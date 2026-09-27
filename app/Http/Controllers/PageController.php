@@ -475,6 +475,25 @@ class PageController extends Controller
         return view('products.index', [
             'series' => array_values($this->seriesCatalog()),
             'products' => $this->productLineup(),
+            'segment' => null,
+        ]);
+    }
+
+    public function productsBuilding()
+    {
+        return view('products.index', [
+            'series' => array_values(array_filter($this->seriesCatalog(), fn ($s) => $s['segment'] === 'building')),
+            'products' => array_values(array_filter($this->productLineup(), fn ($p) => $p['segment'] === 'building')),
+            'segment' => 'building',
+        ]);
+    }
+
+    public function productsAutomotive()
+    {
+        return view('products.index', [
+            'series' => array_values(array_filter($this->seriesCatalog(), fn ($s) => $s['segment'] === 'automotive')),
+            'products' => array_values(array_filter($this->productLineup(), fn ($p) => $p['segment'] === 'automotive')),
+            'segment' => 'automotive',
         ]);
     }
 

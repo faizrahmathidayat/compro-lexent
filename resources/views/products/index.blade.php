@@ -1,24 +1,29 @@
 @extends('layouts.app')
 
-@section('title', 'Produk')
+@section('title', $segment === 'building' ? 'Kaca Film Bangunan' : ($segment === 'automotive' ? 'Kaca Film Mobil' : 'Produk'))
 @section('meta_description', 'Katalog lengkap kaca film LEXENT - 32 varian VLT dari delapan seri, dua kategori: Automotive (BP, HT, MK, IR99) dan Building (Black Vision, Reflective, High Performance, Ultra Protect).')
 
 @section('content')
 
     <section class="page-header">
+        <div class="page-header-media">
+            <img src="{{ asset($segment === 'building' ? 'images/hero/hero-02-building.jpg' : 'images/hero/hero-01-automotive.jpg') }}" alt="">
+        </div>
         <div class="container">
-            <span class="eyebrow">Product Lineup</span>
-            <h1 class="section-title">Katalog Film LEXENT</h1>
+            <span class="eyebrow">{{ $segment === 'building' ? 'Building Windowfilm' : ($segment === 'automotive' ? 'Automotive Windowfilm' : 'Product Lineup') }}</span>
+            <h1 class="section-title">{{ $segment === 'building' ? 'Kaca Film Bangunan LEXENT' : ($segment === 'automotive' ? 'Kaca Film Mobil LEXENT' : 'Katalog Film LEXENT') }}</h1>
         </div>
     </section>
 
     <section style="padding-top: 0;">
         <div class="container">
-            <div class="series-filter" id="segmentFilter">
-                <button type="button" class="is-active" data-segment="all">Semua Kategori</button>
-                <button type="button" data-segment="automotive">Automotive</button>
-                <button type="button" data-segment="building">Building</button>
-            </div>
+            @if(!$segment)
+                <div class="series-filter" id="segmentFilter">
+                    <button type="button" class="is-active" data-segment="all">Semua Kategori</button>
+                    <button type="button" data-segment="automotive">Automotive</button>
+                    <button type="button" data-segment="building">Building</button>
+                </div>
+            @endif
 
             <div class="series-filter" id="seriesFilter">
                 <button type="button" class="is-active" data-series="all">Semua Seri</button>
@@ -120,7 +125,7 @@
             });
 
             var requestedSegment = new URLSearchParams(window.location.search).get('segment');
-            if (requestedSegment === 'automotive' || requestedSegment === 'building') {
+            if (segmentButtons.length && (requestedSegment === 'automotive' || requestedSegment === 'building')) {
                 setSegment(requestedSegment);
             } else {
                 refreshSeriesVisibility();

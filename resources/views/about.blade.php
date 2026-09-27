@@ -6,6 +6,9 @@
 @section('content')
 
     <section class="page-header">
+        <div class="page-header-media">
+            <img src="{{ asset('images/category/building.jpg') }}" alt="">
+        </div>
         <div class="container">
             <span class="eyebrow">About LEXENT</span>
             <h1 class="section-title">Superior Windowfilm Solution</h1>

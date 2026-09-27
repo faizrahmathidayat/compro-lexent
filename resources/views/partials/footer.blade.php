@@ -33,8 +33,8 @@
 
             <div class="footer-col">
                 <h5>Kategori Produk</h5>
-                <a href="{{ route('products.index', ['segment' => 'automotive']) }}">Window Film Automotive</a>
-                <a href="{{ route('products.index', ['segment' => 'building']) }}">Window Film Building</a>
+                <a href="{{ route('products.automotive') }}">Window Film Automotive</a>
+                <a href="{{ route('products.building') }}">Window Film Building</a>
                 <a href="{{ route('ppf.index') }}">Paint Protection Film</a>
             </div>
 

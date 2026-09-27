@@ -6,6 +6,9 @@
 @section('content')
 
     <section class="page-header">
+        <div class="page-header-media">
+            <img src="{{ asset('images/category/ppf.jpg') }}" alt="">
+        </div>
         <div class="container">
             <div class="cms-detail-header">
                 <a href="{{ route('portfolio') }}" class="back-link">&larr; Kembali ke Portfolio</a>

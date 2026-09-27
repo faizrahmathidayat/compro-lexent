@@ -6,6 +6,9 @@
 @section('content')
 
     <section class="page-header">
+        <div class="page-header-media">
+            <img src="{{ asset('images/hero/hero-01-automotive.jpg') }}" alt="">
+        </div>
         <div class="container">
             <span class="eyebrow">Cek Garansi</span>
             <h1 class="section-title">Verifikasi Garansi Resmi LEXENT</h1>
