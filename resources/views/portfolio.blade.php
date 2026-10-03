@@ -17,8 +17,17 @@
 
     <section style="padding-top: 0;">
         <div class="container">
+            @if(!empty($categories))
+                <nav class="cms-filter" aria-label="Filter kategori portfolio">
+                    <a href="{{ route('portfolio') }}" class="{{ $activeCategory === '' ? 'is-active' : '' }}">Semua</a>
+                    @foreach($categories as $category)
+                        <a href="{{ route('portfolio', ['category' => $category]) }}" class="{{ strcasecmp($activeCategory, $category) === 0 ? 'is-active' : '' }}">{{ $category }}</a>
+                    @endforeach
+                </nav>
+            @endif
+
             @if(empty($items))
-                <p class="section-subtitle" style="text-align: center; margin: var(--space-4) auto;">Konten belum tersedia saat ini.</p>
+                <p class="section-subtitle" style="text-align: center; margin: var(--space-4) auto;">{{ $activeCategory !== '' ? 'Belum ada portfolio untuk kategori ini.' : 'Konten belum tersedia saat ini.' }}</p>
             @else
                 <div class="cms-grid">
                     @foreach($items as $item)

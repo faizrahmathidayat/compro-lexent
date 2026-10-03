@@ -36,6 +36,40 @@ class CmsClientTest extends TestCase
         });
     }
 
+    public function test_portfolio_sends_the_category_only_when_given(): void
+    {
+        Http::fake(['*/api/cms/portfolio*' => Http::response(['data' => [], 'meta' => []], 200)]);
+
+        (new CmsClient())->portfolio(2, 'PPF');
+        (new CmsClient())->portfolio(1);
+
+        $urls = Http::recorded()->map(fn ($pair) => $pair[0]->url())->values()->all();
+        $this->assertStringContainsString('category=PPF', $urls[0]);
+        $this->assertStringContainsString('page=2', $urls[0]);
+        $this->assertStringNotContainsString('category=', $urls[1]);
+    }
+
+    public function test_portfolio_categories_returns_the_list(): void
+    {
+        Http::fake(['*/api/cms/portfolio-categories*' => Http::response(['data' => ['PPF', 'Kaca Film Mobil']], 200)]);
+
+        $this->assertSame(['PPF', 'Kaca Film Mobil'], (new CmsClient())->portfolioCategories());
+    }
+
+    public function test_portfolio_categories_is_an_empty_array_on_failure(): void
+    {
+        Http::fake(['*/api/cms/portfolio-categories*' => Http::response([], 500)]);
+
+        $this->assertSame([], (new CmsClient())->portfolioCategories());
+    }
+
+    public function test_portfolio_categories_ignores_entries_that_are_not_plain_strings(): void
+    {
+        Http::fake(['*/api/cms/portfolio-categories*' => Http::response(['data' => ['PPF', ['slug' => 'x'], '', null, 'Kaca Film Mobil']], 200)]);
+
+        $this->assertSame(['PPF', 'Kaca Film Mobil'], (new CmsClient())->portfolioCategories());
+    }
+
     public function test_returns_null_on_a_non_success_response(): void
     {
         Http::fake(['*/api/cms/articles*' => Http::response(['message' => 'error'], 500)]);

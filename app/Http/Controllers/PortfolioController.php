@@ -17,11 +17,14 @@ class PortfolioController extends Controller
     public function index(Request $request)
     {
         $page = max(1, (int) $request->query('page', 1));
-        $response = $this->cms->portfolio($page);
+        $category = trim((string) $request->query('category', ''));
+        $response = $this->cms->portfolio($page, $category);
 
         return view('portfolio', [
             'items' => $response['data'] ?? [],
             'meta' => $response['meta'] ?? null,
+            'categories' => $this->cms->portfolioCategories(),
+            'activeCategory' => $category,
         ]);
     }
 

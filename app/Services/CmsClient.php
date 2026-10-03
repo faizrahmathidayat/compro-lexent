@@ -27,9 +27,29 @@ class CmsClient
         return $this->request('/api/cms/catalog/' . $slug, []);
     }
 
-    public function portfolio(int $page = 1): ?array
+    public function portfolio(int $page = 1, ?string $category = null): ?array
     {
-        return $this->request('/api/cms/portfolio', ['page' => $page]);
+        $query = ['page' => $page];
+        if ($category !== null && $category !== '') {
+            $query['category'] = $category;
+        }
+
+        return $this->request('/api/cms/portfolio', $query);
+    }
+
+    /**
+     * Categories that currently have published portfolio items for this site;
+     * an empty list when the CMS is unreachable.
+     */
+    public function portfolioCategories(): array
+    {
+        $response = $this->request('/api/cms/portfolio-categories', []);
+
+        $categories = is_array($response['data'] ?? null) ? $response['data'] : [];
+
+        return array_values(array_filter($categories, function ($category) {
+            return is_string($category) && trim($category) !== '';
+        }));
     }
 
     public function portfolioItem(string $slug): ?array

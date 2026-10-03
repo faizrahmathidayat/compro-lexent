@@ -2116,6 +2116,39 @@ section {
     margin: 0;
 }
 
+.cms-filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-1);
+    margin: var(--space-4) 0 var(--space-3);
+}
+
+.cms-filter a {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 20px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.cms-filter a:hover {
+    border-color: var(--teal);
+    background: var(--teal-tint);
+}
+
+.cms-filter a.is-active {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: var(--teal-ink);
+}
+
 .cms-pagination {
     display: flex;
     justify-content: center;
