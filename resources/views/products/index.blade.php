@@ -130,6 +130,18 @@
             } else {
                 refreshSeriesVisibility();
             }
+
+            // Deep link from the navbar dropdown, e.g. /kaca-film-mobil?series=HT
+            var requestedSeries = new URLSearchParams(window.location.search).get('series');
+            if (requestedSeries) {
+                var seriesMatch = Array.prototype.find.call(seriesButtons, function (btn) {
+                    return btn.getAttribute('data-series').toLowerCase() === requestedSeries.toLowerCase()
+                        && !btn.classList.contains('is-hidden-filter');
+                });
+                if (seriesMatch) {
+                    setSeries(seriesMatch.getAttribute('data-series'));
+                }
+            }
         })();
     </script>
 @endsection

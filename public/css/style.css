@@ -516,6 +516,27 @@ section {
     position: relative;
 }
 
+/* Invisible bridge so the menu stays open while the cursor crosses the gap. */
+.navbar-dropdown::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 14px;
+}
+
+.navbar-caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 6px;
+    vertical-align: middle;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid currentColor;
+}
+
 .navbar-dropdown-menu {
     position: absolute;
     top: 100%;
@@ -551,6 +572,21 @@ section {
 }
 
 .navbar-dropdown-menu a:hover {
+    background: var(--teal-tint);
+    color: var(--teal-deep);
+}
+
+.navbar-dropdown-menu .navbar-dropdown-all {
+    display: none;
+}
+
+/* Over the transparent hero the top-level links are white, but the dropdown
+   panel is a light card — keep its links dark. */
+.navbar-transparent:not(.is-scrolled) .navbar-dropdown-menu a {
+    color: var(--ink-soft);
+}
+
+.navbar-transparent:not(.is-scrolled) .navbar-dropdown-menu a:hover {
     background: var(--teal-tint);
     color: var(--teal-deep);
 }
@@ -1938,6 +1974,7 @@ section {
 
     .navbar-dropdown-menu {
         position: static;
+        display: none;
         opacity: 1;
         visibility: visible;
         transform: none;
@@ -1946,6 +1983,22 @@ section {
         background: transparent;
         border: none;
         box-shadow: none;
+    }
+
+    .navbar-dropdown.is-expanded .navbar-dropdown-menu {
+        display: flex;
+    }
+
+    .navbar-dropdown-menu .navbar-dropdown-all {
+        display: block;
+    }
+
+    .navbar-caret {
+        transition: transform var(--transition-fast);
+    }
+
+    .navbar-dropdown.is-expanded .navbar-caret {
+        transform: rotate(180deg);
     }
 
     .navbar-toggle {

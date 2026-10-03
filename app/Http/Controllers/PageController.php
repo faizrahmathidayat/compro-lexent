@@ -455,6 +455,29 @@ class PageController extends Controller
         ];
     }
 
+    /**
+     * Compact menu data for the navbar dropdowns (series per segment + PPF types),
+     * built from the same catalogs the pages use so the two cannot drift apart.
+     */
+    public function navigationMenu(): array
+    {
+        $seriesFor = function (string $segment): array {
+            return array_values(array_map(
+                fn ($s) => ['code' => $s['code'], 'label' => $s['label']],
+                array_filter($this->seriesCatalog(), fn ($s) => $s['segment'] === $segment)
+            ));
+        };
+
+        return [
+            'building' => $seriesFor('building'),
+            'automotive' => $seriesFor('automotive'),
+            'ppf' => array_map(
+                fn ($p) => ['slug' => $p['slug'], 'name' => $p['name']],
+                $this->ppfLineup()
+            ),
+        ];
+    }
+
     public function home()
     {
         return view('home', [

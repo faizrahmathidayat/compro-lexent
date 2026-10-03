@@ -46,6 +46,36 @@
                 });
             }
 
+            // Mobile menu: a tap on a dropdown's parent link expands/collapses its submenu
+            // (one open at a time) instead of navigating; the submenu's first "Semua ..."
+            // link goes to the parent page. On desktop the parent link navigates as usual
+            // and the submenu opens on hover.
+            var mobileMenu = window.matchMedia('(max-width: 768px)');
+            var dropdowns = document.querySelectorAll('.navbar-dropdown');
+
+            dropdowns.forEach(function (dropdown) {
+                var parentLink = dropdown.querySelector(':scope > a');
+                parentLink.setAttribute('aria-haspopup', 'true');
+                parentLink.setAttribute('aria-expanded', 'false');
+
+                parentLink.addEventListener('click', function (event) {
+                    if (!mobileMenu.matches) { return; }
+
+                    event.preventDefault();
+                    var willOpen = !dropdown.classList.contains('is-expanded');
+
+                    dropdowns.forEach(function (other) {
+                        other.classList.remove('is-expanded');
+                        other.querySelector(':scope > a').setAttribute('aria-expanded', 'false');
+                    });
+
+                    if (willOpen) {
+                        dropdown.classList.add('is-expanded');
+                        parentLink.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+
             // Lightbox — opened by any .cms-lightbox-trigger on the page (Artikel/Sorotan/Portofolio
             // detail views: the single-image display and every carousel slide's image are triggers,
             // regardless of which slide is currently visible, so prev/next inside the lightbox can
