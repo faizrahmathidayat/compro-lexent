@@ -11,7 +11,6 @@
             <a href="{{ route('products.automotive') }}" class="{{ request()->routeIs('products.automotive') ? 'is-active' : '' }}">Kaca Film Mobil</a>
             <a href="{{ route('ppf.index') }}" class="{{ request()->routeIs('ppf.*') ? 'is-active' : '' }}">PPF</a>
             <a href="{{ route('articles.index') }}" class="{{ request()->routeIs('articles.*') ? 'is-active' : '' }}">Artikel</a>
-            <a href="{{ route('sorotan.index') }}" class="{{ request()->routeIs('sorotan.*') ? 'is-active' : '' }}">Produk</a>
             <a href="{{ route('portfolio') }}" class="{{ request()->routeIs('portfolio') ? 'is-active' : '' }}">Portfolio</a>
             <a href="{{ route('cek-garansi') }}" class="{{ request()->routeIs('cek-garansi') ? 'is-active' : '' }}">Warranty</a>
         </nav>
