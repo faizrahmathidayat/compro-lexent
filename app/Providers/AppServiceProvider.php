@@ -15,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // One instance per request so the navbar and the product pages share a
+        // single catalog-menu call.
+        $this->app->singleton(\App\Services\CmsClient::class);
     }
 
     /**

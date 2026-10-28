@@ -37,11 +37,15 @@ class CmsController extends Controller
     public function catalog(Request $request)
     {
         $page = max(1, (int) $request->query('page', 1));
-        $response = $this->cms->catalog($page);
+        $product = trim((string) $request->query('product', ''));
+        $category = trim((string) $request->query('category', ''));
+        $response = $this->cms->catalog($page, $product, $category);
 
         return view('cms.catalog.index', [
             'items' => $response['data'] ?? [],
             'meta' => $response['meta'] ?? null,
+            'product' => $product,
+            'category' => $category,
         ]);
     }
 

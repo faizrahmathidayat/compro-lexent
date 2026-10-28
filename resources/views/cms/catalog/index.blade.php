@@ -10,15 +10,15 @@
             <img src="{{ asset('images/category/building.jpg') }}" alt="">
         </div>
         <div class="container">
-            <span class="eyebrow">Sorotan</span>
-            <h1 class="section-title">Sorotan Produk LEXENT</h1>
+            <span class="eyebrow">{{ $product !== '' ? $product : 'Sorotan' }}</span>
+            <h1 class="section-title">{{ $category !== '' ? $category : 'Sorotan Produk LEXENT' }}</h1>
         </div>
     </section>
 
     <section style="padding-top: 0;">
         <div class="container">
             @if(empty($items))
-                <p class="section-subtitle" style="text-align: center; margin: var(--space-4) auto;">Konten belum tersedia saat ini.</p>
+                <p class="section-subtitle" style="text-align: center; margin: var(--space-4) auto;">{{ $category !== '' ? 'Belum ada produk untuk kategori ini.' : 'Konten belum tersedia saat ini.' }}</p>
             @else
                 <div class="cms-grid">
                     @foreach($items as $item)

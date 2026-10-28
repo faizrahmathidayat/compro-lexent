@@ -2,10 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\CmsClient;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
+    /** CMS catalog products that have a page of their own, and how that page looks. */
+    private const CMS_PRODUCTS = [
+        'Kaca Film Bangunan' => ['route' => 'products.building', 'eyebrow' => 'Building Windowfilm', 'title' => 'Kaca Film Bangunan LEXENT', 'image' => 'images/hero/hero-02-building.jpg'],
+        'Kaca Film Mobil' => ['route' => 'products.automotive', 'eyebrow' => 'Automotive Windowfilm', 'title' => 'Kaca Film Mobil LEXENT', 'image' => 'images/hero/hero-01-automotive.jpg'],
+        'PPF' => ['route' => 'ppf.index', 'eyebrow' => 'Automotive Accessory', 'title' => 'LEXENT Paint Protection Film', 'image' => 'images/category/ppf.jpg'],
+    ];
+
+    private $cms;
+
+    public function __construct(CmsClient $cms)
+    {
+        $this->cms = $cms;
+    }
+
     /**
      * All eight LEXENT window-film series across both divisions, straight from
      * the printed catalogs. Copy, attributes and per-series technology are the
@@ -468,13 +483,29 @@ class PageController extends Controller
             ));
         };
 
+        // Each product dropdown lists the categories the CMS catalog has under that
+        // product (linking to the filtered Sorotan page). The static lists are the
+        // fallback while the CMS has none for that product or cannot be reached.
+        $cmsMenu = $this->cms->catalogMenu();
+        $fromCms = fn (string $product, array $fallback) => !empty($cmsMenu[$product])
+            ? array_map(
+                fn ($category) => ['label' => $category, 'url' => route(self::CMS_PRODUCTS[$product]['route'], ['category' => $category])],
+                $cmsMenu[$product]
+            )
+            : $fallback;
+
+        $series = fn (string $segment) => array_map(
+            fn ($s) => ['label' => $s['label'], 'url' => route('products.' . $segment, ['series' => $s['code']])],
+            $seriesFor($segment)
+        );
+
         return [
-            'building' => $seriesFor('building'),
-            'automotive' => $seriesFor('automotive'),
-            'ppf' => array_map(
-                fn ($p) => ['slug' => $p['slug'], 'name' => $p['name']],
+            'building' => $fromCms('Kaca Film Bangunan', $series('building')),
+            'automotive' => $fromCms('Kaca Film Mobil', $series('automotive')),
+            'ppf' => $fromCms('PPF', array_map(
+                fn ($p) => ['label' => $p['name'], 'url' => route('ppf.show', $p['slug'])],
                 $this->ppfLineup()
-            ),
+            )),
         ];
     }
 
@@ -502,8 +533,36 @@ class PageController extends Controller
         ]);
     }
 
-    public function productsBuilding()
+    /**
+     * The CMS catalog page of a product (cards and category filter come from the
+     * CMS), or null while the CMS has nothing for that product, in which case the
+     * caller renders its static page.
+     */
+    private function cmsProductPage(Request $request, string $product)
     {
+        $categories = $this->cms->catalogMenu()[$product] ?? [];
+        if (empty($categories)) {
+            return null;
+        }
+
+        $category = trim((string) $request->query('category', ''));
+        $response = $this->cms->catalog(max(1, (int) $request->query('page', 1)), $product, $category);
+
+        return view('products.cms', [
+            'page' => self::CMS_PRODUCTS[$product],
+            'categories' => $categories,
+            'activeCategory' => $category,
+            'items' => $response['data'] ?? [],
+            'meta' => $response['meta'] ?? null,
+        ]);
+    }
+
+    public function productsBuilding(Request $request)
+    {
+        if ($page = $this->cmsProductPage($request, 'Kaca Film Bangunan')) {
+            return $page;
+        }
+
         return view('products.index', [
             'series' => array_values(array_filter($this->seriesCatalog(), fn ($s) => $s['segment'] === 'building')),
             'products' => array_values(array_filter($this->productLineup(), fn ($p) => $p['segment'] === 'building')),
@@ -511,8 +570,12 @@ class PageController extends Controller
         ]);
     }
 
-    public function productsAutomotive()
+    public function productsAutomotive(Request $request)
     {
+        if ($page = $this->cmsProductPage($request, 'Kaca Film Mobil')) {
+            return $page;
+        }
+
         return view('products.index', [
             'series' => array_values(array_filter($this->seriesCatalog(), fn ($s) => $s['segment'] === 'automotive')),
             'products' => array_values(array_filter($this->productLineup(), fn ($p) => $p['segment'] === 'automotive')),
@@ -538,8 +601,12 @@ class PageController extends Controller
         ]);
     }
 
-    public function ppfIndex()
+    public function ppfIndex(Request $request)
     {
+        if ($page = $this->cmsProductPage($request, 'PPF')) {
+            return $page;
+        }
+
         return view('ppf.index', [
             'products' => $this->ppfLineup(),
         ]);

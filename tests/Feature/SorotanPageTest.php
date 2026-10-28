@@ -53,4 +53,17 @@ class SorotanPageTest extends TestCase
 
         $this->get('/sorotan/tidak-ada')->assertStatus(404);
     }
+
+    public function test_index_passes_the_product_and_category_filters_to_the_cms(): void
+    {
+        Http::fake(['*/api/cms/catalog*' => Http::response([
+            'data' => [['slug' => 'bv-1', 'title' => 'BV 1', 'excerpt' => 'x', 'category' => 'Black Vision', 'cover' => null]],
+            'meta' => ['current_page' => 1, 'last_page' => 1, 'per_page' => 9, 'total' => 1],
+        ], 200)]);
+
+        $this->get('/sorotan?product=Kaca+Film+Bangunan&category=Black+Vision')->assertOk()->assertSee('BV 1')->assertSee('Kaca Film Bangunan');
+
+        Http::assertSent(fn ($request) => str_contains($request->url(), '/api/cms/catalog?')
+            && str_contains($request->url(), 'product=Kaca%20Film%20Bangunan') && str_contains($request->url(), 'category=Black%20Vision'));
+    }
 }

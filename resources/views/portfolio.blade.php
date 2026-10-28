@@ -29,12 +29,12 @@
             @if(empty($items))
                 <p class="section-subtitle" style="text-align: center; margin: var(--space-4) auto;">{{ $activeCategory !== '' ? 'Belum ada portfolio untuk kategori ini.' : 'Konten belum tersedia saat ini.' }}</p>
             @else
-                <div class="cms-grid">
+                <div class="cms-grid cms-grid--portfolio">
                     @foreach($items as $item)
-                        <a href="{{ route('portfolio.show', $item['slug']) }}" class="cms-card">
+                        <a href="{{ route('portfolio.show', $item['slug']) }}" class="cms-card cms-card--portfolio">
                             <div class="cms-card-media">
                                 @if(!empty($item['cover']))
-                                    <img src="{{ $item['cover']['thumbnail_url'] }}" alt="{{ $item['cover']['alt_text'] ?? $item['title'] }}" loading="lazy">
+                                    <img src="{{ $item['cover']['url'] ?? $item['cover']['thumbnail_url'] }}" alt="{{ $item['cover']['alt_text'] ?? $item['title'] }}" loading="lazy">
                                 @else
                                     <div class="cms-card-media-placeholder"></div>
                                 @endif
@@ -44,7 +44,6 @@
                                     <span class="cms-card-tag">{{ $item['category'] }}</span>
                                 @endif
                                 <h4>{{ $item['title'] }}</h4>
-                                <p>{{ $item['excerpt'] }}</p>
                             </div>
                         </a>
                     @endforeach

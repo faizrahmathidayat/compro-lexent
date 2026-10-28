@@ -20,6 +20,45 @@ class NavbarDropdownTest extends TestCase
         $this->assertStringNotContainsString('BP Series', $menu);
     }
 
+    public function test_each_dropdown_lists_the_cms_categories_of_its_product(): void
+    {
+        Http::fake(['*/api/cms/catalog-menu*' => Http::response(['data' => [
+            'Kaca Film Bangunan' => ['Black Vision', 'Frosted'],
+            'Kaca Film Mobil' => ['HT Series'],
+            'PPF' => [],
+        ]], 200)]);
+
+        $html = $this->get('/about')->assertOk()->getContent();
+        $building = $this->dropdownAfter($html, 'Kaca Film Bangunan');
+        $automotive = $this->dropdownAfter($html, 'Kaca Film Mobil');
+
+        $this->assertSame(['Black Vision', 'Frosted'], $this->labels($building));
+        $this->assertStringContainsString('href="' . url('/kaca-film-bangunan?category=Frosted') . '"', $building);
+        $this->assertSame(['HT Series'], $this->labels($automotive));
+        $this->assertStringContainsString('/kaca-film-mobil?category=HT%20Series', $automotive);
+        // PPF has no CMS categories, so it keeps its static types.
+        $this->assertSame('LEXENT PPF Type S', $this->labels($this->dropdownAfter($html, 'PPF'))[0]);
+    }
+
+    public function test_dropdowns_fall_back_to_the_static_lists_when_the_cms_has_nothing(): void
+    {
+        Http::fake(['*/api/cms/catalog-menu*' => Http::response(['data' => ['Kaca Film Bangunan' => []]], 200)]);
+
+        $menu = $this->dropdownAfter($this->get('/about')->assertOk()->getContent(), 'Kaca Film Bangunan');
+
+        $this->assertSame(['Black Vision', 'Reflective Series', 'High Performance', 'Ultra Protect'], $this->labels($menu));
+    }
+
+    public function test_dropdowns_fall_back_to_the_static_lists_when_the_cms_is_down(): void
+    {
+        Http::fake(['*/api/cms/catalog-menu*' => Http::response([], 500)]);
+
+        $menu = $this->dropdownAfter($this->get('/about')->assertOk()->getContent(), 'Kaca Film Bangunan');
+
+        $this->assertSame(['Black Vision', 'Reflective Series', 'High Performance', 'Ultra Protect'], $this->labels($menu));
+        $this->assertStringContainsString('href="' . url('/kaca-film-bangunan?series=BV') . '"', $menu);
+    }
+
     public function test_automotive_dropdown_lists_the_automotive_series_with_series_links(): void
     {
         $html = $this->get('/about')->assertOk()->getContent();

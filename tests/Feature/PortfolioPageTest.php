@@ -18,6 +18,17 @@ class PortfolioPageTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('Instalasi Gedung Apartemen A');
+        $response->assertDontSee('Ringkasan');
+    }
+
+    public function test_index_cards_use_the_full_size_cover(): void
+    {
+        Http::fake(['*/api/cms/portfolio*' => Http::response([
+            'data' => [['slug' => 'a', 'title' => 'Item A', 'excerpt' => 'x', 'category' => 'PPF', 'cover' => ['url' => 'http://cms.test/full.webp', 'thumbnail_url' => 'http://cms.test/thumb.webp', 'alt_text' => null]]],
+            'meta' => ['current_page' => 1, 'last_page' => 1, 'per_page' => 9, 'total' => 1],
+        ], 200)]);
+
+        $this->get('/portfolio')->assertOk()->assertSee('http://cms.test/full.webp', false)->assertDontSee('thumb.webp', false);
     }
 
     public function test_index_shows_filter_buttons_and_marks_the_active_category(): void

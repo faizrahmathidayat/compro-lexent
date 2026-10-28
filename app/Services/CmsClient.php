@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Log;
 
 class CmsClient
 {
+    /** Navbar menu, fetched at most once per request (see AppServiceProvider: singleton). */
+    private $menu;
+
     public function articles(int $page = 1): ?array
     {
         return $this->request('/api/cms/articles', ['page' => $page]);
@@ -17,9 +20,44 @@ class CmsClient
         return $this->request('/api/cms/articles/' . $slug, []);
     }
 
-    public function catalog(int $page = 1): ?array
+    public function catalog(int $page = 1, ?string $product = null, ?string $category = null): ?array
     {
-        return $this->request('/api/cms/catalog', ['page' => $page]);
+        $query = ['page' => $page];
+        if ($product !== null && $product !== '') {
+            $query['product'] = $product;
+        }
+        if ($category !== null && $category !== '') {
+            $query['category'] = $category;
+        }
+
+        return $this->request('/api/cms/catalog', $query);
+    }
+
+    /**
+     * Navbar menu: product => categories that have a published item for this
+     * site. Short timeout because it runs on every page; empty when the CMS is
+     * unreachable. Only non-empty string categories are returned.
+     */
+    public function catalogMenu(): array
+    {
+        if ($this->menu !== null) {
+            return $this->menu;
+        }
+
+        $response = $this->request('/api/cms/catalog-menu', [], 2);
+        $data = is_array($response['data'] ?? null) ? $response['data'] : [];
+
+        $menu = [];
+        foreach ($data as $product => $categories) {
+            if (!is_string($product) || !is_array($categories)) {
+                continue;
+            }
+            $menu[$product] = array_values(array_filter($categories, function ($category) {
+                return is_string($category) && trim($category) !== '';
+            }));
+        }
+
+        return $this->menu = $menu;
     }
 
     public function catalogItem(string $slug): ?array
@@ -57,14 +95,14 @@ class CmsClient
         return $this->request('/api/cms/portfolio/' . $slug, []);
     }
 
-    private function request(string $path, array $query): ?array
+    private function request(string $path, array $query, int $timeout = 5): ?array
     {
         $query['site'] = config('services.cms.site');
 
         try {
             $response = Http::withHeaders([
                 'X-API-Key' => config('services.cms.api_key'),
-            ])->timeout(5)->get(config('services.cms.base_url') . $path, $query);
+            ])->timeout($timeout)->get(config('services.cms.base_url') . $path, $query);
 
             if (!$response->successful()) {
                 return null;

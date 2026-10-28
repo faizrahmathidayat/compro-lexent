@@ -11,7 +11,7 @@
                 <div class="navbar-dropdown-menu">
                     <a href="{{ route('products.building') }}" class="navbar-dropdown-all">Semua Seri</a>
                     @foreach($navMenu['building'] as $item)
-                        <a href="{{ route('products.building', ['series' => $item['code']]) }}">{{ $item['label'] }}</a>
+                        <a href="{{ $item['url'] }}">{{ $item['label'] }}</a>
                     @endforeach
                 </div>
             </div>
@@ -20,7 +20,7 @@
                 <div class="navbar-dropdown-menu">
                     <a href="{{ route('products.automotive') }}" class="navbar-dropdown-all">Semua Seri</a>
                     @foreach($navMenu['automotive'] as $item)
-                        <a href="{{ route('products.automotive', ['series' => $item['code']]) }}">{{ $item['label'] }}</a>
+                        <a href="{{ $item['url'] }}">{{ $item['label'] }}</a>
                     @endforeach
                 </div>
             </div>
@@ -29,7 +29,7 @@
                 <div class="navbar-dropdown-menu">
                     <a href="{{ route('ppf.index') }}" class="navbar-dropdown-all">Semua Tipe PPF</a>
                     @foreach($navMenu['ppf'] as $item)
-                        <a href="{{ route('ppf.show', $item['slug']) }}">{{ $item['name'] }}</a>
+                        <a href="{{ $item['url'] }}">{{ $item['label'] }}</a>
                     @endforeach
                 </div>
             </div>
