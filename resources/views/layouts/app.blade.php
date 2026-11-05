@@ -6,6 +6,11 @@
     <title>@yield('title', 'LEXENT') — Superior Windowfilm Solution</title>
     <meta name="description" content="@yield('meta_description', 'LEXENT - kaca film mobil, kaca film bangunan, dan paint protection film (PPF) premium. Perlindungan panas & sinar UV hingga 99%, kejernihan tinggi, garansi resmi hingga 8 tahun.')">
 
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
+    <meta name="theme-color" content="#07080b">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
