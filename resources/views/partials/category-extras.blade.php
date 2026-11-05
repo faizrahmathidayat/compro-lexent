@@ -45,7 +45,7 @@
             'promo' => [
                 'title' => 'Perlindungan Maksimal untuk Nilai Kendaraan Anda',
                 'text' => 'Investasikan perlindungan terbaik untuk kendaraan kesayangan Anda bersama LEXENT.',
-                'image' => 'images/hero/ppf-peel.jpg',
+                'image' => 'images/hero/ppf-promo.jpg',
                 'points' => [],
             ],
             'benefits_title' => 'Keunggulan Paint Protection Film LEXENT',
@@ -63,6 +63,46 @@
 @endphp
 
 @if($extra)
+    @if($kind === 'ppf')
+        {{-- PPF order (as in the mockup): benefits -> before/after slider -> promo band --}}
+        <div class="benefits benefits--plain">
+            <h3>{{ $extra['benefits_title'] }}</h3>
+            <div class="benefits-grid">
+                @foreach($extra['benefits'] as [$icon, $label])
+                    <div class="benefit">@include('partials.icon', ['name' => $icon]) <span>{{ $label }}</span></div>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="compare" id="ppfCompare" style="--pos: 50%;">
+            <img class="compare-after" src="{{ asset('images/hero/ppf-after.jpg') }}" alt="Cat mobil mulus setelah dilindungi PPF" loading="lazy">
+            <img class="compare-before" src="{{ asset('images/hero/ppf-before.jpg') }}" alt="Cat mobil berbekas goresan sebelum dilindungi PPF" loading="lazy">
+            <span class="compare-label compare-label--before">Sebelum</span>
+            <span class="compare-label compare-label--after">Sesudah<small>Menggunakan PPF</small></span>
+            <span class="compare-handle" aria-hidden="true">@include('partials.icon', ['name' => 'arrows-lr'])</span>
+            <input type="range" min="0" max="100" value="50" class="compare-range" aria-label="Geser untuk membandingkan kondisi sebelum dan sesudah memakai PPF">
+        </div>
+
+        <div class="promo-band promo-band--ppf">
+            <div class="promo-band-media" aria-hidden="true">
+                <img src="{{ asset($extra['promo']['image']) }}" alt="" loading="lazy">
+            </div>
+            <div class="promo-band-copy">
+                <h3>{{ $extra['promo']['title'] }}</h3>
+                <p>{{ $extra['promo']['text'] }}</p>
+                <a href="https://wa.me/6285888899558" target="_blank" rel="noopener" class="btn btn-gold btn-sm btn-arrow">Konsultasi Sekarang</a>
+            </div>
+        </div>
+
+        <script>
+            (function () {
+                var box = document.getElementById('ppfCompare');
+                if (!box) { return; }
+                var range = box.querySelector('.compare-range');
+                range.addEventListener('input', function () { box.style.setProperty('--pos', range.value + '%'); });
+            })();
+        </script>
+    @else
     @if($kind === 'automotive')
         <div class="vlt-compare">
             <h3>Perbandingan Kegelapan Kaca Film</h3>
@@ -105,4 +145,5 @@
             @endforeach
         </div>
     </div>
+    @endif
 @endif
