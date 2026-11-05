@@ -5,9 +5,9 @@
 
 @section('content')
 
-    <section class="page-header">
+    <section class="page-header page-header--wide page-header--tall">
         <div class="page-header-media">
-            <img src="{{ asset('images/hero/building-glass.jpg') }}" alt="">
+            <img src="{{ asset('images/hero/hero-building.jpg') }}" alt="" style="object-position: right 42%;">
         </div>
         <div class="container">
             <nav class="breadcrumb" aria-label="Breadcrumb">

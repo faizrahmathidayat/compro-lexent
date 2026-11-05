@@ -1177,9 +1177,17 @@ section {
         linear-gradient(0deg, var(--bg) 0%, rgba(7, 8, 11, 0) 16%);
 }
 
+.page-header--tall {
+    min-height: 480px;
+}
+
 @media (max-width: 768px) {
     .page-header--wide .page-header-media img {
         opacity: 0.55;
+    }
+
+    .page-header--tall {
+        min-height: 380px;
     }
 }
 
