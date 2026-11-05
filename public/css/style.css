@@ -543,45 +543,17 @@ section {
     content: "";
     position: absolute;
     inset: 0;
+    /* Light veil on the copy side only, so the photo stays the star (as in the mockups) */
     background:
-        linear-gradient(90deg, rgba(7, 8, 11, 0.94) 0%, rgba(7, 8, 11, 0.7) 34%, rgba(7, 8, 11, 0.12) 72%),
-        linear-gradient(0deg, var(--bg) 0%, rgba(7, 8, 11, 0) 30%);
+        linear-gradient(90deg, rgba(7, 8, 11, 0.82) 0%, rgba(7, 8, 11, 0.5) 32%, rgba(7, 8, 11, 0.04) 66%),
+        linear-gradient(0deg, var(--bg) 0%, rgba(7, 8, 11, 0) 18%);
 }
 
 .hero-media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 70% center;
-}
-
-/* Photo sits on the right ~70% and fades into the dark canvas on its left edge
-   (the homepage mockup look); other slides stay full-bleed. */
-.hero-media--right img {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: auto;
-    width: 72%;
-    max-width: 1500px;
-    object-position: 22% center;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 30%);
-    mask-image: linear-gradient(90deg, transparent 0%, #000 30%);
-}
-
-.hero-media--right::after {
-    background:
-        linear-gradient(90deg, rgba(7, 8, 11, 0.55) 0%, rgba(7, 8, 11, 0.1) 45%, rgba(7, 8, 11, 0) 70%),
-        linear-gradient(0deg, var(--bg) 0%, rgba(7, 8, 11, 0) 30%);
-}
-
-@media (max-width: 768px) {
-    .hero-media--right img {
-        width: 100%;
-        opacity: 0.55;
-        -webkit-mask-image: none;
-        mask-image: none;
-    }
+    object-position: center;
 }
 
 .hero-content {
@@ -1155,31 +1127,41 @@ section {
     margin-bottom: var(--space-3);
 }
 
-/* Category pages: taller hero, photo on the right fading into the dark canvas */
+/* Category pages: full-bleed photo with only a light veil behind the copy
+   (matches the catalog mockups). */
 .page-header--category {
-    min-height: 540px;
+    min-height: 600px;
     padding-bottom: var(--space-6);
 }
 
 .page-header--category .page-header-media img {
-    width: 62%;
+    left: 0;
+    right: auto;
+    width: 100%;
     opacity: 1;
-    object-position: center 30%;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 32%);
-    mask-image: linear-gradient(90deg, transparent 0%, #000 32%);
+    object-position: center 40%;
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
+.page-header--category .page-header-media::after {
+    background:
+        linear-gradient(90deg, rgba(7, 8, 11, 0.86) 0%, rgba(7, 8, 11, 0.55) 30%, rgba(7, 8, 11, 0.06) 62%),
+        linear-gradient(0deg, var(--bg) 0%, rgba(7, 8, 11, 0) 16%);
 }
 
 @media (max-width: 768px) {
     .page-header--category {
-        min-height: 420px;
+        min-height: 440px;
     }
 
     .page-header--category .page-header-media img {
-        width: 100%;
-        opacity: 0.5;
-        -webkit-mask-image: none;
-        mask-image: none;
+        opacity: 0.55;
     }
+}
+
+.page-header--category .page-lead {
+    max-width: 400px;
 }
 
 /* Category pages: uppercase hero with yellow last word */

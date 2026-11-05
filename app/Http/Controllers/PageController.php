@@ -357,8 +357,7 @@ class PageController extends Controller
     {
         return [
             [
-                'image' => 'images/hero/hero-home.jpg',
-                'media_class' => 'hero-media--right',
+                'image' => 'images/hero/hero-car.jpg',
                 'alt' => 'Mobil sedan hitam mewah dengan gedung kaca di belakangnya',
                 'kicker' => 'Kaca Film &bull; PPF',
                 'headline' => 'Perlindungan Lebih Baik,<br><span class="highlight">Untuk Setiap Perjalanan</span>',
@@ -367,8 +366,7 @@ class PageController extends Controller
                 'cta_url' => route('about'),
             ],
             [
-                'image' => 'images/hero/building-tower.jpg',
-                'media_class' => 'hero-media--right',
+                'image' => 'images/hero/hero-building.jpg',
                 'alt' => 'Gedung perkantoran berfasad kaca dengan langit biru',
                 'kicker' => 'Kaca Film Bangunan',
                 'headline' => 'Ruang Lebih Sejuk,<br><span class="highlight">Energi Lebih Hemat</span>',
@@ -377,8 +375,7 @@ class PageController extends Controller
                 'cta_url' => route('products.building'),
             ],
             [
-                'image' => 'images/hero/ppf-peel.jpg',
-                'media_class' => 'hero-media--right',
+                'image' => 'images/hero/hero-ppf.jpg',
                 'alt' => 'Tangan bersarung hitam mengelupas lapisan paint protection film dari bodi mobil',
                 'kicker' => 'Paint Protection Film',
                 'headline' => 'Lindungi Cat,<br><span class="highlight">Jaga Nilai Kendaraan</span>',

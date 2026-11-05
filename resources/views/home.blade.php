@@ -9,7 +9,7 @@
     <section class="hero" id="heroSection">
         @foreach($highlights as $i => $slide)
             <div class="hero-slide{{ $i === 0 ? ' is-active' : '' }}" data-index="{{ $i }}">
-                <div class="hero-media {{ $slide['media_class'] ?? '' }}">
+                <div class="hero-media">
                     <img src="{{ asset($slide['image']) }}" alt="{{ $slide['alt'] }}" {{ $i === 0 ? '' : 'loading="lazy"' }}>
                 </div>
                 <div class="container hero-content">
