@@ -5,27 +5,17 @@
 
 @section('content')
 
-    <section class="page-header">
-        <div class="page-header-media">
-            <img src="{{ asset('images/category/ppf.jpg') }}" alt="">
-        </div>
-        <div class="container">
-            <span class="eyebrow">Automotive Accessory</span>
-            <h1 class="section-title">LEXENT Paint Protection Film</h1>
-            <p class="section-subtitle" style="max-width: 640px;">
-                Lapisan TPU pelindung cat mobil dari goresan, kerikil, dan noda harian &mdash;
-                empat tipe dengan karakter self-healing, kilau, dan finishing yang berbeda.
-            </p>
-        </div>
-    </section>
+    @include('partials.category-hero', ['kind' => 'ppf'])
 
-    <section style="padding-top: 0;">
+    <section style="padding-top: 0;" id="katalog">
         <div class="container">
+            <h2 class="section-title-row">Pilihan Produk PPF</h2>
+
             <div class="product-grid">
                 @foreach($products as $product)
                     <div class="product-card">
                         <span class="product-badge">Garansi {{ $product['warranty_years'] }} Tahun</span>
-                        <div class="product-visual {{ $product['accent'] }}" data-series="Paint Protection Film">{{ $product['code'] }}</div>
+                        <div class="product-visual product-visual--ppf {{ $product['accent'] }}" data-series="Paint Protection Film"><span>{{ $product['code'] }}</span></div>
                         <h3>{{ $product['name'] }}</h3>
                         <div class="product-tagline">{{ $product['tagline'] }}</div>
                         <p class="product-desc">{{ $product['description'] }}</p>
@@ -35,10 +25,12 @@
                             <div class="spec-meter-head"><span>Finishing</span> <b>{{ $product['finish'] }}</b></div>
                         </div>
 
-                        <a href="{{ route('ppf.show', $product['slug']) }}" class="btn btn-outline btn-block">Lihat Detail</a>
+                        <a href="{{ route('ppf.show', $product['slug']) }}" class="btn btn-outline btn-block btn-arrow">Lihat Detail</a>
                     </div>
                 @endforeach
             </div>
+
+            @include('partials.category-extras', ['kind' => 'ppf'])
         </div>
     </section>
 

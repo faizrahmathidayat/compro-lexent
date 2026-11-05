@@ -3,52 +3,48 @@
         <div class="footer-grid">
             <div>
                 <div class="footer-logo">
-                    <img src="{{ asset('images/lexent-logo.png') }}" alt="LEXENT">
+                    <img src="{{ asset('images/lexent-logo-light.png') }}" alt="LEXENT">
                 </div>
-                <p class="footer-about">
-                    Superior Windowfilm Solution. LEXENT menghadirkan kaca film untuk
-                    Automotive &amp; Building dengan penolakan panas &amp; sinar UV hingga
-                    99%, kejernihan tinggi, dan garansi resmi hingga 8 tahun.
-                </p>
-                <div class="footer-social">
-                    <a href="#" aria-label="Instagram">IG</a>
-                    <a href="#" aria-label="Facebook">FB</a>
-                    <a href="#" aria-label="TikTok">TT</a>
-                    <a href="#" aria-label="WhatsApp">WA</a>
-                </div>
+                <p class="footer-about">Better Comfort Everyday</p>
             </div>
 
             <div class="footer-col">
-                <h5>Sitemap</h5>
-                <a href="{{ route('home') }}">Home</a>
-                <a href="{{ route('about') }}">About</a>
-                <a href="{{ route('products.index') }}">Produk</a>
-                <a href="{{ route('ppf.index') }}">Paint Protection Film</a>
-                <a href="{{ route('articles.index') }}">Artikel</a>
-                <a href="{{ route('sorotan.index') }}">Sorotan Produk</a>
+                <h5>Solusi Kami</h5>
+                <a href="{{ route('products.building') }}">Kaca Film Bangunan</a>
+                <a href="{{ route('products.automotive') }}">Kaca Film Mobil</a>
+                <a href="{{ route('ppf.index') }}">Paint Protection Film (PPF)</a>
+            </div>
+
+            <div class="footer-col">
+                <h5>Tautan Cepat</h5>
+                <a href="{{ route('about') }}">Tentang Kami</a>
+                <a href="{{ route('cek-garansi') }}">Garansi</a>
                 <a href="{{ route('portfolio') }}">Portfolio</a>
-                <a href="{{ route('dealers') }}">Alamat</a>
-                <a href="{{ route('cek-garansi') }}">Cek Garansi</a>
+                <a href="{{ route('articles.index') }}">Artikel</a>
+                <a href="{{ route('dealers') }}">Hubungi Kami</a>
             </div>
 
             <div class="footer-col">
-                <h5>Kategori Produk</h5>
-                <a href="{{ route('products.automotive') }}">Window Film Automotive</a>
-                <a href="{{ route('products.building') }}">Window Film Building</a>
-                <a href="{{ route('ppf.index') }}">Paint Protection Film</a>
+                <h5>Follow Kami</h5>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram">@include('partials.icon', ['name' => 'instagram'])</a>
+                    <a href="#" aria-label="YouTube">@include('partials.icon', ['name' => 'youtube'])</a>
+                    <a href="#" aria-label="TikTok">@include('partials.icon', ['name' => 'tiktok'])</a>
+                </div>
             </div>
 
             <div class="footer-col">
-                <h5>Kontak</h5>
-                <p>Ruko La Valle, Citra Garden Serpong No.66 Blk B17, Cisauk, Kota Tangerang Selatan, Banten 15341</p>
-                <p>0858-8889-9558</p>
-                <p>hello@lexent.id</p>
+                <a href="https://wa.me/6285888899558" target="_blank" rel="noopener" class="footer-wa">@include('partials.icon', ['name' => 'whatsapp']) Chat via WA</a>
             </div>
         </div>
 
         <div class="footer-bottom">
             <span>&copy; {{ date('Y') }} LEXENT. All rights reserved.</span>
-            <span>Clear Vision &middot; Cool Comfort &middot; Lasting Protection</span>
+            <nav aria-label="Legal">
+                <a href="#">Kebijakan Privasi</a>
+                <span aria-hidden="true">|</span>
+                <a href="#">Syarat &amp; Ketentuan</a>
+            </nav>
         </div>
     </div>
 </footer>

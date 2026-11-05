@@ -1,11 +1,11 @@
 <header class="navbar navbar-transparent" id="mainNavbar">
     <div class="navbar-inner">
         <a href="{{ route('home') }}" class="navbar-logo" aria-label="LEXENT — beranda">
-            <img src="{{ asset('images/lexent-logo.png') }}" alt="LEXENT">
+            <img src="{{ asset('images/lexent-logo-light.png') }}" alt="LEXENT">
         </a>
 
         <nav class="navbar-links" id="navbarLinks">
-            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'is-active' : '' }}">Home</a>
+            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'is-active' : '' }}">Beranda</a>
             <div class="navbar-dropdown">
                 <a href="{{ route('products.building') }}" class="{{ request()->routeIs('products.building') ? 'is-active' : '' }}">Kaca Film Bangunan<span class="navbar-caret" aria-hidden="true"></span></a>
                 <div class="navbar-dropdown-menu">
@@ -33,13 +33,15 @@
                     @endforeach
                 </div>
             </div>
-            <a href="{{ route('portfolio') }}" class="{{ request()->routeIs('portfolio') ? 'is-active' : '' }}">Portfolio</a>
-            <a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'is-active' : '' }}">About</a>
+            <a href="{{ route('portfolio') }}" class="{{ request()->routeIs('portfolio*') ? 'is-active' : '' }}">Portfolio</a>
             <a href="{{ route('articles.index') }}" class="{{ request()->routeIs('articles.*') ? 'is-active' : '' }}">Artikel</a>
             <a href="{{ route('cek-garansi') }}" class="{{ request()->routeIs('cek-garansi') ? 'is-active' : '' }}">Warranty</a>
+            <a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'is-active' : '' }}">About</a>
+            <a href="{{ route('dealers') }}" class="{{ request()->routeIs('dealers') ? 'is-active' : '' }}">Kontak</a>
         </nav>
 
         <div class="navbar-cta">
+            <a href="https://wa.me/6285888899558" target="_blank" rel="noopener" class="btn btn-gold btn-arrow">Konsultasi</a>
             <button type="button" class="navbar-toggle" id="navbarToggle" aria-label="Buka menu">
                 <span></span><span></span><span></span>
             </button>

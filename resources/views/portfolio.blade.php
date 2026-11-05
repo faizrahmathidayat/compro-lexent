@@ -1,17 +1,20 @@
 @extends('layouts.app')
 
 @section('title', 'Portfolio')
-@section('meta_description', 'Portfolio proyek LEXENT — instalasi kaca film Automotive dan Building.')
+@section('meta_description', 'Portfolio proyek LEXENT — instalasi kaca film mobil, kaca film bangunan, dan PPF oleh tim profesional.')
 
 @section('content')
 
     <section class="page-header">
         <div class="page-header-media">
-            <img src="{{ asset('images/category/ppf.jpg') }}" alt="">
+            <img src="{{ asset('images/hero/building-glass.jpg') }}" alt="">
         </div>
         <div class="container">
-            <span class="eyebrow">Our Work</span>
-            <h1 class="section-title">Portfolio Proyek LEXENT</h1>
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="{{ route('home') }}">Home</a> <span aria-hidden="true">&rsaquo;</span> <span aria-current="page">Portfolio</span>
+            </nav>
+            <h1 class="page-title">Portfolio <span>Karya Terbaik Kami</span></h1>
+            <p class="page-lead">Lihat hasil nyata dari berbagai proyek pemasangan kaca film dan PPF oleh tim profesional LEXENT.</p>
         </div>
     </section>
 
@@ -27,11 +30,22 @@
             @endif
 
             @if(empty($items))
-                <p class="section-subtitle" style="text-align: center; margin: var(--space-4) auto;">{{ $activeCategory !== '' ? 'Belum ada portfolio untuk kategori ini.' : 'Konten belum tersedia saat ini.' }}</p>
+                <p class="section-subtitle" style="margin: var(--space-4) 0;">{{ $activeCategory !== '' ? 'Belum ada portfolio untuk kategori ini.' : 'Konten belum tersedia saat ini.' }}</p>
             @else
                 <div class="cms-grid cms-grid--portfolio">
                     @foreach($items as $item)
-                        <a href="{{ route('portfolio.show', $item['slug']) }}" class="cms-card cms-card--portfolio">
+                        @php
+                            $categoryName = strtolower($item['category'] ?? '');
+                            $categoryIcon = null;
+                            if (str_contains($categoryName, 'bangunan') || str_contains($categoryName, 'building')) {
+                                $categoryIcon = 'building';
+                            } elseif (str_contains($categoryName, 'mobil') || str_contains($categoryName, 'automotive')) {
+                                $categoryIcon = 'car';
+                            } elseif (str_contains($categoryName, 'ppf')) {
+                                $categoryIcon = 'shield-check';
+                            }
+                        @endphp
+                        <a href="{{ route('portfolio.show', $item['slug']) }}" class="cms-card cms-card--overlay cms-card--portfolio">
                             <div class="cms-card-media">
                                 @if(!empty($item['cover']))
                                     <img src="{{ $item['cover']['url'] ?? $item['cover']['thumbnail_url'] }}" alt="{{ $item['cover']['alt_text'] ?? $item['title'] }}" loading="lazy">
@@ -41,7 +55,10 @@
                             </div>
                             <div class="cms-card-body">
                                 @if(!empty($item['category']))
-                                    <span class="cms-card-tag">{{ $item['category'] }}</span>
+                                    <span class="cms-card-tagchip">
+                                        @if($categoryIcon) @include('partials.icon', ['name' => $categoryIcon]) @endif
+                                        {{ $item['category'] }}
+                                    </span>
                                 @endif
                                 <h4>{{ $item['title'] }}</h4>
                             </div>

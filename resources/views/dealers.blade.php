@@ -10,8 +10,11 @@
             <img src="{{ asset('images/category/building.jpg') }}" alt="">
         </div>
         <div class="container">
-            <span class="eyebrow">Alamat</span>
-            <h1 class="section-title">Lokasi Kantor LEXENT</h1>
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="{{ route('home') }}">Home</a> <span aria-hidden="true">&rsaquo;</span> <span aria-current="page">Kontak</span>
+            </nav>
+            <h1 class="page-title">Hubungi Kami <span>Lokasi Kantor LEXENT</span></h1>
+            <p class="page-lead">Kunjungi kantor resmi LEXENT atau hubungi kami untuk konsultasi produk kaca film dan PPF.</p>
         </div>
     </section>
 

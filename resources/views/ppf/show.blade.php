@@ -10,7 +10,7 @@
             <a href="{{ route('ppf.index') }}" class="back-link">&larr; Paint Protection Film</a>
 
             <div class="product-detail-grid">
-                <div class="product-detail-visual {{ $product['accent'] }}" data-series="Paint Protection Film">{{ $product['code'] }}</div>
+                <div class="product-detail-visual is-automotive {{ $product['accent'] }}" data-series="Paint Protection Film"><span>{{ $product['code'] }}</span></div>
 
                 <div>
                     <span class="series-tag">Paint Protection Film</span>

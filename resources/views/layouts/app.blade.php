@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'LEXENT') — Superior Windowfilm Solution</title>
-    <meta name="description" content="@yield('meta_description', 'LEXENT - kaca film otomotif premium. Perlindungan panas & sinar UV hingga 99%, kejernihan tinggi, garansi resmi hingga 7 tahun.')">
+    <meta name="description" content="@yield('meta_description', 'LEXENT - kaca film mobil, kaca film bangunan, dan paint protection film (PPF) premium. Perlindungan panas & sinar UV hingga 99%, kejernihan tinggi, garansi resmi hingga 8 tahun.')">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
@@ -50,7 +50,7 @@
             // (one open at a time) instead of navigating; the submenu's first "Semua ..."
             // link goes to the parent page. On desktop the parent link navigates as usual
             // and the submenu opens on hover.
-            var mobileMenu = window.matchMedia('(max-width: 768px)');
+            var mobileMenu = window.matchMedia('(max-width: 1180px)');
             var dropdowns = document.querySelectorAll('.navbar-dropdown');
 
             dropdowns.forEach(function (dropdown) {

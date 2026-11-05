@@ -10,7 +10,7 @@
             <a href="{{ route('products.index') }}" class="back-link">&larr; Kembali ke Katalog</a>
 
             <div class="product-detail-grid">
-                <div class="product-detail-visual {{ $product['accent'] }}" data-series="{{ $product['series_label'] }}">{{ $product['number'] }}</div>
+                <div class="product-detail-visual {{ $product['segment'] === 'automotive' ? 'is-automotive' : '' }} {{ $product['accent'] }}" data-series="{{ $product['series_label'] }}"><span>{{ $product['number'] }}</span></div>
 
                 <div>
                     <span class="series-tag">{{ $product['series_label'] }}</span>

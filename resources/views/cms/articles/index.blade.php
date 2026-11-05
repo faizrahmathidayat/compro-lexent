@@ -1,28 +1,40 @@
 @extends('layouts.app')
 
 @section('title', 'Artikel')
-@section('meta_description', 'Artikel seputar perawatan kaca film automotive dan building dari LEXENT.')
+@section('meta_description', 'Artikel dan tips seputar kaca film mobil, kaca film bangunan, dan PPF dari LEXENT.')
 
 @section('content')
 
     <section class="page-header">
         <div class="page-header-media">
-            <img src="{{ asset('images/category/automotive.jpg') }}" alt="">
+            <img src="{{ asset('images/hero/article-header.jpg') }}" alt="">
         </div>
         <div class="container">
-            <span class="eyebrow">Insight</span>
-            <h1 class="section-title">Artikel LEXENT</h1>
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="{{ route('home') }}">Home</a> <span aria-hidden="true">&rsaquo;</span> <span aria-current="page">Artikel</span>
+            </nav>
+            <h1 class="page-title">Artikel &amp; Tips <span>Seputar Kaca Film &amp; PPF</span></h1>
+            <p class="page-lead">Dapatkan informasi terbaru, tips perawatan, dan wawasan seputar kaca film dan PPF dari LEXENT.</p>
         </div>
     </section>
 
     <section style="padding-top: 0;">
         <div class="container">
+            @if(!empty($categories))
+                <nav class="cms-filter" aria-label="Filter kategori artikel">
+                    <a href="{{ route('articles.index') }}" class="{{ $activeCategory === '' ? 'is-active' : '' }}">Semua</a>
+                    @foreach($categories as $category)
+                        <a href="{{ route('articles.index', ['category' => $category]) }}" class="{{ strcasecmp($activeCategory, $category) === 0 ? 'is-active' : '' }}">{{ $category }}</a>
+                    @endforeach
+                </nav>
+            @endif
+
             @if(empty($items))
-                <p class="section-subtitle" style="text-align: center; margin: var(--space-4) auto;">Konten belum tersedia saat ini.</p>
+                <p class="section-subtitle" style="margin: var(--space-4) 0;">{{ $activeCategory !== '' ? 'Belum ada artikel untuk kategori ini.' : 'Konten belum tersedia saat ini.' }}</p>
             @else
                 <div class="cms-grid">
                     @foreach($items as $item)
-                        <a href="{{ route('articles.show', $item['slug']) }}" class="cms-card">
+                        <a href="{{ route('articles.show', $item['slug']) }}" class="cms-card cms-card--overlay">
                             <div class="cms-card-media">
                                 @if(!empty($item['cover']))
                                     <img src="{{ $item['cover']['thumbnail_url'] }}" alt="{{ $item['cover']['alt_text'] ?? $item['title'] }}" loading="lazy">
@@ -31,11 +43,11 @@
                                 @endif
                             </div>
                             <div class="cms-card-body">
-                                @if(!empty($item['category']))
-                                    <span class="cms-card-tag">{{ $item['category'] }}</span>
+                                @if(!empty($item['published_at']))
+                                    <span class="cms-card-date">{{ \Carbon\Carbon::parse($item['published_at'])->format('d M Y') }}</span>
                                 @endif
                                 <h4>{{ $item['title'] }}</h4>
-                                <p>{{ $item['excerpt'] }}</p>
+                                <span class="cms-card-more">Baca Selengkapnya</span>
                             </div>
                         </a>
                     @endforeach

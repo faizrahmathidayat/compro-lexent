@@ -10,9 +10,29 @@ class CmsClient
     /** Navbar menu, fetched at most once per request (see AppServiceProvider: singleton). */
     private $menu;
 
-    public function articles(int $page = 1): ?array
+    public function articles(int $page = 1, ?string $category = null): ?array
     {
-        return $this->request('/api/cms/articles', ['page' => $page]);
+        $query = ['page' => $page];
+        if ($category !== null && $category !== '') {
+            $query['category'] = $category;
+        }
+
+        return $this->request('/api/cms/articles', $query);
+    }
+
+    /**
+     * Categories that currently have published articles for this site; an empty
+     * list when the CMS is unreachable.
+     */
+    public function articleCategories(): array
+    {
+        $response = $this->request('/api/cms/article-categories', []);
+
+        $categories = is_array($response['data'] ?? null) ? $response['data'] : [];
+
+        return array_values(array_filter($categories, function ($category) {
+            return is_string($category) && trim($category) !== '';
+        }));
     }
 
     public function article(string $slug): ?array

@@ -349,31 +349,41 @@ class PageController extends Controller
     }
 
     /**
-     * Hero: one highlight slide per division (automotive / building), each
-     * drawn from that division's own catalog cover language.
+     * Hero slides on the homepage: one for the brand promise, then one each
+     * for building film and PPF. `headline` is trusted static HTML (the second
+     * line is wrapped in .highlight to render yellow).
      */
     private function segmentHighlights(): array
     {
         return [
             [
-                'image' => 'images/hero/hero-01-automotive.jpg',
-                'alt' => 'Teknisi memasang paint protection film pada bodi mobil',
-                'headline' => 'Clarity Inside,<br><span class="highlight">Protection Outside</span>',
-                'cta_label' => 'Lihat Katalog Automotive',
-                'cta_url' => route('products.index', ['segment' => 'automotive']),
+                'image' => 'images/hero/hero-home.jpg',
+                'media_class' => 'hero-media--right',
+                'alt' => 'Mobil sedan hitam mewah dengan gedung kaca di belakangnya',
+                'kicker' => 'Kaca Film &bull; PPF',
+                'headline' => 'Perlindungan Lebih Baik,<br><span class="highlight">Untuk Setiap Perjalanan</span>',
+                'text' => 'Solusi kaca film mobil, bangunan, dan PPF berkualitas tinggi untuk kenyamanan dan perlindungan maksimal.',
+                'cta_label' => 'Pelajari Lebih Lanjut',
+                'cta_url' => route('about'),
             ],
             [
-                'image' => 'images/hero/hero-02-building.jpg',
-                'alt' => 'Fasad gedung kaca modern dilihat dari bawah',
-                'headline' => 'Smart Film.<br><span class="highlight">Better Buildings.</span>',
-                'cta_label' => 'Lihat Katalog Building',
-                'cta_url' => route('products.index', ['segment' => 'building']),
+                'image' => 'images/hero/building-tower.jpg',
+                'media_class' => 'hero-media--right',
+                'alt' => 'Gedung perkantoran berfasad kaca dengan langit biru',
+                'kicker' => 'Kaca Film Bangunan',
+                'headline' => 'Ruang Lebih Sejuk,<br><span class="highlight">Energi Lebih Hemat</span>',
+                'text' => 'Reduksi panas, perlindungan UV, privasi, dan efisiensi energi untuk gedung perkantoran, ruko, maupun hunian.',
+                'cta_label' => 'Lihat Kaca Film Bangunan',
+                'cta_url' => route('products.building'),
             ],
             [
-                'image' => 'images/category/ppf.jpg',
-                'alt' => 'Mobil sport hitam di garasi bernuansa neon setelah pemasangan PPF',
-                'headline' => 'Proteksi Maksimal.<br><span class="highlight">Kilau Tetap Natural.</span>',
-                'cta_label' => 'Lihat PPF',
+                'image' => 'images/hero/ppf-peel.jpg',
+                'media_class' => 'hero-media--right',
+                'alt' => 'Tangan bersarung hitam mengelupas lapisan paint protection film dari bodi mobil',
+                'kicker' => 'Paint Protection Film',
+                'headline' => 'Lindungi Cat,<br><span class="highlight">Jaga Nilai Kendaraan</span>',
+                'text' => 'Lapisan PPF melindungi cat dari goresan, batu kerikil, dan noda sehari-hari.',
+                'cta_label' => 'Lihat Paint Protection Film',
                 'cta_url' => route('ppf.index'),
             ],
         ];

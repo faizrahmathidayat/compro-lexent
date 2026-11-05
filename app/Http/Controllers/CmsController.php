@@ -17,11 +17,14 @@ class CmsController extends Controller
     public function articles(Request $request)
     {
         $page = max(1, (int) $request->query('page', 1));
-        $response = $this->cms->articles($page);
+        $category = trim((string) $request->query('category', ''));
+        $response = $this->cms->articles($page, $category);
 
         return view('cms.articles.index', [
             'items' => $response['data'] ?? [],
             'meta' => $response['meta'] ?? null,
+            'categories' => $this->cms->articleCategories(),
+            'activeCategory' => $category,
         ]);
     }
 

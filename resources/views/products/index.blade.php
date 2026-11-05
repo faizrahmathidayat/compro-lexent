@@ -5,18 +5,12 @@
 
 @section('content')
 
-    <section class="page-header">
-        <div class="page-header-media">
-            <img src="{{ asset($segment === 'building' ? 'images/hero/hero-02-building.jpg' : 'images/hero/hero-01-automotive.jpg') }}" alt="">
-        </div>
-        <div class="container">
-            <span class="eyebrow">{{ $segment === 'building' ? 'Building Windowfilm' : ($segment === 'automotive' ? 'Automotive Windowfilm' : 'Product Lineup') }}</span>
-            <h1 class="section-title">{{ $segment === 'building' ? 'Kaca Film Bangunan LEXENT' : ($segment === 'automotive' ? 'Kaca Film Mobil LEXENT' : 'Katalog Film LEXENT') }}</h1>
-        </div>
-    </section>
+    @include('partials.category-hero', ['kind' => $segment ?: 'all'])
 
-    <section style="padding-top: 0;">
+    <section style="padding-top: 0;" id="katalog">
         <div class="container">
+            <h2 class="section-title-row">Pilih Jenis Produk</h2>
+
             @if(!$segment)
                 <div class="series-filter" id="segmentFilter">
                     <button type="button" class="is-active" data-segment="all">Semua Kategori</button>
@@ -25,7 +19,7 @@
                 </div>
             @endif
 
-            <div class="series-filter" id="seriesFilter">
+            <div class="series-filter{{ $segment ? ' series-filter--tabs' : '' }}" id="seriesFilter">
                 <button type="button" class="is-active" data-series="all">Semua Seri</button>
                 @foreach($series as $s)
                     <button type="button" data-series="{{ $s['code'] }}" data-segment="{{ $s['segment'] }}">{{ $s['label'] }}</button>
@@ -36,7 +30,7 @@
                 @foreach($products as $product)
                     <div class="product-card" data-series="{{ $product['series'] }}" data-segment="{{ $product['segment'] }}">
                         <span class="product-badge">{{ $product['badge'] }}</span>
-                        <div class="product-visual {{ $product['accent'] }}" data-series="{{ $product['series_label'] }}">{{ $product['number'] }}</div>
+                        <div class="product-visual product-visual--{{ $product['segment'] }} {{ $product['accent'] }}" data-series="{{ $product['series_label'] }}"><span>{{ $product['number'] }}</span></div>
                         <h3>{{ $product['name'] }}</h3>
                         <div class="product-tagline">{{ $product['tagline'] }}</div>
                         <p class="product-desc">{{ $product['darkness'] }}</p>
@@ -53,9 +47,11 @@
                 @endforeach
             </div>
 
-            <p id="productEmpty" class="section-subtitle" style="display: none; text-align: center; margin: var(--space-4) auto 0;">
+            <p id="productEmpty" class="section-subtitle" style="display: none; margin: var(--space-4) 0 0;">
                 Tidak ada varian untuk pilihan ini.
             </p>
+
+            @include('partials.category-extras', ['kind' => $segment ?: 'all'])
         </div>
     </section>
 
