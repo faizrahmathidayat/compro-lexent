@@ -108,9 +108,10 @@
             <h3>Perbandingan Kegelapan Kaca Film</h3>
             <div class="vlt-grid">
                 @foreach($vltTiles as $vlt => $shade)
-                    <div class="vlt-tile">
-                        <img src="{{ asset('images/hero/car-porsche.jpg') }}" alt="" loading="lazy">
-                        <div class="vlt-shade" style="opacity: {{ $shade }};"></div>
+                    <div class="vlt-tile" style="--dim: {{ 1 - $shade * 0.42 }};">
+                        <img src="{{ asset('images/hero/car-window.jpg') }}" alt="Kaca mobil dengan film VLT {{ $vlt }}%" loading="lazy">
+                        <div class="vlt-shade vlt-shade--side" style="opacity: {{ $shade }};"></div>
+                        <div class="vlt-shade vlt-shade--wind" style="opacity: {{ min(0.95, $shade * 1.1) }};"></div>
                         <span>VLT {{ $vlt }}%</span>
                     </div>
                 @endforeach
