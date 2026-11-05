@@ -25,7 +25,7 @@
             'promo' => [
                 'title' => 'Solusi Kaca Film Mobil untuk Performa Terbaik',
                 'text' => 'Nikmati pengalaman berkendara yang lebih nyaman dan aman dengan LEXENT.',
-                'image' => 'images/hero/car-porsche.jpg',
+                'image' => 'images/hero/car-mirror.jpg',
                 'points' => [
                     ['thermometer', 'Reduksi Panas Maksimal'],
                     ['sun', 'Kurangi Silau'],
@@ -118,7 +118,7 @@
         </div>
     @endif
 
-    <div class="promo-band">
+    <div class="promo-band promo-band--{{ $kind }}">
         <div class="promo-band-media" aria-hidden="true">
             <img src="{{ asset($extra['promo']['image']) }}" alt="" loading="lazy">
         </div>

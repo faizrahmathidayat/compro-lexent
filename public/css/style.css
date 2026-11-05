@@ -1813,6 +1813,97 @@ section {
     color: var(--teal);
 }
 
+/* Kaca Film Mobil promo band: copy | mirror photo | vertical list of benefits */
+.promo-band--automotive {
+    grid-template-columns: 1.1fr 0.9fr 0.95fr;
+    align-items: stretch;
+    min-height: 240px;
+}
+
+.promo-band--automotive .promo-band-copy {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.promo-band--automotive .promo-band-media {
+    position: relative;
+    inset: auto;
+    grid-column: 2;
+    grid-row: 1;
+    z-index: 0;
+}
+
+.promo-band--automotive .promo-band-media img {
+    position: absolute;
+    inset: 0;
+    opacity: 1;
+    object-position: 35% center;
+    filter: brightness(0.8) contrast(1.05);
+}
+
+.promo-band--automotive .promo-band-media::after {
+    background: linear-gradient(90deg, var(--surface) 0%, rgba(18, 21, 27, 0.2) 40%, rgba(18, 21, 27, 0) 100%);
+}
+
+.promo-band--automotive .promo-points {
+    grid-column: 3;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-content: stretch;
+    justify-content: center;
+    margin: 14px;
+    padding: 6px 22px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    background: rgba(7, 8, 11, 0.72);
+}
+
+.promo-band--automotive .promo-point {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 16px;
+    padding: 12px 0;
+    font-size: 0.86rem;
+}
+
+.promo-band--automotive .promo-point + .promo-point {
+    border-top: 1px solid var(--border);
+}
+
+.promo-band--automotive .promo-point .icon {
+    width: 46px;
+    height: 46px;
+    padding: 10px;
+    border: 1.5px solid rgba(255, 194, 14, 0.55);
+    border-radius: 12px;
+    background: rgba(255, 194, 14, 0.08);
+    filter: drop-shadow(0 0 8px rgba(255, 194, 14, 0.3));
+}
+
+@media (max-width: 992px) {
+    .promo-band--automotive {
+        grid-template-columns: 1fr;
+    }
+
+    .promo-band--automotive .promo-band-copy,
+    .promo-band--automotive .promo-band-media,
+    .promo-band--automotive .promo-points {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .promo-band--automotive .promo-band-media {
+        min-height: 180px;
+    }
+
+    .promo-band--automotive .promo-band-media::after {
+        background: linear-gradient(0deg, var(--surface) 0%, rgba(18, 21, 27, 0) 60%);
+    }
+}
+
 /* PPF promo band: photo on the right, gold slash on the right edge */
 .promo-band--ppf {
     grid-template-columns: 1fr;
