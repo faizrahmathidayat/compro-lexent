@@ -1160,6 +1160,29 @@ section {
     }
 }
 
+/* Wide (3:1) banner photo covering the whole header, light veil behind the copy */
+.page-header--wide .page-header-media img {
+    left: 0;
+    right: auto;
+    width: 100%;
+    opacity: 1;
+    object-position: right 55%;
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
+.page-header--wide .page-header-media::after {
+    background:
+        linear-gradient(90deg, rgba(7, 8, 11, 0.78) 0%, rgba(7, 8, 11, 0.42) 34%, rgba(7, 8, 11, 0) 62%),
+        linear-gradient(0deg, var(--bg) 0%, rgba(7, 8, 11, 0) 16%);
+}
+
+@media (max-width: 768px) {
+    .page-header--wide .page-header-media img {
+        opacity: 0.55;
+    }
+}
+
 .page-header--category .page-lead {
     max-width: 400px;
 }

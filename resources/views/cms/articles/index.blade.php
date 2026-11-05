@@ -5,7 +5,7 @@
 
 @section('content')
 
-    <section class="page-header">
+    <section class="page-header page-header--wide">
         <div class="page-header-media">
             <img src="{{ asset('images/hero/article-header.jpg') }}" alt="">
         </div>
